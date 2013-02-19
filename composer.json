@@ -1,0 +1,13 @@
+{
+    "name": "cbednarski/twig-cli",
+    "authors": [
+        {
+            "name": "Chris Bednarski",
+            "email": "banzaimonkey@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "1.*",
+        "symfony/console":"2.2.0-RC2"
+    }
+}
