@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "twig/twig": "1.*",
-        "symfony/console":"2.2.0-RC2"
+        "symfony/console":"2.2.0-RC2",
+        "symfony/translation":"2.2.0-RC2",
+        "symfony/yaml":"2.2.0-RC2"
     }
 }
