@@ -54,17 +54,16 @@ class Init extends Command
 
         // Add .gitignore file
         $gitignore = <<<HEREDOC
-target/
-cache/
+build/
 vendor/
 HEREDOC;
         file_put_contents($path . '.gitignore', $gitignore);
 
         // Add spark.yml
         $spark = <<<HEREDOC
-source: source/
-target: target/
-cache:  cache/
+source: src/
+target: build/target/
+cache:  build/cache/
 locale: locale/
 localize: all
 HEREDOC;
