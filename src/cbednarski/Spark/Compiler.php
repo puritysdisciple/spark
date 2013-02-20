@@ -53,10 +53,20 @@ class Compiler
     public function build()
     {
         foreach ($this->listFilesInDir($this->source) as $file) {
+            // Calculate target filename
+            $target = self::getTargetFilename($this->source, $this->target, $file);
+
+            // Make sure parent folder for target exists
+            $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
+            if(!is_dir($parent_dir)) {
+                mkdir($parent_dir, 0755, true);
+            }
+
+            // Compile or copy if it's not a template
             if(pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
-                $this->compile($file, self::getTargetFilename($this->source, $this->target, $file));
+                $this->compile($file, $target);
             } else {
-                copy($file, self::getTargetFilename($this->source, $this->target, $file));
+                copy($file, $target);
             }
         }
     }
