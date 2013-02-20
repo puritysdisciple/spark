@@ -13,12 +13,16 @@ class Init extends Command
     protected function configure()
     {
         $this->setName('init');
-        $this->addArgument('directory', InputArgument::REQUIRED, 'Initialize a spark project in this directory');
+        $this->addArgument('directory', InputArgument::OPTIONAL, 'Initialize a spark project in this directory');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $directory = $input->getArgument('directory');
+
+        if(!$directory) {
+            $directory = getcwd();
+        }
 
         if (is_dir(realpath($directory))) {
             if (count(scandir($directory)) > 2) {
@@ -44,8 +48,8 @@ class Init extends Command
         $path = realpath($directory) . '/';
 
         // Create folders
-        foreach (array('source','target','cache','locale/en_US/LC_MESSAGES/') as $folder) {
-            mkdir($path . $folder);
+        foreach (array('source','target','cache','locale/en_US/LC_MESSAGES') as $folder) {
+            mkdir($path . $folder, 0755, true);
         }
 
         // Add .gitignore file
