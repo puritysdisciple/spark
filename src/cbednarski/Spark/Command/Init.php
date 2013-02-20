@@ -48,7 +48,7 @@ class Init extends Command
         $path = realpath($directory) . '/';
 
         // Create folders
-        foreach (array('source', 'target', 'cache', 'locale/en_US/LC_MESSAGES') as $folder) {
+        foreach (array('source', 'build/target', 'build/cache', 'locale/en_US/LC_MESSAGES') as $folder) {
             mkdir($path . $folder, 0755, true);
         }
 
@@ -68,8 +68,6 @@ locale: locale/
 localize: all
 HEREDOC;
         file_put_contents($path . 'spark.yml', $spark);
-
-
     }
 
 }
