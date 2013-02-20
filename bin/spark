@@ -3,9 +3,13 @@
 
 require_once(__DIR__ . '/../vendor/autoload.php');
 
-use cbednarski\TwigCli;
 use Symfony\Component\Console\Application;
+use cbednarski\Spark\Command\Build;
+use cbednarski\Spark\Command\Init;
+use cbednarski\Spark\Command\Watch;
 
 $application = new Application();
-$application->add(new TwigCli());
+$application->add(new Build());
+$application->add(new Init());
+$application->add(new Watch());
 $application->run();
