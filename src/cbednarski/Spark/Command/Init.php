@@ -20,7 +20,7 @@ class Init extends Command
     {
         $directory = $input->getArgument('directory');
 
-        if(!$directory) {
+        if (!$directory) {
             $directory = getcwd();
         }
 
@@ -48,7 +48,7 @@ class Init extends Command
         $path = realpath($directory) . '/';
 
         // Create folders
-        foreach (array('source','target','cache','locale/en_US/LC_MESSAGES') as $folder) {
+        foreach (array('source', 'target', 'cache', 'locale/en_US/LC_MESSAGES') as $folder) {
             mkdir($path . $folder, 0755, true);
         }
 
