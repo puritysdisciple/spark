@@ -28,7 +28,7 @@ class Compiler
         ));
     }
 
-    private function listTwigFilesInDir($dir)
+    private function listFilesInDir($dir)
     {
         $files = array();
 
@@ -37,7 +37,7 @@ class Compiler
             if (is_file($item)) {
                 $files[] = $item;
             } elseif (is_dir($item)) {
-                $files[] = $this->listTwigFilesInDir($item);
+                $files[] = $this->listFilesInDir($item);
             }
         }
 
@@ -52,7 +52,13 @@ class Compiler
 
     public function build()
     {
-
+        foreach ($this->listFilesInDir($this->source) as $file) {
+            if(pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
+                $this->compile($file, self::getTargetFilename($this->source, $this->target, $file));
+            } else {
+                copy($file, self::getTargetFilename($this->source, $this->target, $file));
+            }
+        }
     }
 
     public function watch()
@@ -60,13 +66,16 @@ class Compiler
 
     }
 
-    public function getTargetFilename($source, $target, $filename)
+    public static function getTargetFilename($source, $target, $filename)
     {
+        if(strstr($filename, $source) !== false) {
+            $filename = substr($filename, strlen($source));
+        }
 
-    }
+        if(pathinfo($filename, PATHINFO_EXTENSION) === 'twig') {
+            $filename = substr($filename, 0, strlen($filename) - 5);
+        }
 
-    public function pathDiff($path1, $path2)
-    {
-
+        return $target . $filename;
     }
 }
