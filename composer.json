@@ -1,11 +1,12 @@
 {
-    "name": "cbednarski/twig-cli",
+    "name": "cbednarski/spark",
     "authors": [
         {
             "name": "Chris Bednarski",
             "email": "banzaimonkey@gmail.com"
         }
     ],
+    "license": "MIT",
     "require": {
         "twig/twig": "1.*",
         "symfony/console":"2.2.0-RC2"

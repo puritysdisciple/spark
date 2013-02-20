@@ -2,7 +2,8 @@
 
 namespace cbednarski\TwigCli;
 
-class TwigBuilder
+
+class SparkCompiler
 {
 
 }
