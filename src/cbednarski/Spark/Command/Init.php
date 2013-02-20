@@ -48,7 +48,14 @@ class Init extends Command
         $path = realpath($directory) . '/';
 
         // Create folders
-        foreach (array('source', 'build/target', 'build/cache', 'locale/en_US/LC_MESSAGES') as $folder) {
+        foreach (array(
+                     'src/layouts',
+                     'src/pages',
+                     'src/assets',
+                     'build/target',
+                     'build/cache',
+                     'locale/en_US/LC_MESSAGES'
+                 ) as $folder) {
             mkdir($path . $folder, 0755, true);
         }
 
