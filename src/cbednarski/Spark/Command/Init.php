@@ -58,21 +58,10 @@ class Init extends Command
         ), $path);
 
         // Add .gitignore file
-        $gitignore = <<<HEREDOC
-build/
-vendor/
-HEREDOC;
-        file_put_contents($path . '.gitignore', $gitignore);
+        FileUtils::concat($path . '.gitignore', __DIR__ . '/../Resources/gitignore');
 
         // Add spark.yml
-        $spark = <<<HEREDOC
-source: src/
-target: build/target/
-cache:  build/cache/
-locale: locale/
-localize: all
-HEREDOC;
-        file_put_contents($path . 'spark.yml', $spark);
+        copy($path . 'spark.yml', __DIR__ . '/../Resources/spark.yml');
     }
 
 }
