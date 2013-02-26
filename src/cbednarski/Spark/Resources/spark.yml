@@ -1,0 +1,5 @@
+source: src/
+target: build/target/
+cache:  build/cache/
+locale: locale/
+localize: all
