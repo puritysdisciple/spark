@@ -1,0 +1,4 @@
+# This is an imcomplete config file, e.g. it is missing some of the default
+source: src/
+target: build/target/
+localize: all

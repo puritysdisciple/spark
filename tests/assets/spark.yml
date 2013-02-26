@@ -1,0 +1,6 @@
+# This is the standard config
+source: src/
+target: build/target/
+cache:  build/cache/
+locale: locale/
+localize: all
