@@ -67,10 +67,15 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         $dirs = array('pie', 'cake', 'icecream');
 
         FileUtils::mkdirs($dirs, $path);
+        $this->assertTrue(is_dir($path));
 
         foreach($dirs as $dir) {
-            $this->assertTrue(is_dir($path . $dir))
+            $this->assertTrue(is_dir($path . $dir));
             rmdir($path . $dir);
+            $this->assertFalse(is_dir($path . $dir));
         }
+
+        rmdir($path);
+        $this->assertFalse(is_dir($path));
     }
 }

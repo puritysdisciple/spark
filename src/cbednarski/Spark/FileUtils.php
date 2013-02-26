@@ -27,7 +27,7 @@ class FileUtils
     public static function mkdirs($folders, $path = '')
     {
         foreach ($folders as $folder) {
-            self::mkdirIfNotExists($path . $folders);
+            self::mkdirIfNotExists($path . $folder);
         }
     }
 
