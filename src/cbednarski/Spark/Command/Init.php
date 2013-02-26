@@ -2,6 +2,10 @@
 
 namespace cbednarski\Spark\Command;
 
+require_once(__DIR__ . '/../../../../vendor/autoload.php');
+
+use cbednarski\Spark\FileUtils;
+
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
