@@ -20,7 +20,7 @@ class FileUtils
     public static function mkdirIfNotExists($path, $mode = 0755, $recursive = true)
     {
         if (!file_exists($path)) {
-            mkdir($path, $mode, $recursive);
+            mkdir($path, $mode, true);
         }
     }
 
@@ -36,16 +36,20 @@ class FileUtils
         return file_exists($path) && is_readable($path);
     }
 
-    public static function listFilesInDir($dir, $recursive = true)
+    public static function listFilesInDir($dir)
     {
         $files = array();
 
         foreach (scandir($dir) as $item) {
+            if($item === '.' || $item === '..') {
+                continue;
+            }
+            $path = $dir . DIRECTORY_SEPARATOR . $item;
 
-            if (is_file($item)) {
-                $files[] = $item;
-            } elseif (is_dir($item) && $recursive) {
-                $files[] = $this->listFilesInDir($item, true);
+            if (is_file($path)) {
+                $files[] = $path;
+            } elseif (is_dir($path)) {
+                $files = array_merge(static::listFilesInDir($path));
             }
         }
 
