@@ -3,6 +3,7 @@
 require_once(__DIR__ . '/../../../vendor/autoload.php');
 
 use cbednarski\Spark\Project;
+use cbednarski\Spark\FileUtils;
 
 class ProjectTest extends PHPUnit_Framework_TestCase
 {
@@ -21,6 +22,6 @@ class ProjectTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue(file_exists($path . '/build/cache'));
 		$this->assertTrue(file_exists($path . '/locale/en_US/LC_MESSAGES'));
 
-
+		FileUtils::recursiveDelete($path);
 	}
 }
