@@ -51,7 +51,7 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
     {
         $path = realpath(__DIR__ . '/../../assets/');
         $files = FileUtils::listFilesInDir($path);
-        
+
         $expected = array(
             $path . '/spark.yml',
             $path . '/spark_custom.yml',
@@ -59,5 +59,18 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals($expected, $files);
+    }
+
+    public function testMkdirs()
+    {
+        $path = __DIR__ . '/magicpath/';
+        $dirs = array('pie', 'cake', 'icecream');
+
+        FileUtils::mkdirs($dirs, $path);
+
+        foreach($dirs as $dir) {
+            $this->assertTrue(is_dir($path . $dir))
+            rmdir($path . $dir);
+        }
     }
 }
