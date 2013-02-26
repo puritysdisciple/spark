@@ -24,40 +24,34 @@ class Init extends Command
             $directory = getcwd();
         }
 
-        if (is_dir(realpath($directory))) {
-            if (count(scandir($directory)) > 2) {
-                $dialog = $this->getHelperSet()->get('dialog');
-                // Prompt user if there are already files
-                if (!$dialog->askConfirmation(
-                    $output,
-                    '<question>' . realpath(
-                        $directory
-                    ) . ' already contains files. Do you want to continue? (y/N)</question>',
-                    false
-                )
-                ) {
-                    return;
-                }
+        if (!FileUtils::dirIsEmpty($directory)) {
+            $dialog = $this->getHelperSet()->get('dialog');
+            // Prompt user if there are already files
+            if (!$dialog->askConfirmation(
+                $output,
+                '<question>' . realpath(
+                    $directory
+                ) . ' already contains files. Do you want to continue? (y/N)</question>',
+                false
+            )
+            ) {
+                return;
             }
         }
 
-        if (!file_exists($directory)) {
-            mkdir($directory, 0755, true);
-        }
+        FileUtils::mkdirIfNotExists($directory);
 
         $path = realpath($directory) . '/';
 
         // Create folders
-        foreach (array(
-                     'src/layouts',
-                     'src/pages',
-                     'src/assets',
-                     'build/target',
-                     'build/cache',
-                     'locale/en_US/LC_MESSAGES'
-                 ) as $folder) {
-            mkdir($path . $folder, 0755, true);
-        }
+        FileUtils::mkdirs(array(
+            'src/layouts',
+            'src/pages',
+            'src/assets',
+            'build/target',
+            'build/cache',
+            'locale/en_US/LC_MESSAGES'
+        ), $path);
 
         // Add .gitignore file
         $gitignore = <<<HEREDOC

@@ -28,25 +28,9 @@ class Compiler
         ));
     }
 
-    private function listFilesInDir($dir)
+    public function compile($source, $target, $params = null)
     {
-        $files = array();
-
-        foreach (scandir($dir) as $item) {
-
-            if (is_file($item)) {
-                $files[] = $item;
-            } elseif (is_dir($item)) {
-                $files[] = $this->listFilesInDir($item);
-            }
-        }
-
-        return $files;
-    }
-
-    public function compile($source, $target)
-    {
-        $render = $this->twig->render($source);
+        $render = $this->twig->render($source, $params);
         file_put_contents($target, $render);
     }
 
@@ -58,9 +42,7 @@ class Compiler
 
             // Make sure parent folder for target exists
             $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
-            if(!is_dir($parent_dir)) {
-                mkdir($parent_dir, 0755, true);
-            }
+            FileUtils::mkdirIfNotExists($parent_dir);
 
             // Compile or copy if it's not a template
             if(pathinfo($file, PATHINFO_EXTENSION) === 'twig') {

@@ -20,4 +20,14 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/tmp/spark/target/css/testfile1.css',
             Compiler::getTargetFilename($source, $target, '/tmp/spark/source/css/testfile1.css'));
     }
+
+    public function testBuild()
+    {
+
+    }
+
+    public function testCompile()
+    {
+        
+    }
 }
