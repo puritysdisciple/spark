@@ -82,10 +82,11 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
     public function testConcat()
     {
         file_put_contents('magicfile1', 'some stuff');
-        file_put_contents('magicfile2', 'some more stuff');
+        FileUtils::concat('magicfile2', 'magicfile1');
+        $this->assertEquals('some stuff', file_get_contents('magicfile2'));
 
         FileUtils::concat('magicfile1', 'magicfile2');
-        $expected = 'some stuff' . PHP_EOL . 'some more stuff';
+        $expected = 'some stuff' . PHP_EOL . 'some stuff';
         $this->assertEquals($expected, file_get_contents('magicfile1'));
 
         unlink('magicfile1');

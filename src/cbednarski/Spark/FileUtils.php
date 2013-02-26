@@ -58,10 +58,18 @@ class FileUtils
 
     public function concat($primary, $addend)
     {
+        $new = false;
+        if (!is_file($primary)) {
+            touch($primary);
+            $new = true;
+        }
+
         $file = fopen($primary, 'a');
         $add = fopen($addend, 'r');
 
-        fwrite($file, PHP_EOL);
+        if(!$new) {
+            fwrite($file, PHP_EOL);
+        }
         fwrite($file, fread($add, filesize($addend)));
 
         fclose($file);
