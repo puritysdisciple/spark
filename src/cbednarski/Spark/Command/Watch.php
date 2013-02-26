@@ -17,7 +17,7 @@ class Watch extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
+        $output->writeln('Not yet implemented.');
     }
 
 }
