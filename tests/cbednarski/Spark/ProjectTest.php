@@ -17,7 +17,9 @@ class ProjectTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue(file_exists($path . '/spark.yml'));
 		$this->assertTrue(file_exists($path . '/src/assets'));
 		$this->assertTrue(file_exists($path . '/src/layouts'));
+		$this->assertTrue(file_exists($path . '/src/layouts/layout.html.twig'));
 		$this->assertTrue(file_exists($path . '/src/pages'));
+		$this->assertTrue(file_exists($path . '/src/pages/index.html.twig'));
 		$this->assertTrue(file_exists($path . '/build/target'));
 		$this->assertTrue(file_exists($path . '/build/cache'));
 		$this->assertTrue(file_exists($path . '/locale/en_US/LC_MESSAGES'));

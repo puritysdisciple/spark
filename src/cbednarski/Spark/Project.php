@@ -30,6 +30,6 @@ class Project
         // Add some starter files
         copy(__DIR__ . '/Resources/spark.yml', $path . 'spark.yml');
         copy(__DIR__ . '/Resources/layout.html.twig', $path . '/src/layouts/layout.html.twig');
-        copy(__DIR__ . '/Resources/index.html.twig', $path . '/src/pages/index.html/twig');
+        copy(__DIR__ . '/Resources/index.html.twig', $path . '/src/pages/index.html.twig');
     }
 }
