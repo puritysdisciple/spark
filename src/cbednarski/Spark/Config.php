@@ -7,11 +7,14 @@ use Symfony\Component\Yaml\Yaml;
 class Config
 {
     private $data;
+    private $base_path = null;
 
     public static function loadFile($path)
     {
         $data = Yaml::parse($path);
-        return new static($data);
+        $config = new static($data);
+        $config->base_path = pathinfo($path, PATHINFO_DIRNAME);
+        return $config;
     }
 
     public function __construct($data = array())
@@ -30,6 +33,11 @@ class Config
             'locale' => 'locale/',
             'localize' => 'all'
         );
+    }
+
+    public function getBasePath()
+    {
+        return $this->base_path;
     }
 
     public function getData()

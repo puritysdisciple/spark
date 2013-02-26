@@ -54,4 +54,13 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $config->getData());
     }
+
+    public function testGetBaseDir()
+    {
+        $base_path = realpath(__DIR__ . '/../../assets/');
+        $config_file = $base_path . '/spark_custom.yml';
+        $config = Config::loadFile($config_file);
+
+        $this->assertEquals($base_path, $config->getBasePath());
+    }
 }
