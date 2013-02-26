@@ -1,4 +1,6 @@
-source: src/
+pages: src/pages/
+assets: src/assets/
+layouts: src/layouts/
 target: build/target/
 cache:  build/cache/
 locale: locale/
