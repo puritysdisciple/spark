@@ -14,3 +14,5 @@ Add `bin/spark` to your path. Then:
 
 	$ spark init my_project
 	$ spark build my_project
+
+Open `my_project/build/target/index.html` in your browser.

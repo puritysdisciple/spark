@@ -28,6 +28,17 @@ class CompilerTest extends PHPUnit_Framework_TestCase
 
     public function testCompile()
     {
-        
+        $compiler = new Compiler(
+            realpath(__DIR__ . '/../../../src/cbednarski/Spark/Resources/'),
+            __DIR__ . '/../test_compile/'
+        );
+
+        $compiler->compile('index.html.twig', __DIR__ . '/index.html');
+
+        $generated = file_get_contents(__DIR__ . '/index.html');
+        $expected = file_get_contents(__DIR__ . '/../../assets/sample_render.html');
+
+        $this->assertEquals($expected, $generated);
+        unlink(__DIR__ . '/index.html');
     }
 }

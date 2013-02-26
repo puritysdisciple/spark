@@ -28,7 +28,7 @@ class Compiler
         ));
     }
 
-    public function compile($source, $target, $params = null)
+    public function compile($source, $target, $params = array())
     {
         $render = $this->twig->render($source, $params);
         file_put_contents($target, $render);

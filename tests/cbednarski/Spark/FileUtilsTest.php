@@ -52,7 +52,11 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         $path = realpath(__DIR__ . '/../../assets/');
         $files = FileUtils::listFilesInDir($path);
 
+        # Make this test deterministic
+        sort($files);
+
         $expected = array(
+            $path . '/sample_render.html',
             $path . '/spark.yml',
             $path . '/spark_custom.yml',
             $path . '/spark_incomplete.yml',
