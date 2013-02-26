@@ -78,4 +78,17 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         rmdir($path);
         $this->assertFalse(is_dir($path));
     }
+
+    public function testConcat()
+    {
+        file_put_contents('magicfile1', 'some stuff');
+        file_put_contents('magicfile2', 'some more stuff');
+
+        FileUtils::concat('magicfile1', 'magicfile2');
+        $expected = 'some stuff' . PHP_EOL . 'some more stuff';
+        $this->assertEquals($expected, file_get_contents('magicfile1'));
+
+        unlink('magicfile1');
+        unlink('magicfile2');
+    }
 }

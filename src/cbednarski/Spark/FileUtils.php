@@ -55,4 +55,16 @@ class FileUtils
 
         return $files;
     }
+
+    public function concat($primary, $addend)
+    {
+        $file = fopen($primary, 'a');
+        $add = fopen($addend, 'r');
+
+        fwrite($file, PHP_EOL);
+        fwrite($file, fread($add, filesize($addend)));
+
+        fclose($file);
+        fclose($add);
+    }
 }
