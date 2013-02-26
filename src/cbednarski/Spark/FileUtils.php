@@ -36,7 +36,7 @@ class FileUtils
         return file_exists($path) && is_readable($path);
     }
 
-    public static function listFilesInDir($dir)
+    public static function listFilesInDir($dir, $recursive = true)
     {
         $files = array();
 
@@ -49,7 +49,11 @@ class FileUtils
             if (is_file($path)) {
                 $files[] = $path;
             } elseif (is_dir($path)) {
-                $files = array_merge(static::listFilesInDir($path));
+                if ($recursive) {
+                    $files = array_merge(static::listFilesInDir($path, true));
+                } else {
+                    $files = $path;
+                }
             }
         }
 
