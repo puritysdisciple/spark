@@ -60,21 +60,21 @@ class FileUtils
         return $files;
     }
 
-    public static function concat($primary, $addend)
+    public static function concat($target, $append)
     {
         $new = false;
-        if (!is_file($primary)) {
-            touch($primary);
+        if (!is_file($target)) {
+            touch($target);
             $new = true;
         }
 
-        $file = fopen($primary, 'a');
-        $add = fopen($addend, 'r');
+        $file = fopen($target, 'a');
+        $add = fopen($append, 'r');
 
         if(!$new) {
             fwrite($file, PHP_EOL);
         }
-        fwrite($file, fread($add, filesize($addend)));
+        fwrite($file, fread($add, filesize($append)));
 
         fclose($file);
         fclose($add);
