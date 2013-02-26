@@ -24,10 +24,12 @@ class Project
             'locale/en_US/LC_MESSAGES'
         ), $path);
 
-        // Add .gitignore file
+        // Append some stuff to .gitignore (or create it if it's missing)
         FileUtils::concat($path . '.gitignore', __DIR__ . '/Resources/gitignore');
 
-        // Add spark.yml
+        // Add some starter files
         copy(__DIR__ . '/Resources/spark.yml', $path . 'spark.yml');
+        copy(__DIR__ . '/Resources/layout.html.twig', $path . '/src/layouts/layout.html.twig');
+        copy(__DIR__ . '/Resources/index.html.twig', $path . '/src/pages/index.html/twig');
     }
 }
