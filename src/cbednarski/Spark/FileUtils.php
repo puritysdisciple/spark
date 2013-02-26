@@ -56,7 +56,7 @@ class FileUtils
         return $files;
     }
 
-    public function concat($primary, $addend)
+    public static function concat($primary, $addend)
     {
         $new = false;
         if (!is_file($primary)) {
