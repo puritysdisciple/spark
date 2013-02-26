@@ -79,4 +79,25 @@ class FileUtils
         fclose($file);
         fclose($add);
     }
+
+    // Thanks to http://stackoverflow.com/a/4490706/317916
+    public static function recursiveDelete($path)
+    {
+        $it = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($path),
+            \RecursiveIteratorIterator::CHILD_FIRST
+        );
+
+        foreach ($it as $file) {
+            if (in_array($file->getBasename(), array('.', '..'))) {
+                continue;
+            } elseif ($file->isDir()) {
+                rmdir($file->getPathname());
+            } elseif ($file->isFile() || $file->isLink()) {
+                unlink($file->getPathname());
+            }
+        }
+
+        rmdir($path);
+    }
 }
