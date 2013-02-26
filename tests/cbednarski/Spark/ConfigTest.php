@@ -39,7 +39,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
         # These configs are overridden completely
         $expected = array(
-            'source' => 'src/',
+            'pages' => 'src/pages/',
+            'assets' => 'src/assets/',
+            'layouts' => 'src/layouts/',
             'target' => 'my/custom/build/target/',
             'cache' => 'build/cache/', # This one isn't specified in .yml though
             'locale' => 'po_files/',

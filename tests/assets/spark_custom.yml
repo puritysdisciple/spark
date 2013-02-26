@@ -1,5 +1,7 @@
 # This is a customized config
-source: src/
+pages: src/pages/
+assets: src/assets/
+layouts: src/layouts/
 target: my/custom/build/target/
 locale: po_files/
 localize:

@@ -4,19 +4,18 @@ namespace cbednarski\Spark;
 
 class Compiler
 {
-    private $source;
-    private $target;
     private $cache;
     private $twig;
     private $loader;
 
-    function __construct($source, $target, $cache = null)
+    function __construct(Config $config)
     {
-        $this->cache = $cache;
-        $this->source = $source;
-        $this->target = $target;
+        $this->config = $config;
 
-        $this->loader = new \Twig_Loader_Filesystem($this->source);
+        $this->loader = new \Twig_Loader_Filesystem(array(
+            $this->config->pages,
+            $this->config->layouts
+        ));
 
         $this->twig = new \Twig_Environment($this->loader, array(
             'auto_reload' => true,
@@ -36,9 +35,9 @@ class Compiler
 
     public function build()
     {
-        foreach ($this->listFilesInDir($this->source) as $file) {
+        foreach ($this->listFilesInDir($this->config->pages) as $file) {
             // Calculate target filename
-            $target = self::getTargetFilename($this->source, $this->target, $file);
+            $target = self::getTargetFilename($this->config->pages, $this->target, $file);
 
             // Make sure parent folder for target exists
             $parent_dir = pathinfo($target, PATHINFO_DIRNAME);

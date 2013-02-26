@@ -1,4 +1,5 @@
 # This is an imcomplete config file, e.g. it is missing some of the default
-source: src/
+pages: src/pages/
+layouts: src/layouts/
 target: build/target/
 localize: all

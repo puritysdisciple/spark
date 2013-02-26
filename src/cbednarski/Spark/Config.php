@@ -14,7 +14,7 @@ class Config
         return new static($data);
     }
 
-    public function __construct($data = null)
+    public function __construct($data = array())
     {
         $this->data = array_merge(static::defaultConfig(), $data);
     }
@@ -22,7 +22,9 @@ class Config
     public static function defaultConfig()
     {
         return array(
-            'source' => 'src/',
+            'pages' => 'src/pages/',
+            'assets' => 'src/assets/',
+            'layouts' => 'src/layouts/',
             'target' => 'build/target/',
             'cache' => 'build/cache/',
             'locale' => 'locale/',
