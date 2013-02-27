@@ -74,7 +74,7 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         FileUtils::mkdirs($dirs, $path);
         $this->assertTrue(is_dir($path));
 
-        foreach($dirs as $dir) {
+        foreach ($dirs as $dir) {
             $this->assertTrue(is_dir($path . $dir));
             rmdir($path . $dir);
             $this->assertFalse(is_dir($path . $dir));
@@ -124,7 +124,7 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
 
     public function testFilterExists()
     {
-        $actual = FileUtils::filterExists(array('thisfiledoesntexist','northisone'));
+        $actual = FileUtils::filterExists(array('thisfiledoesntexist', 'northisone'));
         $this->assertEquals(array(), $actual);
 
         $path = realpath(__DIR__ . '/../../assets');
@@ -134,12 +134,14 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
             $path . '/spark.yml'
         );
 
-        $actual = FileUtils::filterExists(array(
-            $path . '/sample_render.html',
-            $path . '/magicfalskdjfds',
-            $path . '/spark.yml',
-            $path . '/filedoesnotexist.blah',
-        ));
+        $actual = FileUtils::filterExists(
+            array(
+                $path . '/sample_render.html',
+                $path . '/magicfalskdjfds',
+                $path . '/spark.yml',
+                $path . '/filedoesnotexist.blah',
+            )
+        );
 
         $this->assertEquals($expected, $actual);
     }

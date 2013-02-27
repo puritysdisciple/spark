@@ -11,7 +11,7 @@ class Config
 
     public static function loadFile($path)
     {
-        if(!realpath($path)) {
+        if (!realpath($path)) {
             throw new \Exception('Unable to load configuration file from ' . $path);
         }
 

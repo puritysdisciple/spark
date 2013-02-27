@@ -17,7 +17,11 @@ class Build extends Command
     {
         $this->setName('build');
         $this->setDescription('Build a spark project undet the specified directory');
-        $this->addArgument('directory', InputArgument::OPTIONAL, 'spark project folder (defaults to the current directory if not specified)');
+        $this->addArgument(
+            'directory',
+            InputArgument::OPTIONAL,
+            'spark project folder (defaults to the current directory if not specified)'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

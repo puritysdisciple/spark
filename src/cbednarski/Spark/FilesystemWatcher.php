@@ -16,7 +16,7 @@ class FilesystemWatcher
 
     public function __construct()
     {
-        if(function_exists('\inotify_init')) {
+        if (function_exists('\inotify_init')) {
             $this->watcher = \inotify_init();
         }
     }
@@ -28,21 +28,21 @@ class FilesystemWatcher
 
     public function add($file)
     {
-        if(!in_array($file, array_keys($this->watchlist))) {
+        if (!in_array($file, array_keys($this->watchlist))) {
             $this->watchlist[$file] = inotify_add_watch();
         }
     }
 
     public function remove($file)
     {
-        if($this->watcher) {
+        if ($this->watcher) {
             \inotify_rm_watch($this->watcher);
         }
     }
 
     public function removeAll()
     {
-        foreach($this->watchlist as $file) {
+        foreach ($this->watchlist as $file) {
             $this->remove($file);
         }
     }

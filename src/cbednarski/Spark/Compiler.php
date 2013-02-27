@@ -14,10 +14,12 @@ class Compiler
     {
         $this->config = $config;
 
-        $twig_paths = FileUtils::filterExists(array(
-            $this->config->getFullPath('pages'),
-            $this->config->getFullPath('layouts')
-        ));
+        $twig_paths = FileUtils::filterExists(
+            array(
+                $this->config->getFullPath('pages'),
+                $this->config->getFullPath('layouts')
+            )
+        );
 
         $this->loader = new \Twig_Loader_Filesystem($twig_paths);
 
@@ -52,14 +54,14 @@ class Compiler
             FileUtils::mkdirIfNotExists($parent_dir);
 
             // Compile or copy if it's not a template
-            if(pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
+            if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
                 try {
                     $this->compile($filename, $target);
-                } catch(\Exception $e) {
+                } catch (\Exception $e) {
                     echo 'Error while processing ' . $filename;
                     throw $e;
                 }
-                
+
             } else {
                 copy($file, $target);
             }

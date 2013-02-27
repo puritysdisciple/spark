@@ -19,7 +19,11 @@ class Init extends Command
     {
         $this->setName('init');
         $this->setDescription('Initialize a new spark project');
-        $this->addArgument('directory', InputArgument::OPTIONAL, 'target directory (will be created if it doesn\'t exist)');
+        $this->addArgument(
+            'directory',
+            InputArgument::OPTIONAL,
+            'target directory (will be created if it doesn\'t exist)'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
