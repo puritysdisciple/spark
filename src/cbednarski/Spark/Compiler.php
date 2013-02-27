@@ -40,10 +40,11 @@ class Compiler
     public function build()
     {
         $page_path = $this->config->getFullPath('pages');
-        
+
         foreach (FileUtils::listFilesInDir($page_path) as $file) {
             // Calculate target filename
             $filename = FileUtils::pathDiff($page_path, $file, true);
+            echo ' Building ' . $filename . PHP_EOL;
             $target = $this->config->getFullPath('target') . $filename;
 
             if(pathinfo($target, PATHINFO_EXTENSION) === 'twig') {
@@ -56,7 +57,13 @@ class Compiler
 
             // Compile or copy if it's not a template
             if(pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
-                $this->compile($filename, $target);
+                try {
+                    $this->compile($filename, $target);
+                } catch(\Exception $e) {
+                    echo 'Error while processing ' . $filename;
+                    throw $e;
+                }
+                
             } else {
                 copy($file, $target);
             }
