@@ -31,7 +31,7 @@ class Build extends Command
         $config = Config::loadFile($directory . '/spark.yml');
         $compiler = new Compiler($config);
 
-        $output->writeln('<info>Building spark under ' . $directory . '</info>');
+        $output->writeln('<info>Building spark under ' . realpath($directory) . '</info>');
         $compiler->build();
         $output->writeln('<info>Build complete.</info>');
     }

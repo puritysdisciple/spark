@@ -42,7 +42,7 @@ class Init extends Command
         }
 
         Project::init($directory);
-        $output->writeln('<info>Spark project initialized under ' . $directory . '</info>');
+        $output->writeln('<info>Spark project initialized under ' . realpath($directory) . '</info>');
     }
 
 }
