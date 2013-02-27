@@ -2,6 +2,8 @@
 
 namespace cbednarski\Spark;
 
+use cbednarski\Spark\FileUtils;
+
 class Compiler
 {
     private $cache;
@@ -12,10 +14,12 @@ class Compiler
     {
         $this->config = $config;
 
-        $this->loader = new \Twig_Loader_Filesystem(array(
-            $this->config->pages,
-            $this->config->layouts
+        $twig_paths = FileUtils::filterExists(array(
+            $this->config->getFullPath('pages'),
+            $this->config->getFullPath('layouts')
         ));
+
+        $this->loader = new \Twig_Loader_Filesystem($twig_paths);
 
         $this->twig = new \Twig_Environment($this->loader, array(
             'auto_reload' => true,
@@ -35,9 +39,9 @@ class Compiler
 
     public function build()
     {
-        foreach ($this->listFilesInDir($this->config->pages) as $file) {
+        foreach (FileUtils::listFilesInDir($this->config->getFullPath('pages')) as $file) {
             // Calculate target filename
-            $target = self::getTargetFilename($this->config->pages, $this->target, $file);
+            $target = self::getTargetFilename($this->config->pages, $this->config->target, $file);
 
             // Make sure parent folder for target exists
             $parent_dir = pathinfo($target, PATHINFO_DIRNAME);

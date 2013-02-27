@@ -34,7 +34,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function testCustomConfig()
     {
-        $config_file = __DIR__ . '/../../assets/spark_custom.yml';
+        $base_path = realpath(__DIR__ . '/../../assets');
+        $config_file = $base_path . '/spark_custom.yml';
         $config = Config::loadFile($config_file);
 
         # These configs are overridden completely
