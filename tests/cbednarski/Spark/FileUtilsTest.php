@@ -108,4 +108,16 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         FileUtils::recursiveDelete(__DIR__ . '/magicdelete');
         $this->assertFalse(file_exists(__DIR__ . '/magicdelete'));
     }
+
+    public function testPathDiff()
+    {
+        $path = FileUtils::pathDiff('/path/to/blah', '/path/to/blah/and/some/more');
+        $this->assertEquals('/and/some/more', $path);
+
+        $path = FileUtils::pathDiff('/path/to/blah', '/path/to/blah/and/some/more', true);
+        $this->assertEquals('and/some/more', $path);
+
+        $path = FileUtils::pathDiff('/path/to/blah', '/path/to/cake');
+        $this->assertEquals('', $path);
+    }
 }

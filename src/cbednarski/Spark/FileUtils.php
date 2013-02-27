@@ -100,4 +100,21 @@ class FileUtils
 
         rmdir($path);
     }
+
+    public static function pathDiff($outer, $inner, $suppress_leading_slash = false)
+    {
+        $outer_len = strlen($outer);
+
+        if (substr($inner, 0, $outer_len) === $outer) {
+            $diff = substr($inner, $outer_len);
+
+            if($suppress_leading_slash) {
+                $diff = ltrim($diff, '/\\');
+            }
+
+            return $diff;
+        }
+
+        return '';
+    }
 }
