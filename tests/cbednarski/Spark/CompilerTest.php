@@ -27,7 +27,7 @@ class CompilerTest extends PHPUnit_Framework_TestCase
 
     public function testCompile()
     {
-        $path = realpath(__DIR__ . '/../../test_compile/');
+        $path = realpath(__DIR__ . '/../../') . '/test_compile';
         Project::init($path);
 
         $config = Config::loadFile($path . '/spark.yml');
