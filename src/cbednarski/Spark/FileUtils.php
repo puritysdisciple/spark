@@ -126,4 +126,18 @@ class FileUtils
 
         return $extant_paths;
     }
+
+    public static function removeTwigExtension($filename)
+    {
+        if (pathinfo($filename, PATHINFO_EXTENSION) === 'twig') {
+            $filename = substr($filename, 0, strlen($filename) - 5);
+            
+            # If there is no extension remaining after we remove .twig we'll
+            # default to .html
+            if (pathinfo($filename, PATHINFO_EXTENSION) === '') {
+                $filename = $filename . '.html';
+            }
+        }
+        return $filename;
+    }
 }

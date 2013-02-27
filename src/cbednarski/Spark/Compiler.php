@@ -45,11 +45,7 @@ class Compiler
             // Calculate target filename
             $filename = FileUtils::pathDiff($page_path, $file, true);
             echo ' Building ' . $filename . PHP_EOL;
-            $target = $this->config->getFullPath('target') . $filename;
-
-            if(pathinfo($target, PATHINFO_EXTENSION) === 'twig') {
-                $target = substr($target, 0, strlen($target)-5);
-            }
+            $target = FileUtils::removeTwigExtension($this->config->getFullPath('target') . $filename);
 
             // Make sure parent folder for target exists
             $parent_dir = pathinfo($target, PATHINFO_DIRNAME);

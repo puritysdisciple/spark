@@ -143,4 +143,15 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+    public function testRemoveTwigExtension()
+    {
+        $this->assertEquals('index.html', FileUtils::removeTwigExtension('index.twig'));
+        $this->assertEquals('index.html', FileUtils::removeTwigExtension('index.html.twig'));
+        $this->assertEquals('twig.html', FileUtils::removeTwigExtension('twig.twig'));
+        $this->assertEquals('twig/blah.html', FileUtils::removeTwigExtension('twig/blah.twig'));
+        $this->assertEquals('twig/twig.html', FileUtils::removeTwigExtension('twig/twig.html.twig'));
+        $this->assertEquals('twig/twig.html', FileUtils::removeTwigExtension('twig/twig.html.twig'));
+        $this->assertEquals('.twig.css', FileUtils::removeTwigExtension('.twig.css.twig'));
+    }
 }
