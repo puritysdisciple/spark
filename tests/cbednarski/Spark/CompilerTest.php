@@ -23,6 +23,7 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         $expected = file_get_contents(__DIR__ . '/../../assets/sample_render.html');
 
         $this->assertEquals($expected, $generated);
+        unlink(__DIR__ . '/index.html');
         FileUtils::recursiveDelete($path);
     }
 
@@ -41,5 +42,6 @@ class CompilerTest extends PHPUnit_Framework_TestCase
 
         # Check that stuff was built
         $this->assertTrue(file_exists($project_path . '/build/target/index.html'));
+        FileUtils::recursiveDelete($project_path);
     }
 }
