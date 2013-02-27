@@ -120,4 +120,26 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         $path = FileUtils::pathDiff('/path/to/blah', '/path/to/cake');
         $this->assertEquals('', $path);
     }
+
+    public function testFilterExists()
+    {
+        $actual = FileUtils::filterExists(array('thisfiledoesntexist','northisone'));
+        $this->assertEquals(array(), $actual);
+
+        $path = realpath(__DIR__ . '/../../assets');
+
+        $expected = array(
+            $path . '/sample_render.html',
+            $path . '/spark.yml'
+        );
+
+        $actual = FileUtils::filterExists(array(
+            $path . '/sample_render.html',
+            $path . '/magicfalskdjfds',
+            $path . '/spark.yml',
+            $path . '/filedoesnotexist.blah',
+        ));
+
+        $this->assertEquals($expected, $actual);
+    }
 }

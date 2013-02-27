@@ -117,4 +117,17 @@ class FileUtils
 
         return '';
     }
+
+    public static function filterExists($paths)
+    {
+        $extant_paths = array();
+
+        foreach($paths as $path) {
+            if (file_exists($path)) {
+                $extant_paths[] = $path;
+            }
+        }
+
+        return $extant_paths;
+    }
 }
