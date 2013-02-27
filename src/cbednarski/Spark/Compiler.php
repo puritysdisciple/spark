@@ -39,9 +39,16 @@ class Compiler
 
     public function build()
     {
-        foreach (FileUtils::listFilesInDir($this->config->getFullPath('pages')) as $file) {
+        $page_path = $this->config->getFullPath('pages');
+        
+        foreach (FileUtils::listFilesInDir($page_path) as $file) {
             // Calculate target filename
-            $target = self::getTargetFilename($this->config->pages, $this->config->target, $file);
+            $filename = FileUtils::pathDiff($page_path, $file, true);
+            $target = $this->config->getFullPath('target') . $filename;
+
+            if(pathinfo($target, PATHINFO_EXTENSION) === 'twig') {
+                $target = substr($target, 0, strlen($target)-5);
+            }
 
             // Make sure parent folder for target exists
             $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
@@ -49,7 +56,7 @@ class Compiler
 
             // Compile or copy if it's not a template
             if(pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
-                $this->compile($file, $target);
+                $this->compile($filename, $target);
             } else {
                 copy($file, $target);
             }
@@ -59,18 +66,5 @@ class Compiler
     public function watch()
     {
 
-    }
-
-    public static function getTargetFilename($source, $target, $filename)
-    {
-        if(strstr($filename, $source) !== false) {
-            $filename = substr($filename, strlen($source));
-        }
-
-        if(pathinfo($filename, PATHINFO_EXTENSION) === 'twig') {
-            $filename = substr($filename, 0, strlen($filename) - 5);
-        }
-
-        return $target . $filename;
     }
 }
