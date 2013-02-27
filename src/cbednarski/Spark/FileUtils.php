@@ -36,24 +36,20 @@ class FileUtils
         return file_exists($path) && is_readable($path);
     }
 
-    public static function listFilesInDir($dir, $recursive = true)
+    public static function listFilesInDir($path, $recursive = true)
     {
         $files = array();
 
-        foreach (scandir($dir) as $item) {
-            if($item === '.' || $item === '..') {
-                continue;
-            }
-            $path = $dir . DIRECTORY_SEPARATOR . $item;
+        $it = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($path),
+            \RecursiveIteratorIterator::CHILD_FIRST
+        );
 
-            if (is_file($path)) {
-                $files[] = $path;
-            } elseif (is_dir($path)) {
-                if ($recursive) {
-                    $files = array_merge(static::listFilesInDir($path, true));
-                } else {
-                    $files = $path;
-                }
+        foreach ($it as $file) {
+            if (in_array($file->getBasename(), array('.', '..'))) {
+                continue;
+            } elseif($file->isFile()) {
+                $files[] = $file->getPathname();
             }
         }
 

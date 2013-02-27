@@ -60,6 +60,7 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
             $path . '/spark.yml',
             $path . '/spark_custom.yml',
             $path . '/spark_incomplete.yml',
+            $path . '/subfolder/some_file.txt',
         );
 
         $this->assertEquals($expected, $files);
