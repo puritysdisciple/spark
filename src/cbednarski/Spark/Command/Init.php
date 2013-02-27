@@ -18,7 +18,8 @@ class Init extends Command
     protected function configure()
     {
         $this->setName('init');
-        $this->addArgument('directory', InputArgument::OPTIONAL, 'Initialize a spark project in this directory');
+        $this->setDescription('Initialize a new spark project');
+        $this->addArgument('directory', InputArgument::OPTIONAL, 'target directory (will be created if it doesn\'t exist)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -41,6 +42,7 @@ class Init extends Command
         }
 
         Project::init($directory);
+        $output->writeln('<info>Spark project initialized under ' . $directory . '</info>');
     }
 
 }

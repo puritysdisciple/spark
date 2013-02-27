@@ -3,6 +3,7 @@
 namespace cbednarski\Spark\Command;
 
 use cbednarski\Spark\Config;
+use cbednarski\Spark\Compiler;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -15,13 +16,23 @@ class Build extends Command
     protected function configure()
     {
         $this->setName('build');
-        $this->addArgument('directory', InputArgument::OPTIONAL, 'Build a Spark project in the specified folder');
+        $this->setDescription('Build a spark project undet the specified directory');
+        $this->addArgument('directory', InputArgument::OPTIONAL, 'spark project folder (defaults to the current directory if not specified)');
     }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $directory = $input->getArgument('directory');
 
-        $config = Config::loadFile($directory.'');
-	}
+        if (!$directory) {
+            $directory = getcwd();
+        }
+
+        $config = Config::loadFile($directory . '/spark.yml');
+        $compiler = new Compiler($config);
+
+        $output->writeln('<info>Building spark under ' . $directory . '</info>');
+        $compiler->build();
+        $output->writeln('<info>Build complete.</info>');
+    }
 }
