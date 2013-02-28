@@ -41,6 +41,7 @@ class Build extends Command
 
         $config = Config::loadFile($directory . '/spark.yml');
         $compiler = new Compiler($config);
+        $compiler->setOutput($output);
 
         # Clean out the build target unless no-clean is detected
         if (!$input->getOption('no-clean')) {

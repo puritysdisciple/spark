@@ -62,7 +62,7 @@ class Compiler
             $filename = FileUtils::pathDiff($page_path, $file, true);
 
             $target = FileUtils::removeTwigExtension($this->config->getFullPath('target') . $filename);
-            $this->println(' Building ' . $filename . PHP_EOL);
+            $this->println(' Building ' . $filename);
             // Make sure parent folder for target exists
             $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
             FileUtils::mkdirIfNotExists($parent_dir);
