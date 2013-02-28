@@ -14,15 +14,18 @@ class Project
 
         $path = realpath($directory) . '/';
 
+        $yml_path = $path . 'spark.yml';
+        copy(__DIR__ . '/Resources/spark.yml', $yml_path);
+        $config = Config::loadFile($yml_path);
+
         // Create folders
         FileUtils::mkdirs(
             array(
-                'src/layouts',
-                'src/pages',
-                'src/assets',
-                'build/target',
-                'build/cache',
-                'locale/en_US/LC_MESSAGES'
+                $config->layouts,
+                $config->pages,
+                $config->assets,
+                $config->target,
+                $config->locale . '/en_US/LC_MESSAGES'
             ),
             $path
         );
@@ -31,8 +34,7 @@ class Project
         FileUtils::concat($path . '.gitignore', __DIR__ . '/Resources/gitignore');
 
         // Add some starter files
-        copy(__DIR__ . '/Resources/spark.yml', $path . 'spark.yml');
-        copy(__DIR__ . '/Resources/layout.html.twig', $path . '/src/layouts/layout.html.twig');
-        copy(__DIR__ . '/Resources/index.html.twig', $path . '/src/pages/index.html.twig');
+        copy(__DIR__ . '/Resources/layout.html.twig', $path . '/' . $config->layouts . 'layout.html.twig');
+        copy(__DIR__ . '/Resources/index.html.twig', $path . '/' . $config->pages . '/index.html.twig');
     }
 }

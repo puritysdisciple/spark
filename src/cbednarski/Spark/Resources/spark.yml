@@ -1,7 +1,6 @@
-pages: src/pages/
-assets: src/assets/
-layouts: src/layouts/
-target: build/target/
-cache:  build/cache/
+pages: pages/
+assets: assets/
+layouts: layouts/
+target: target/
 locale: locale/
 localize: all

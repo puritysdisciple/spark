@@ -42,7 +42,7 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         $compiler->build();
 
         # Check that stuff was built
-        $this->assertTrue(file_exists($path . '/build/target/index.html'));
+        $this->assertTrue(file_exists($path . '/' . $config->target . '/index.html'));
         FileUtils::recursiveDelete($path);
     }
 }

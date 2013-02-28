@@ -28,7 +28,7 @@ class Compiler
         $this->twig = new \Twig_Environment($this->loader, array(
             'auto_reload' => true,
             'autoescape' => false,
-            'cache' => $this->cache,
+            'cache' => false,
             'debug' => false,
             'optimizations' => -1,
             'strict_variables' => false
