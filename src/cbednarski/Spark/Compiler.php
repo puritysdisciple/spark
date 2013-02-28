@@ -47,9 +47,16 @@ class Compiler
         }
     }
 
+    public static function mergeDefaultParams($params)
+    {
+        $temp = array('assets' => '/assets');
+
+        return array_merge($temp, $params);
+    }
+
     public function compile($source, $target, $params = array())
     {
-        $render = $this->twig->render($source, $params);
+        $render = $this->twig->render($source, static::mergeDefaultParams($params));
         file_put_contents($target, $render);
     }
 
