@@ -41,6 +41,10 @@ class FileUtils
     {
         $files = array();
 
+        if (!file_exists($path)) {
+            $files;
+        }
+
         $it = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($path),
             \RecursiveIteratorIterator::CHILD_FIRST
@@ -80,6 +84,10 @@ class FileUtils
     // Thanks to http://stackoverflow.com/a/4490706/317916
     public static function recursiveDelete($path)
     {
+        if (!file_exists($path)) {
+            return;
+        }
+
         $it = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($path),
             \RecursiveIteratorIterator::CHILD_FIRST
