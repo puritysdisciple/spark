@@ -45,7 +45,7 @@ class CompilerTest extends PHPUnit_Framework_TestCase
 
         # Check that stuff was built
         $this->assertTrue(file_exists($index_path));
-        // $this->assertTrue(file_exists($path . '/' . $config->target . '/assets/css/main.css'));
+        $this->assertTrue(file_exists($path . '/' . $config->target . '/assets/css/main.css'));
 
         # Check that the compiled version looks the way it's supposed to
         $this->assertTrue(strpos(file_get_contents($index_path), 'href="/assets/css/main.css') !== false);
