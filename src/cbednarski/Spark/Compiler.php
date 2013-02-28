@@ -102,7 +102,7 @@ class Compiler
             $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
             FileUtils::mkdirIfNotExists($parent_dir);
 
-            $this->println('Copying asset to ' . $target);
+            $this->println(' Copying assets/' . $filename);
             copy($file, $target);
         }
     }
