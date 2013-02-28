@@ -3,12 +3,14 @@
 namespace cbednarski\Spark;
 
 use cbednarski\Spark\FileUtils;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Compiler
 {
     private $cache;
     private $twig;
     private $loader;
+    private $output;
 
     function __construct(Config $config)
     {
@@ -31,6 +33,20 @@ class Compiler
         ));
     }
 
+    public function setOutput(OutputInterface $output)
+    {
+        $this->output = $output;
+    }
+
+    public function println($message)
+    {
+        if ($this->output) {
+            $this->output->writeln($message);
+        } else {
+            echo $message;
+        }
+    }
+
     public function compile($source, $target, $params = array())
     {
         $render = $this->twig->render($source, $params);
@@ -44,9 +60,9 @@ class Compiler
         foreach (FileUtils::listFilesInDir($page_path) as $file) {
             // Calculate target filename
             $filename = FileUtils::pathDiff($page_path, $file, true);
-            echo ' Building ' . $filename . PHP_EOL;
+            
             $target = FileUtils::removeTwigExtension($this->config->getFullPath('target') . $filename);
-
+            $this->println(' Building ' . $filename . PHP_EOL);
             // Make sure parent folder for target exists
             $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
             FileUtils::mkdirIfNotExists($parent_dir);
