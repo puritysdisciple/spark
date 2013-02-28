@@ -19,6 +19,7 @@ class ProjectTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(file_exists($path . '/.gitignore'));
         $this->assertTrue(file_exists($path . '/spark.yml'));
         $this->assertTrue(file_exists($path . '/'. $config->assets));
+        $this->assertTrue(file_exists($path . '/'. $config->assets . '/css/main.css'));
         $this->assertTrue(file_exists($path . '/'. $config->layouts));
         $this->assertTrue(file_exists($path . '/'. $config->layouts . '/layout.html.twig'));
         $this->assertTrue(file_exists($path . '/'. $config->pages));

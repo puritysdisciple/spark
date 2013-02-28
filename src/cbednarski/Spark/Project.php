@@ -24,6 +24,7 @@ class Project
                 $config->layouts,
                 $config->pages,
                 $config->assets,
+                $config->assets . '/css/',
                 $config->target,
                 $config->locale . '/en_US/LC_MESSAGES'
             ),
@@ -34,7 +35,8 @@ class Project
         FileUtils::concat($path . '.gitignore', __DIR__ . '/Resources/gitignore');
 
         // Add some starter files
+        copy(__DIR__ . '/Resources/main.css', $path . '/' . $config->assets . 'css/main.css');
         copy(__DIR__ . '/Resources/layout.html.twig', $path . '/' . $config->layouts . 'layout.html.twig');
-        copy(__DIR__ . '/Resources/index.html.twig', $path . '/' . $config->pages . '/index.html.twig');
+        copy(__DIR__ . '/Resources/index.html.twig', $path . '/' . $config->pages . 'index.html.twig');
     }
 }
