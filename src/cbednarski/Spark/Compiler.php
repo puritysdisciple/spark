@@ -98,7 +98,7 @@ class Compiler
         foreach (FileUtils::listFilesInDir($assets_path) as $file) {
             $filename = FileUtils::pathDiff($assets_path, $file, true);
 
-            $target = $this->config->getFullPath('target') . 'assets/' .$filename;
+            $target = $this->config->getFullPath('target') . 'assets/' . $filename;
             $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
             FileUtils::mkdirIfNotExists($parent_dir);
 
