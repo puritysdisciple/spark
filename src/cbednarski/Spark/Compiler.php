@@ -12,7 +12,7 @@ class Compiler
     private $loader;
     private $output;
 
-    function __construct(Config $config)
+    public function __construct(Config $config)
     {
         $this->config = $config;
 
@@ -62,7 +62,7 @@ class Compiler
         foreach (FileUtils::listFilesInDir($page_path) as $file) {
             // Calculate target filename
             $filename = FileUtils::pathDiff($page_path, $file, true);
-            
+
             $target = FileUtils::removeTwigExtension($this->config->getFullPath('target') . $filename);
             $this->println(' Building ' . $filename . PHP_EOL);
             // Make sure parent folder for target exists

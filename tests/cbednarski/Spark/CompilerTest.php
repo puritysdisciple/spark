@@ -7,7 +7,6 @@ use cbednarski\Spark\Config;
 use cbednarski\Spark\Project;
 use cbednarski\Spark\FileUtils;
 
-
 class CompilerTest extends PHPUnit_Framework_TestCase
 {
     public function testCompile()

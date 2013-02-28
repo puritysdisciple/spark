@@ -16,6 +16,7 @@ class Config
         }
 
         $data = Yaml::parse($path);
+
         return new static(pathinfo($path, PATHINFO_DIRNAME), $data);
     }
 

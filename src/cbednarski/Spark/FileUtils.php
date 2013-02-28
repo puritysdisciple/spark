@@ -14,6 +14,7 @@ class FileUtils
         if (count(scandir($path)) > 2) {
             return false;
         }
+
         return true;
     }
 
@@ -138,6 +139,7 @@ class FileUtils
                 $filename = $filename . '.html';
             }
         }
+
         return $filename;
     }
 }
