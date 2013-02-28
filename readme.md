@@ -23,20 +23,22 @@ Open `my_project/build/target/index.html` in your browser.
 
 Sure thing!
 
-    use cbednarski\Spark\Config;
-    use cbednarski\Spark\Compiler;
+```php
+use cbednarski\Spark\Config;
+use cbednarski\Spark\Compiler;
 
-    $config = Config::loadFile($directory . '/spark.yml');
-    $compiler = new Compiler($config);
+$config = Config::loadFile($directory . '/spark.yml');
+$compiler = new Compiler($config);
 
-    # Do one-off templates
-    $compiler->compiler(
-        'template_name.twig',
-        'write/to/this/file',
-        $twig_template_variables
-    );
+# Do one-off templates
+$compiler->compiler(
+    'template_name.twig',
+    'write/to/this/file',
+    $twig_template_variables
+);
 
-    # Build everything
-    $compiler->build();
+# Build everything
+$compiler->build();
+```
 
 Need to work with paths? We've got some great filesystem helpers in the `FileUtils` class.
