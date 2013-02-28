@@ -44,8 +44,6 @@ class Compiler
     {
         if ($this->output) {
             $this->output->writeln($message);
-        } else {
-            echo $message;
         }
     }
 
