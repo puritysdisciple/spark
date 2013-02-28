@@ -15,14 +15,17 @@ class Project
         $path = realpath($directory) . '/';
 
         // Create folders
-        FileUtils::mkdirs(array(
-            'src/layouts',
-            'src/pages',
-            'src/assets',
-            'build/target',
-            'build/cache',
-            'locale/en_US/LC_MESSAGES'
-        ), $path);
+        FileUtils::mkdirs(
+            array(
+                'src/layouts',
+                'src/pages',
+                'src/assets',
+                'build/target',
+                'build/cache',
+                'locale/en_US/LC_MESSAGES'
+            ),
+            $path
+        );
 
         // Append some stuff to .gitignore (or create it if it's missing)
         FileUtils::concat($path . '.gitignore', __DIR__ . '/Resources/gitignore');

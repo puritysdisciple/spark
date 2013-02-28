@@ -48,7 +48,7 @@ class FileUtils
         foreach ($it as $file) {
             if (in_array($file->getBasename(), array('.', '..'))) {
                 continue;
-            } elseif($file->isFile()) {
+            } elseif ($file->isFile()) {
                 $files[] = $file->getPathname();
             }
         }
@@ -67,7 +67,7 @@ class FileUtils
         $file = fopen($target, 'a');
         $add = fopen($append, 'r');
 
-        if(!$new) {
+        if (!$new) {
             fwrite($file, PHP_EOL);
         }
         fwrite($file, fread($add, filesize($append)));
@@ -104,7 +104,7 @@ class FileUtils
         if (substr($inner, 0, $outer_len) === $outer) {
             $diff = substr($inner, $outer_len);
 
-            if($suppress_leading_slash) {
+            if ($suppress_leading_slash) {
                 $diff = ltrim($diff, '/\\');
             }
 
@@ -118,7 +118,7 @@ class FileUtils
     {
         $extant_paths = array();
 
-        foreach($paths as $path) {
+        foreach ($paths as $path) {
             if (file_exists($path)) {
                 $extant_paths[] = $path;
             }
@@ -131,7 +131,7 @@ class FileUtils
     {
         if (pathinfo($filename, PATHINFO_EXTENSION) === 'twig') {
             $filename = substr($filename, 0, strlen($filename) - 5);
-            
+
             # If there is no extension remaining after we remove .twig we'll
             # default to .html
             if (pathinfo($filename, PATHINFO_EXTENSION) === '') {

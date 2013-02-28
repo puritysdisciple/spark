@@ -17,7 +17,11 @@ class Clean extends Command
     {
         $this->setName('clean');
         $this->setDescription('Clean the build folder in this spark project');
-        $this->addArgument('directory', InputArgument::OPTIONAL, 'spark project folder (defaults to the current directory if not specified)');
+        $this->addArgument(
+            'directory',
+            InputArgument::OPTIONAL,
+            'spark project folder (defaults to the current directory if not specified)'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -28,7 +32,7 @@ class Clean extends Command
             $directory = getcwd();
         }
 
-        $config = Config::loadFile($directory . '/spark.yml');        
+        $config = Config::loadFile($directory . '/spark.yml');
 
         $output->writeln('<info>Cleaning build folder under ' . realpath($directory) . '</info>');
         FileUtils::recursiveDelete($config->getFullPath('target'));
