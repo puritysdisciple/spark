@@ -7,7 +7,7 @@ class Project
     public static function init($directory)
     {
         if (!$directory) {
-            $directory = getcwd();
+            throw new \InvalidArgumentException('Directory is required');
         }
 
         FileUtils::mkdirIfNotExists($directory);

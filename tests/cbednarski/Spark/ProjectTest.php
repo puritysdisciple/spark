@@ -29,4 +29,12 @@ class ProjectTest extends PHPUnit_Framework_TestCase
 
         FileUtils::recursiveDelete($path);
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testInitException()
+    {
+        Project::init(null);
+    }
 }
