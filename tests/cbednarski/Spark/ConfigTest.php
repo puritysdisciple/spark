@@ -64,4 +64,29 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($base_path, $config->getBasePath());
     }
+
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testLoadError()
+    {
+        $path = __DIR__ . '/asdfasoiuerew';
+        $config = Config::loadFile($path . '/spark.yml');
+    }
+
+    public function testMagicPropertyAccess()
+    {
+        $config = new Config(__DIR__);
+
+        $test_val = 'pie';
+
+        $config->test1 = $test_val;
+        $this->assertEquals($test_val, $config->test1, 'Test basic __get / __set');
+
+        $this->assertEquals(__DIR__, $config->getBasePath());
+        $config->base_path = 'somerandompath';
+        $this->assertEquals(__DIR__, $config->getBasePath(), 'Base path should not change with property access');
+
+        $this->assertNull($config->blah, 'Blah doesn\'t exist yet.');
+    }
 }

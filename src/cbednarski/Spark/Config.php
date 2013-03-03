@@ -12,7 +12,7 @@ class Config
     public static function loadFile($path)
     {
         if (!realpath($path)) {
-            throw new \Exception('Unable to load configuration file from ' . $path);
+            throw new \RuntimeException('Unable to load configuration file from ' . $path);
         }
 
         $data = Yaml::parse($path);

@@ -124,7 +124,7 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
     {
         $path = __DIR__ . '/asdlkfjasdklfjhdsfoiruewr';
         $this->assertFalse(file_exists($path));
-        
+
         $return = FileUtils::recursiveDelete($path);
         $this->assertEquals(0, $return);
     }
