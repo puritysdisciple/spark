@@ -66,6 +66,14 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $files);
     }
 
+    public function testListFileInMissingDir()
+    {
+        $path = '/asdlkfjasdklfjhdsfoiruewr';
+        $files = FileUtils::listFilesInDir($path);
+
+        $this->assertEquals(array(), $files);
+    }
+
     public function testMkdirs()
     {
         $path = __DIR__ . '/magicpath/';

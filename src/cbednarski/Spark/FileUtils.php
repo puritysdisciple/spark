@@ -42,7 +42,9 @@ class FileUtils
         $files = array();
 
         if (!file_exists($path)) {
-            $files;
+            // Even if the folder is missing we'll return an empty array so the API
+            // is consistent and we can foreach without checking the type.
+            return $files;
         }
 
         $it = new \RecursiveIteratorIterator(
