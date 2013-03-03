@@ -83,11 +83,20 @@ class FileUtils
         fclose($add);
     }
 
-    // Thanks to http://stackoverflow.com/a/4490706/317916
+    /**
+     * Recursive delete
+     *
+     * Thanks to http://stackoverflow.com/a/4490706/317916
+     *
+     * @param string $path Delete everything under this path
+     * @return int Number of files deleted
+     */
     public static function recursiveDelete($path)
     {
+        $counter = 0;
+
         if (!file_exists($path)) {
-            return;
+            return $counter;
         }
 
         $it = new \RecursiveIteratorIterator(
@@ -99,13 +108,18 @@ class FileUtils
             if (in_array($file->getBasename(), array('.', '..'))) {
                 continue;
             } elseif ($file->isDir()) {
+                // Directories don't hold data so we won't count these
                 rmdir($file->getPathname());
             } elseif ($file->isFile() || $file->isLink()) {
-                unlink($file->getPathname());
+                if (unlink($file->getPathname())) {
+                    $counter++;
+                }
             }
         }
 
         rmdir($path);
+
+        return $counter;
     }
 
     public static function pathDiff($outer, $inner, $suppress_leading_slash = false)

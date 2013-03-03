@@ -68,9 +68,10 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
 
     public function testListFileInMissingDir()
     {
-        $path = '/asdlkfjasdklfjhdsfoiruewr';
-        $files = FileUtils::listFilesInDir($path);
+        $path = __DIR__ . '/asdlkfjasdklfjhdsfoiruewr';
+        $this->assertFalse(file_exists($path));
 
+        $files = FileUtils::listFilesInDir($path);
         $this->assertEquals(array(), $files);
     }
 
@@ -114,8 +115,18 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         touch($file_path);
         $this->assertTrue(file_exists($file_path));
 
-        FileUtils::recursiveDelete(__DIR__ . '/magicdelete');
+        $return = FileUtils::recursiveDelete(__DIR__ . '/magicdelete');
         $this->assertFalse(file_exists(__DIR__ . '/magicdelete'));
+        $this->assertEquals(1, $return);
+    }
+
+    public function testRecursiveDeleteMissing()
+    {
+        $path = __DIR__ . '/asdlkfjasdklfjhdsfoiruewr';
+        $this->assertFalse(file_exists($path));
+        
+        $return = FileUtils::recursiveDelete($path);
+        $this->assertEquals(0, $return);
     }
 
     public function testPathDiff()
