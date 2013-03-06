@@ -25,6 +25,10 @@ class ProjectTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(file_exists($path . '/'. $config->pages));
         $this->assertTrue(file_exists($path . '/'. $config->pages . '/index.html.twig'));
         $this->assertTrue(file_exists($path . '/'. $config->target));
+        $this->assertTrue(file_exists($path . '/'. $config->locale . '/en_US/LC_MESSAGES'));
+        $this->assertTrue(file_exists($path . '/'. $config->locale . '/en_US/LC_MESSAGES/messages.po'));
+        $this->assertTrue(file_exists($path . '/'. $config->locale . '/fr_FR/LC_MESSAGES'));
+        $this->assertTrue(file_exists($path . '/'. $config->locale . '/fr_FR/LC_MESSAGES/messages.po'));
         $this->assertTrue(file_exists($path . '/'. $config->plugins . '/sample_plugin.php'));
 
         FileUtils::recursiveDelete($path);

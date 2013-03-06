@@ -27,7 +27,8 @@ class Project
                 $config->assets,
                 $config->assets . '/css/',
                 $config->target,
-                $config->locale . '/en_US/LC_MESSAGES'
+                $config->locale . '/en_US/LC_MESSAGES',
+                $config->locale . '/fr_FR/LC_MESSAGES',
             ),
             $path
         );
@@ -40,6 +41,8 @@ class Project
         copy(__DIR__ . '/Resources/layout.html.twig', $path . '/' . $config->layouts . 'layout.html.twig');
         copy(__DIR__ . '/Resources/index.html.twig', $path . '/' . $config->pages . 'index.html.twig');
         copy(__DIR__ . '/Resources/sample_plugin.php', $path . '/' . $config->plugins . 'sample_plugin.php');
+        copy(__DIR__ . '/Resources/en_US.po', $path . '/' . $config->locale . 'en_US/LC_MESSAGES/messages.po');
+        copy(__DIR__ . '/Resources/fr_FR.po', $path . '/' . $config->locale . 'fr_FR/LC_MESSAGES/messages.po');
 
         return $config;
     }
