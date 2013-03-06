@@ -44,11 +44,26 @@ class ProjectTest extends PHPUnit_Framework_TestCase
 
     public function testGetAvailableLocales()
     {
+        $path = realpath(__DIR__ . '/../../') . '/test_avail_locales';
 
+        $config = Project::init($path);
+
+        $locales = Project::getAvailableLocales($config);
+        $this->assertEquals(array('en_US', 'fr_FR'), $locales);
+
+        FileUtils::recursiveDelete($path);
     }
 
     public function testGetActiveLocales()
     {
+        $path = realpath(__DIR__ . '/../../') . '/test_active_locales';
 
+        $config = Project::init($path);
+        $config->localize = array('fr_FR' => 'fr');
+
+        $locales = Project::getActiveLocales($config);
+        $this->assertEquals(array('fr_FR'), $locales);
+
+        FileUtils::recursiveDelete($path);
     }
 }
