@@ -1,6 +1,7 @@
 # This is the standard config
 pages: src/pages/
 assets: src/assets/
+plugins: src/plugins/
 layouts: src/layouts/
 target: build/target/
 cache:  build/cache/

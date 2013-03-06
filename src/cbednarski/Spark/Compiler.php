@@ -11,6 +11,7 @@ class Compiler
     private $twig;
     private $loader;
     private $output;
+    private $plugins;
 
     public function __construct(Config $config)
     {
@@ -33,6 +34,8 @@ class Compiler
             'optimizations' => -1,
             'strict_variables' => false
         ));
+
+        $this->plugins = array();
     }
 
     public function setOutput(OutputInterface $output)
@@ -89,6 +92,11 @@ class Compiler
         }
 
         $this->copyAssets();
+
+        //Run custom plugins after build
+        $this->loadPluginFiles();
+        $this->runPlugins();
+
     }
 
     public function copyAssets()
@@ -110,5 +118,28 @@ class Compiler
     public function watch()
     {
 
+    }
+
+    private function loadPluginFiles()
+    {
+        $plugin_files = FileUtils::listFilesInDir($this->config->getFullPath('plugins'));
+        $spark = $this;
+        foreach($plugin_files as $plugin_file)
+        {
+            require_once($plugin_file);
+        }
+    }
+
+    public function addPlugins($name, $plugin)
+    {
+        $this->plugins[$name] = $plugin;
+    }
+
+    public function runPlugins()
+    {
+        foreach($this->plugins as $plugin)
+        {
+            $plugin();
+        }
     }
 }

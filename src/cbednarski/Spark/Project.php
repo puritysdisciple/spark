@@ -23,6 +23,7 @@ class Project
             array(
                 $config->layouts,
                 $config->pages,
+                $config->plugins,
                 $config->assets,
                 $config->assets . '/css/',
                 $config->target,
@@ -38,5 +39,6 @@ class Project
         copy(__DIR__ . '/Resources/main.css', $path . '/' . $config->assets . 'css/main.css');
         copy(__DIR__ . '/Resources/layout.html.twig', $path . '/' . $config->layouts . 'layout.html.twig');
         copy(__DIR__ . '/Resources/index.html.twig', $path . '/' . $config->pages . 'index.html.twig');
+        copy(__DIR__ . '/Resources/sample_plugin.php', $path . '/' . $config->plugins . 'sample_plugin.php');
     }
 }
