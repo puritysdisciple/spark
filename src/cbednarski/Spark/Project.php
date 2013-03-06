@@ -40,5 +40,33 @@ class Project
         copy(__DIR__ . '/Resources/layout.html.twig', $path . '/' . $config->layouts . 'layout.html.twig');
         copy(__DIR__ . '/Resources/index.html.twig', $path . '/' . $config->pages . 'index.html.twig');
         copy(__DIR__ . '/Resources/sample_plugin.php', $path . '/' . $config->plugins . 'sample_plugin.php');
+
+        return $config;
+    }
+
+    public static function getAvailableLocales(Config $config)
+    {
+        $locales = array();
+        $iterator = new \DirectoryIterator($config->getFullPath('locale'));
+
+        foreach ($iterator as $locale) {
+            if (!in_array($locale->getFilename(), array('.', '..'))) {
+                $locales[] = $locale->getFilename();
+            }
+        }
+
+        return $locales;
+    }
+
+    public static function getActiveLocales(Config $config)
+    {
+        // Technically we could optimize the runtime for the 'all' case but it's a lot
+        // more code and the performance trade off is negligible so I'm going to skip it.
+        return array_filter(
+            self::getAvailableLocales($config),
+            function ($locale) use ($config) {
+                return $config->localize === 'all' OR in_array($locale, $config->localize);
+            }
+        );
     }
 }
