@@ -1,0 +1,21 @@
+
+msgid "project_name"
+msgstr ""
+
+msgid "welcome_paragraph"
+msgstr ""
+
+msgid "learn_more"
+msgstr ""
+
+msgid "read_the_docs"
+msgstr ""
+
+msgid "learn_about_twig"
+msgstr ""
+
+msgid "next_steps"
+msgstr ""
+
+msgid "customize_project"
+msgstr ""

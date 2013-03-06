@@ -1,0 +1,21 @@
+
+msgid "project_name"
+msgstr "Spark"
+
+msgid "welcome_paragraph"
+msgstr "Welcome to Spark! This demo is here to help you get up and running quickly."
+
+msgid "learn_more"
+msgstr "Learn More"
+
+msgid "read_the_docs"
+msgstr "Read the Spark docs to learn about extra features"
+
+msgid "learn_about_twig"
+msgstr "Learn about Twig, the templating engine"
+
+msgid "next_steps"
+msgstr "Next Steps"
+
+msgid "customize_project"
+msgstr "Customize these pages to start!"
