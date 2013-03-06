@@ -32,6 +32,7 @@ class Config
             'pages' => 'src/pages/',
             'assets' => 'src/assets/',
             'layouts' => 'src/layouts/',
+            'plugins' => 'src/plugins/',
             'target' => 'build/target/',
             'cache' => 'build/cache/',
             'locale' => 'locale/',

@@ -50,6 +50,9 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         # Check that the compiled version looks the way it's supposed to
         $this->assertTrue(strpos(file_get_contents($index_path), 'href="/assets/css/main.css') !== false);
 
+        # Check that sample plugin worked
+        $this->assertEquals($compiler->testParam, "test!");
+
         FileUtils::recursiveDelete($path);
     }
 }

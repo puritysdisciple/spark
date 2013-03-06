@@ -43,6 +43,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
             'pages' => 'src/pages/',
             'assets' => 'src/assets/',
             'layouts' => 'src/layouts/',
+            'plugins' => 'src/plugins/',
             'target' => 'my/custom/build/target/',
             'cache' => 'build/cache/', # This one isn't specified in .yml though
             'locale' => 'po_files/',
