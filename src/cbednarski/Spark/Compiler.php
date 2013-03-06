@@ -15,7 +15,7 @@ class Compiler
     private $output;
     private $plugins = array();
     private $translators = array();
-    private $active_locale;
+    private $active_locale = 'en_US';
 
     public function __construct(Config $config)
     {
@@ -42,19 +42,21 @@ class Compiler
         // Initialize Localization stuff
         $this->initializeTranslators();
         $this->twig->addFunction($this->getLocalizationFunction());
-
-        $this->active_locale = array_shift(array_keys($this->translators));
     }
 
     private function initializeTranslators()
     {
         foreach (Project::getActiveLocales($this->config) as $locale) {
             $loader = new PoFileLoader();
+            $trans = new Translator($locale);
+            $trans->setFallbackLocale('en_US');
+            $trans->addLoader('po', $loader);
+
             foreach (FileUtils::listFilesInDir($this->config->getFullPath('locale') . $locale . '/LC_MESSAGES') as $loc_file) {
-                print 'ADDING '.$loc_file.PHP_EOL;
-                $loader->load($loc_file, $locale);
+                $trans->addResource('po', $loc_file, $locale);
             }
-            $this->translators[$locale] = new Translator($loader);
+
+            $this->translators[$locale] = $trans;
         }
     }
 
