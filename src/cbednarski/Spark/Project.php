@@ -58,6 +58,8 @@ class Project
             }
         }
 
+        sort($locales);
+
         return $locales;
     }
 
