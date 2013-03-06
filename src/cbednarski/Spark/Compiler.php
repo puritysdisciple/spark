@@ -124,8 +124,7 @@ class Compiler
     {
         $plugin_files = FileUtils::listFilesInDir($this->config->getFullPath('plugins'));
         $spark = $this;
-        foreach($plugin_files as $plugin_file)
-        {
+        foreach ($plugin_files as $plugin_file) {
             require_once($plugin_file);
         }
     }
@@ -137,8 +136,7 @@ class Compiler
 
     public function runPlugins()
     {
-        foreach($this->plugins as $plugin)
-        {
+        foreach ($this->plugins as $plugin) {
             $plugin();
         }
     }
