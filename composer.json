@@ -9,9 +9,10 @@
     "license": "MIT",
     "require": {
         "imagine/Imagine": "0.4.*",
-        "symfony/console":"2.2.0-RC2",
-        "symfony/translation":"2.2.0-RC2",
-        "symfony/yaml":"2.2.0-RC2",
+        "symfony/config":"2.2.*",
+        "symfony/console":"2.2.*",
+        "symfony/translation":"2.2.*",
+        "symfony/yaml":"2.2.*",
         "twig/twig": "1.*"
     },
     "autoload": {
