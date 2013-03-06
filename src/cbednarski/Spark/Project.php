@@ -65,11 +65,11 @@ class Project
     {
         // Technically we could optimize the runtime for the 'all' case but it's a lot
         // more code and the performance trade off is negligible so I'm going to skip it.
-        return array_filter(
+        return array_values(array_filter(
             self::getAvailableLocales($config),
             function ($locale) use ($config) {
-                return $config->localize === 'all' OR in_array($locale, $config->localize);
+                return $config->localize === 'all' OR in_array($locale, array_keys($config->localize)) OR in_array($locale, $config->localize);
             }
-        );
+        ));
     }
 }
