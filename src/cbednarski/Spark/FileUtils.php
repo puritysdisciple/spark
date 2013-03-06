@@ -88,8 +88,8 @@ class FileUtils
      *
      * Thanks to http://stackoverflow.com/a/4490706/317916
      *
-     * @param string $path Delete everything under this path
-     * @return int Number of files deleted
+     * @param  string $path Delete everything under this path
+     * @return int    Number of files deleted
      */
     public static function recursiveDelete($path)
     {
