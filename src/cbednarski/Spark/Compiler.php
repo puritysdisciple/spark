@@ -4,14 +4,18 @@ namespace cbednarski\Spark;
 
 use cbednarski\Spark\FileUtils;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\Loader\PoFileLoader;
 
 class Compiler
 {
-    private $cache;
+    private $config;
     private $twig;
     private $loader;
     private $output;
-    private $plugins;
+    private $plugins = array();
+    private $translators = array();
+    private $active_locale = 'en_US';
 
     public function __construct(Config $config)
     {
@@ -35,7 +39,42 @@ class Compiler
             'strict_variables' => false
         ));
 
-        $this->plugins = array();
+        // Initialize Localization stuff
+        $this->initializeTranslators();
+        $this->twig->addFunction($this->getLocalizationFunction());
+    }
+
+    private function initializeTranslators()
+    {
+        foreach (Project::getActiveLocales($this->config) as $locale) {
+            $loader = new PoFileLoader();
+            $trans = new Translator($locale);
+            $trans->setFallbackLocale('en_US');
+            $trans->addLoader('po', $loader);
+
+            foreach (FileUtils::listFilesInDir($this->config->getFullPath('locale') . $locale . '/LC_MESSAGES') as $loc_file) {
+                $trans->addResource('po', $loc_file, $locale);
+            }
+
+            $this->translators[$locale] = $trans;
+        }
+    }
+
+    public function getLocalizationFunction()
+    {
+        $compiler = $this;
+        return new \Twig_SimpleFunction('trans', function($phrase) use ($compiler) {
+            return $compiler->translators[$compiler->active_locale]->trans($phrase);
+        });
+    }
+
+    public function setActiveLocale($locale)
+    {
+        if(in_array($locale, array_keys($this->translators))) {
+            $this->active_locale = $locale;
+        } else {
+            throw new \UnexpectedValueException($locale . ' is not enabled in this project');
+        }
     }
 
     public function setOutput(OutputInterface $output)

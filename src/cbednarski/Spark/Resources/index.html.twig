@@ -2,15 +2,15 @@
 
 {% block content %}
 
-    <h1 style="text-shadow: 0 0 5px #58f; color: #005">Spark</h1>
-    <p>Welcome to Spark! This demo is here to help you get up and running quickly.</p>
-    <h4>Learn More</h4>
+    <h1 style="text-shadow: 0 0 5px #58f; color: #005">{{ trans('project_name') }}</h1>
+    <p>{{ trans('welcome_paragraph') }}</p>
+    <h4>{{ trans('learn_more') }}</h4>
     <ul>
-        <li><a href="https://github.com/cbednarski/spark">Read the Spark docs to learn about extra features</a></li>
-        <li><a href="http://twig.sensiolabs.org/doc/templates.html">Learn about Twig, the templating engine</a></li>
+        <li><a href="https://github.com/cbednarski/spark">{{ trans('read_the_docs') }}</a></li>
+        <li><a href="http://twig.sensiolabs.org/doc/templates.html">{{ trans('learn_about_twig') }}</a></li>
     </ul>
-    <h4>Next Steps</h4>
-    <p>Customize these pages to start!</p>
+    <h4>{{ trans('next_steps') }}</h4>
+    <p>{{ trans('customize_project') }}</p>
     <pre>
     src/layout/layout.html.twig
     src/pages/index.html.twig
