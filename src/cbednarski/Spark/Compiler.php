@@ -4,14 +4,18 @@ namespace cbednarski\Spark;
 
 use cbednarski\Spark\FileUtils;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\Loader\PoFileLoader;
 
 class Compiler
 {
-    private $cache;
+    private $config;
     private $twig;
     private $loader;
     private $output;
-    private $plugins;
+    private $plugins = array();
+    private $translators = array();
+    private $active_locale;
 
     public function __construct(Config $config)
     {
@@ -35,7 +39,40 @@ class Compiler
             'strict_variables' => false
         ));
 
-        $this->plugins = array();
+        // Initialize Localization stuff
+        $this->initializeTranslators();
+        $this->twig->addFunction($this->getLocalizationFunction());
+
+        $this->active_locale = array_shift(array_keys($this->translators));
+    }
+
+    private function initializeTranslators()
+    {
+        foreach (Project::getActiveLocales($this->config) as $locale) {
+            $loader = new PoFileLoader();
+            foreach (FileUtils::listFilesInDir($this->config->getFullPath('locale') . $locale . '/LC_MESSAGES') as $loc_file) {
+                print 'ADDING '.$loc_file.PHP_EOL;
+                $loader->load($loc_file, $locale);
+            }
+            $this->translators[$locale] = new Translator($loader);
+        }
+    }
+
+    public function getLocalizationFunction()
+    {
+        $compiler = $this;
+        return new \Twig_SimpleFunction('trans', function($phrase) use ($compiler) {
+            return $compiler->translators[$compiler->active_locale]->trans($phrase);
+        });
+    }
+
+    public function setActiveLocale($locale)
+    {
+        if(in_array($locale, array_keys($this->translators))) {
+            $this->active_locale = $locale;
+        } else {
+            throw new \UnexpectedValueException($locale . ' is not enabled in this project');
+        }
     }
 
     public function setOutput(OutputInterface $output)
