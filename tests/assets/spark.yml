@@ -5,5 +5,6 @@ plugins: src/plugins/
 layouts: src/layouts/
 target: build/target/
 cache:  build/cache/
-locale: locale/
-localize: all
+localization:
+  path: locale/
+  localize: all

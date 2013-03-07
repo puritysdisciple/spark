@@ -3,8 +3,9 @@ pages: src/pages/
 assets: src/assets/
 layouts: src/layouts/
 target: my/custom/build/target/
-locale: po_files/
-localize:
-  en_US: en
-  fr_FR: fr
-  de_DE: de
+localization:
+  path: po_files/
+  localize:
+    en_US: en
+    fr_FR: fr
+    de_DE: de

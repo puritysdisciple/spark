@@ -2,4 +2,5 @@
 pages: src/pages/
 layouts: src/layouts/
 target: build/target/
-localize: all
+localization:
+  localize: all

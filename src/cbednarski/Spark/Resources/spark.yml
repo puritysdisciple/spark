@@ -3,5 +3,6 @@ assets: assets/
 layouts: layouts/
 target: target/
 plugins: plugins/
-locale: locale/
-localize: all
+localization:
+  path: locale/
+  localize: all
