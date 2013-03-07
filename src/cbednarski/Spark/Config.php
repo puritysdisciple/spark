@@ -29,12 +29,11 @@ class Config
     public static function defaultConfig()
     {
         return array(
-            'pages' => 'src/pages/',
-            'assets' => 'src/assets/',
-            'layouts' => 'src/layouts/',
-            'plugins' => 'src/plugins/',
-            'target' => 'build/target/',
-            'cache' => 'build/cache/',
+            'pages' => 'pages/',
+            'assets' => 'assets/',
+            'layouts' => 'layouts/',
+            'plugins' => 'plugins/',
+            'target' => 'target/',
             'localization' => array(
                 'path' => 'locale/',
                 'format' => 'po',
@@ -73,12 +72,38 @@ class Config
         $this->data[$variable] = $value;
     }
 
-    public function getFullPath($variable)
+    public function getFullPath($path)
     {
-        if (array_key_exists($variable, $this->data)) {
-            return $this->getBasePath() . DIRECTORY_SEPARATOR . $this->data[$variable];
-        } else {
-            return null;
+        if ($this->getBasePath() === null) {
+            throw new \LogicException('Cannot call getFullPath if base path is null');
         }
+
+        return $this->getBasePath() . DIRECTORY_SEPARATOR . rtrim($path, '\\/');
     }
+
+    public function getLocalePath()
+    {
+        return $this->getFullPath($this->locale->path);
+    }
+
+    public function getTargetPath()
+    {
+        return $this->getFullPath($this->target);
+    }
+
+    public function getPagePath()
+    {
+        return $this->getFullPath($this->pages);
+    }
+
+    public function getAssetPath()
+    {
+        return $this->getFullPath($this->assets);
+    }
+
+    public function getPluginPath()
+    {
+        return $this->getFullPath($this->plugins);
+    }
+
 }

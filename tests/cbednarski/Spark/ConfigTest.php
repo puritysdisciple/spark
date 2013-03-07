@@ -7,11 +7,13 @@ use Symfony\Component\Yaml\Yaml;
 
 class ConfigTest extends PHPUnit_Framework_TestCase
 {
+    private $config;
     private $standard_config;
 
     public function setup()
     {
         # __DIR__ can't be used in the variable definition so we need to use setup()
+        $this->config = new Config(__DIR__);
         $this->standard_config = __DIR__ . '/../../assets/spark.yml';
     }
 
@@ -60,10 +62,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function testBasePath()
     {
-        $config = new Config(__DIR__);
         $base_path = 'monkey';
-        $config->setBasePath($base_path);
-        $this->assertEquals($base_path, $config->getBasePath());
+        $this->config->setBasePath($base_path);
+        $this->assertEquals($base_path, $this->config->getBasePath());
     }
 
     public function testBasePathFromConfig()
@@ -77,14 +78,15 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function testGetFullPath()
     {
-        $config = Config::loadFile($this->standard_config);
-
         $this->assertEquals(
-            $config->getFullPath('target'),
-            ($config->getBasePath() . '/' . $config->target)
+            $this->config->getBasePath() . DIRECTORY_SEPARATOR . 'target',
+            $this->config->getFullPath($this->config->target)
         );
 
-        $this->assertNull($config->getFullPath('randomproperty'));
+        $this->assertEquals(
+            $this->config->getBasePath() . DIRECTORY_SEPARATOR . 'locale',
+            $this->config->getFullPath($this->config->locale)
+        );
     }
 
     /**
@@ -98,17 +100,41 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function testMagicPropertyAccess()
     {
-        $config = new Config(__DIR__);
-
         $test_val = 'pie';
 
-        $config->test1 = $test_val;
-        $this->assertEquals($test_val, $config->test1, 'Test basic __get / __set');
+        $this->config->test1 = $test_val;
+        $this->assertEquals($test_val, $this->config->test1, 'Test basic __get / __set');
 
-        $this->assertEquals(__DIR__, $config->getBasePath());
-        $config->base_path = 'somerandompath';
-        $this->assertEquals(__DIR__, $config->getBasePath(), 'Base path should not change with property access');
+        $this->assertEquals(__DIR__, $this->config->getBasePath());
+        $this->config->base_path = 'somerandompath';
+        $this->assertEquals(__DIR__, $this->config->getBasePath(), 'Base path should not change with property access');
 
-        $this->assertNull($config->blah, 'Blah doesn\'t exist yet.');
+        $this->assertNull($this->config->blah, 'Blah doesn\'t exist yet.');
     }
+
+    public function testGetTargetPath()
+    {
+        $this->assertEquals(__DIR__ . '/target', $this->config->getTargetPath());
+    }
+
+    public function testGetLocalePath()
+    {
+        $this->assertEquals(__DIR__ . '/locale', $this->config->getLocalePath());
+    }
+
+    public function testGetPagePath()
+    {
+        $this->assertEquals(__DIR__ . '/pages', $this->config->getPagePath());
+    }
+
+    public function testGetAssetPath()
+    {
+        $this->assertEquals(__DIR__ . '/assets', $this->config->getAssetPath());
+    }
+
+    public function testGetPluginPath()
+    {
+        $this->assertEquals(__DIR__ . '/plugins', $this->config->getPluginPath());
+    }
+
 }
