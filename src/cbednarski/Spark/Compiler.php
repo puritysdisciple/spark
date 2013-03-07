@@ -79,6 +79,17 @@ class Compiler
         }
     }
 
+    public function addTwigExtension($extension)
+    {
+        try{
+            $this->twig->addExtension($extension);
+        }
+        catch(Exception $e)
+        {
+            throw new Exception("Add Extension Failed: ", 0, $e);
+        }
+    }
+
     public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
