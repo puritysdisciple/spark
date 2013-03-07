@@ -83,7 +83,7 @@ class Config
 
     public function getLocalePath()
     {
-        return $this->getFullPath($this->locale->path);
+        return $this->getFullPath($this->localization['path']);
     }
 
     public function getTargetPath()
@@ -104,6 +104,11 @@ class Config
     public function getPluginPath()
     {
         return $this->getFullPath($this->plugins);
+    }
+
+    public function getLocaleFormat()
+    {
+        return $this->localization['format'];
     }
 
 }

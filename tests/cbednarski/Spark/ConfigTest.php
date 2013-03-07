@@ -137,4 +137,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(__DIR__ . '/plugins', $this->config->getPluginPath());
     }
 
+    public function testGetLocaleFormat()
+    {
+        $this->assertEquals('po', $this->config->getLocaleFormat());
+    }
+
 }
