@@ -138,6 +138,43 @@ class Compiler
 
     }
 
+    public function buildLocales()
+    {
+        $page_path = $this->config->getFullPath('pages');
+
+        foreach (Project::getActiveLocales($this->config) as $locale) {
+
+            foreach (FileUtils::listFilesInDir($page_path) as $file) {
+                // Calculate target filename
+                $filename = FileUtils::pathDiff($page_path, $file, true);
+
+                $target = FileUtils::removeTwigExtension($this->config->getFullPath('target') . $locale . DIRECTORY_SEPARATOR . $filename);
+                $this->println(' Building ' . $filename);
+                // Make sure parent folder for target exists
+                $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
+                FileUtils::mkdirIfNotExists($parent_dir);
+
+                // Compile or copy if it's not a template
+                if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
+                    try {
+                        $this->compile($filename, $target);
+                    } catch(\Exception $e) {
+                        echo 'Error while processing ' . $filename;
+                        throw $e;
+                    }
+                } else {
+                    copy($file, $target);
+                }
+            }
+
+            $this->copyAssets();
+
+            //Run custom plugins after build
+            $this->loadPluginFiles();
+            $this->runPlugins();
+        }
+    }
+
     public function copyAssets()
     {
         $assets_path = $this->config->getFullPath('assets');
