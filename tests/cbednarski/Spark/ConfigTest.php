@@ -18,7 +18,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     public function testStandardConfig()
     {
         $config = Config::loadFile($this->standard_config);
-        $this->assertEquals($config->getData(), Yaml::parse($this->standard_config));
+        $this->assertEquals(Yaml::parse($this->standard_config), $config->getData());
     }
 
     public function testPartialConfig()
@@ -28,7 +28,6 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($config->getData(), Yaml::parse($this->standard_config));
 
         # These configs should be filled in even though they aren't in the .yml
-        $this->assertEquals('build/cache/', $config->cache);
         $this->assertEquals('locale/', $config->locale);
     }
 
@@ -46,11 +45,13 @@ class ConfigTest extends PHPUnit_Framework_TestCase
             'plugins' => 'src/plugins/',
             'target' => 'my/custom/build/target/',
             'cache' => 'build/cache/', # This one isn't specified in .yml though
-            'locale' => 'po_files/',
-            'localize' => array(
-                'en_US' => 'en',
-                'fr_FR' => 'fr',
-                'de_DE' => 'de',
+            'localization' => array(
+                'path' => 'po_files/',
+                'localize' => array(
+                    'en_US' => 'en',
+                    'fr_FR' => 'fr',
+                    'de_DE' => 'de',
+                )
             )
         );
 

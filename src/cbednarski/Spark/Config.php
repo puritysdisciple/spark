@@ -35,8 +35,12 @@ class Config
             'plugins' => 'src/plugins/',
             'target' => 'build/target/',
             'cache' => 'build/cache/',
-            'locale' => 'locale/',
-            'localize' => 'all'
+            'localization' => array(
+                'path' => 'locale/',
+                'format' => 'po',
+                'localize' => 'all',
+                'default' => 'en_US',
+            ),
         );
     }
 
