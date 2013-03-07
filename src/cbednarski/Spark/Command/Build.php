@@ -17,7 +17,7 @@ class Build extends Command
     protected function configure()
     {
         $this->setName('build');
-        $this->setDescription('Build a spark project undet the specified directory');
+        $this->setDescription('Build a spark project under the specified directory');
         $this->addArgument(
             'directory',
             InputArgument::OPTIONAL,
