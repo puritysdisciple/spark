@@ -52,7 +52,9 @@ class Compiler
             $trans->setFallbackLocale('en_US');
             $trans->addLoader('po', $loader);
 
-            foreach (FileUtils::listFilesInDir($this->config->getFullPath('locale') . $locale . '/LC_MESSAGES') as $loc_file) {
+            foreach (FileUtils::listFilesInDir(
+                         $this->config->getFullPath('locale') . $locale . '/LC_MESSAGES'
+                     ) as $loc_file) {
                 $trans->addResource('po', $loc_file, $locale);
             }
 
@@ -63,14 +65,14 @@ class Compiler
     public function getLocalizationFunction()
     {
         $compiler = $this;
-        return new \Twig_SimpleFunction('trans', function($phrase) use ($compiler) {
+        return new \Twig_SimpleFunction('trans', function ($phrase) use ($compiler) {
             return $compiler->translators[$compiler->active_locale]->trans($phrase);
         });
     }
 
     public function setActiveLocale($locale)
     {
-        if(in_array($locale, array_keys($this->translators))) {
+        if (in_array($locale, array_keys($this->translators))) {
             $this->active_locale = $locale;
         } else {
             throw new \UnexpectedValueException($locale . ' is not enabled in this project');
@@ -120,7 +122,7 @@ class Compiler
             if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
                 try {
                     $this->compile($filename, $target);
-                } catch (\Exception $e) {
+                } catch(\Exception $e) {
                     echo 'Error while processing ' . $filename;
                     throw $e;
                 }
@@ -148,7 +150,9 @@ class Compiler
                 // Calculate target filename
                 $filename = FileUtils::pathDiff($page_path, $file, true);
 
-                $target = FileUtils::removeTwigExtension($this->config->getFullPath('target') . $locale . DIRECTORY_SEPARATOR . $filename);
+                $target = FileUtils::removeTwigExtension(
+                    $this->config->getFullPath('target') . $locale . DIRECTORY_SEPARATOR . $filename
+                );
                 $this->println(' Building ' . $filename);
                 // Make sure parent folder for target exists
                 $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
@@ -199,6 +203,7 @@ class Compiler
     private function loadPluginFiles()
     {
         $plugin_files = FileUtils::listFilesInDir($this->config->getFullPath('plugins'));
+        // $spark is here so plugins can use it, so it's not unused in spite of what your IDE might say
         $spark = $this;
         foreach ($plugin_files as $plugin_file) {
             require_once($plugin_file);
