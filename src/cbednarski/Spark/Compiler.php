@@ -65,6 +65,7 @@ class Compiler
     public function getLocalizationFunction()
     {
         $compiler = $this;
+
         return new \Twig_SimpleFunction('trans', function ($phrase) use ($compiler) {
             return $compiler->translators[$compiler->active_locale]->trans($phrase);
         });
@@ -81,11 +82,9 @@ class Compiler
 
     public function addTwigExtension($extension)
     {
-        try{
+        try {
             $this->twig->addExtension($extension);
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             throw new Exception("Add Extension Failed: ", 0, $e);
         }
     }
@@ -133,7 +132,7 @@ class Compiler
             if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
                 try {
                     $this->compile($filename, $target);
-                } catch(\Exception $e) {
+                } catch (\Exception $e) {
                     echo 'Error while processing ' . $filename;
                     throw $e;
                 }
@@ -173,7 +172,7 @@ class Compiler
                 if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
                     try {
                         $this->compile($filename, $target);
-                    } catch(\Exception $e) {
+                    } catch (\Exception $e) {
                         echo 'Error while processing ' . $filename;
                         throw $e;
                     }
