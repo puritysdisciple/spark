@@ -132,6 +132,10 @@ class Compiler
             // Calculate target filename
             $filename = FileUtils::pathDiff($page_path, $file, true);
 
+            if (FileUtils::matchFilename($filename, $this->config->getIgnoredPaths())) {
+                continue;
+            }
+
             $target = FileUtils::removeTwigExtension($this->config->getTargetPath() . DIRECTORY_SEPARATOR . $filename);
             $this->println(' Building ' . $filename);
             // Make sure parent folder for target exists

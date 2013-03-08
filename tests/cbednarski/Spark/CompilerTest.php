@@ -61,4 +61,23 @@ class CompilerTest extends PHPUnit_Framework_TestCase
 
         FileUtils::recursiveDelete($path);
     }
+
+    public function testIgnore()
+    {
+        # Setup project
+        $path = realpath(__DIR__ . '/../../') . '/test_ignore';
+        Project::init($path);
+        $config = Config::loadFile($path . '/spark.yml');
+
+        $ignores = array('index');
+        $config->ignore = $ignores;
+        $this->assertEquals($ignores, $config->getIgnoredPaths(), 'Verify ignore config stuck');
+
+        $compiler = new Compiler($config);
+        $compiler->build();
+
+        $this->assertFalse(file_exists($config->getTargetPath() . '/index.html'), 'We should not have an index.html now');
+
+        FileUtils::recursiveDelete($path);
+    }
 }
