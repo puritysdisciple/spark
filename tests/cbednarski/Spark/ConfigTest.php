@@ -55,7 +55,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase
                 ),
                 'format' => 'po',
                 'default' => 'en_US'
-            )
+            ),
+            'ignore' => array(),
         );
 
         $this->assertEquals($expected, $config->getData());
@@ -111,6 +112,19 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(__DIR__, $this->config->getBasePath(), 'Base path should not change with property access');
 
         $this->assertNull($this->config->blah, 'Blah doesn\'t exist yet.');
+    }
+
+    public function testGetIgnores()
+    {
+        $base_path = realpath(__DIR__ . '/../../assets');
+        $config_file = $base_path . '/spark_ignore.yml';
+        $config = Config::loadFile($config_file);
+
+        $expected = array(
+            'ignore1',
+            '^ignore.*2$'
+        );
+        $this->assertEquals($expected, $config->getIgnoredPaths());
     }
 
     public function testGetTargetPath()

@@ -44,6 +44,7 @@ class Config
                 'localize' => 'all',
                 'default' => 'en_US',
             ),
+            'ignore' => array(),
         );
     }
 
@@ -118,6 +119,11 @@ class Config
     public function getLocaleFormat()
     {
         return $this->localization['format'];
+    }
+
+    public function getIgnoredPaths()
+    {
+        return $this->ignore;
     }
 
 }

@@ -59,6 +59,7 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
             $path . '/sample_render.html',
             $path . '/spark.yml',
             $path . '/spark_custom.yml',
+            $path . '/spark_ignore.yml',
             $path . '/spark_partial.yml',
             $path . '/subfolder/some_file.txt',
         );

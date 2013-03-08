@@ -1,0 +1,9 @@
+# This is an imcomplete config file, e.g. it is missing some of the default
+pages: pages/
+layouts: layouts/
+target: target/
+localization:
+  localize: all
+ignore:
+  - ignore1
+  - ^ignore.*2$
