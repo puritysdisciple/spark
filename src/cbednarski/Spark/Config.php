@@ -112,7 +112,7 @@ class Config
 
     public function getLayoutPath()
     {
-        return $this->getFullPath($this->layout);
+        return $this->getFullPath($this->layouts);
     }
 
     public function getLocaleFormat()
