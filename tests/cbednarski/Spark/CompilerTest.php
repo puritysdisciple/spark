@@ -62,6 +62,27 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         FileUtils::recursiveDelete($path);
     }
 
+    public function testBuildLocales()
+    {
+        # Setup project
+        $path = realpath(__DIR__ . '/../../') . '/test_buildlocales';
+        Project::init($path);
+        $config = Config::loadFile($path . '/spark.yml');
+
+        $temp = $config->localization;
+        $temp['localize'] = array(
+            'en_US' => 'en',
+            'fr_FR' => 'fr'
+        );
+        $config->localization = $temp;
+
+        $compiler = new Compiler($config);
+        $compiler->buildLocales();
+
+        $this->assertTrue(file_exists($path . '/target/en/index.html'));
+        $this->assertTrue(file_exists($path . '/target/fr/index.html'));
+    }
+
     public function testIgnore()
     {
         # Setup project
