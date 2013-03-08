@@ -69,7 +69,7 @@ class Project
         return array_values(array_filter(
             self::getAvailableLocales($config),
             function ($locale) use ($config) {
-                return $config->localize === 'all' OR in_array($locale, array_keys($config->localize)) OR in_array($locale, $config->localize);
+                return $config->localization['localize'] === 'all' OR in_array($locale, array_keys($config->localization['localize'])) OR in_array($locale, $config->localization['localize']);
             }
         ));
     }
