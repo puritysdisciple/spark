@@ -162,4 +162,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('po', $this->config->getLocaleFormat());
     }
 
+    public function testGetDefaultLocale()
+    {
+        $this->assertEquals('en_US', $this->config->getDefaultLocale());
+    }
+
 }

@@ -133,4 +133,9 @@ class Config
         return $this->ignore;
     }
 
+    public function getDefaultLocale()
+    {
+        return $this->localization['default'];
+    }
+
 }
