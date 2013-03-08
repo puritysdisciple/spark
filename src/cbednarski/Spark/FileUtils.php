@@ -21,7 +21,7 @@ class FileUtils
     public static function mkdirIfNotExists($path, $mode = 0755, $recursive = true)
     {
         if (!file_exists($path)) {
-            mkdir($path, $mode, true);
+            mkdir($path, $mode, $recursive);
         }
     }
 
