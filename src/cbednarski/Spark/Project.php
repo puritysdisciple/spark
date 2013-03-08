@@ -21,28 +21,27 @@ class Project
         // Create folders
         FileUtils::mkdirs(
             array(
-                $config->layouts,
-                $config->pages,
-                $config->plugins,
-                $config->assets,
-                $config->assets . '/css/',
-                $config->target,
-                $config->locale . '/en_US/LC_MESSAGES',
-                $config->locale . '/fr_FR/LC_MESSAGES',
-            ),
-            $path
+                $config->getLayoutPath(),
+                $config->getPagePath(),
+                $config->getPluginPath(),
+                $config->getAssetPath(),
+                $config->getAssetPath() . '/css/',
+                $config->getTargetPath(),
+                $config->getLocalePath() . '/en_US/LC_MESSAGES',
+                $config->getLocalePath() . '/fr_FR/LC_MESSAGES',
+            )
         );
 
         // Append some stuff to .gitignore (or create it if it's missing)
         FileUtils::concat($path . '.gitignore', __DIR__ . '/Resources/gitignore');
 
         // Add some starter files
-        copy(__DIR__ . '/Resources/main.css', $path . '/' . $config->assets . 'css/main.css');
-        copy(__DIR__ . '/Resources/layout.html.twig', $path . '/' . $config->layouts . 'layout.html.twig');
-        copy(__DIR__ . '/Resources/index.html.twig', $path . '/' . $config->pages . 'index.html.twig');
-        copy(__DIR__ . '/Resources/sample_plugin.php', $path . '/' . $config->plugins . 'sample_plugin.php');
-        copy(__DIR__ . '/Resources/en_US.po', $path . '/' . $config->locale . 'en_US/LC_MESSAGES/messages.po');
-        copy(__DIR__ . '/Resources/fr_FR.po', $path . '/' . $config->locale . 'fr_FR/LC_MESSAGES/messages.po');
+        copy(__DIR__ . '/Resources/main.css', $config->getAssetPath() . '/css/main.css');
+        copy(__DIR__ . '/Resources/layout.html.twig', $config->getLayoutPath() . '/layout.html.twig');
+        copy(__DIR__ . '/Resources/index.html.twig', $config->getPagePath() . '/index.html.twig');
+        copy(__DIR__ . '/Resources/en_US.po', $config->getLocalePath() . '/en_US/LC_MESSAGES/messages.po');
+        copy(__DIR__ . '/Resources/fr_FR.po', $config->getLocalePath() . '/fr_FR/LC_MESSAGES/messages.po');
+        copy(__DIR__ . '/Resources/sample_plugin.php', $config->getPluginPath() . '/sample_plugin.php');
 
         return $config;
     }

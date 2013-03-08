@@ -20,16 +20,16 @@ class ProjectTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(file_exists($path . '/spark.yml'));
         $this->assertTrue(file_exists($path . '/' . $config->assets));
         $this->assertTrue(file_exists($path . '/' . $config->assets . '/css/main.css'));
-        $this->assertTrue(file_exists($path . '/' . $config->layouts));
-        $this->assertTrue(file_exists($path . '/' . $config->layouts . '/layout.html.twig'));
-        $this->assertTrue(file_exists($path . '/' . $config->pages));
-        $this->assertTrue(file_exists($path . '/' . $config->pages . '/index.html.twig'));
-        $this->assertTrue(file_exists($path . '/' . $config->target));
-        $this->assertTrue(file_exists($path . '/' . $config->locale . '/en_US/LC_MESSAGES'));
-        $this->assertTrue(file_exists($path . '/' . $config->locale . '/en_US/LC_MESSAGES/messages.po'));
-        $this->assertTrue(file_exists($path . '/' . $config->locale . '/fr_FR/LC_MESSAGES'));
-        $this->assertTrue(file_exists($path . '/' . $config->locale . '/fr_FR/LC_MESSAGES/messages.po'));
-        $this->assertTrue(file_exists($path . '/' . $config->plugins . '/sample_plugin.php'));
+        $this->assertTrue(file_exists($config->getLayoutPath()));
+        $this->assertTrue(file_exists($config->getLayoutPath() . '/layout.html.twig'));
+        $this->assertTrue(file_exists($config->getPagePath()));
+        $this->assertTrue(file_exists($config->getPagePath() . '/index.html.twig'));
+        $this->assertTrue(file_exists($config->getTargetPath()));
+        $this->assertTrue(file_exists($config->getLocalePath() . '/en_US/LC_MESSAGES'));
+        $this->assertTrue(file_exists($config->getLocalePath() . '/en_US/LC_MESSAGES/messages.po'));
+        $this->assertTrue(file_exists($config->getLocalePath() . '/fr_FR/LC_MESSAGES'));
+        $this->assertTrue(file_exists($config->getLocalePath() . '/fr_FR/LC_MESSAGES/messages.po'));
+        $this->assertTrue(file_exists($config->getPluginPath() . '/sample_plugin.php'));
 
         FileUtils::recursiveDelete($path);
     }
