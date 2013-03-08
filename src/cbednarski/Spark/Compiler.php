@@ -67,7 +67,7 @@ class Compiler
         $compiler = $this;
 
         return new \Twig_SimpleFunction('trans', function ($phrase) use ($compiler) {
-            return $compiler->translators[$compiler->active_locale]->trans($phrase);
+            return $compiler->getActiveTranslator()->trans($phrase);
         });
     }
 
@@ -78,6 +78,16 @@ class Compiler
         } else {
             throw new \UnexpectedValueException($locale . ' is not enabled in this project');
         }
+    }
+
+    public function getActiveLocale()
+    {
+        return $this->active_locale;
+    }
+
+    public function getActiveTranslator()
+    {
+        return $this->translators[$this->active_locale];
     }
 
     public function addTwigExtension($extension)
