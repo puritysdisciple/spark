@@ -176,4 +176,22 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('twig/twig.html', FileUtils::removeTwigExtension('twig/twig.html.twig'));
         $this->assertEquals('.twig.css', FileUtils::removeTwigExtension('.twig.css.twig'));
     }
+
+    public function testMatchFilename()
+    {
+        $filename = 'some/file/you-want-to-match.md';
+
+        $match1 = 'some/file/you-want';
+        $this->assertTrue(FileUtils::matchFilename($filename, $match1), 'Basic regex / string match');
+
+        $matches1 = array($match1);
+        $this->assertTrue(FileUtils::matchFilename($filename, $matches1), 'Match using an array');
+
+        $matches2 = array('some/file/you-want$');
+        $this->assertFalse(FileUtils::matchFilename($filename, $matches2), 'Array match that should fail');
+
+        $this->assertFalse(FileUtils::matchFilename($filename, array()), 'Array match with empty array should fail');
+        $this->assertFalse(FileUtils::matchFilename($filename, null), 'Match with null should fail');
+        $this->assertTrue(FileUtils::matchFilename($filename, ''), 'Match with empty string should catch everything');
+    }
 }

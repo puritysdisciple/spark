@@ -164,4 +164,30 @@ class FileUtils
 
         return $filename;
     }
+
+    /**
+     * Check the filename against one or more regexps to see whether it matches
+     *
+     * @param string $filename
+     * @param string|array $matches
+     * @return bool
+     */
+    public static function matchFilename($filename, $matches)
+    {
+        if (!is_array($matches)) {
+            $matches = array($matches);
+        }
+
+        foreach ($matches as $regexp) {
+            if($regexp === null) {
+                continue;
+            }
+
+            if (preg_match("#$regexp#", $filename)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
