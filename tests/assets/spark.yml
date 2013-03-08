@@ -1,10 +1,9 @@
 # This is the standard config
-pages: src/pages/
-assets: src/assets/
-plugins: src/plugins/
-layouts: src/layouts/
-target: build/target/
-cache:  build/cache/
+pages: pages/
+assets: assets/
+plugins: plugins/
+layouts: layouts/
+target: target/
 localization:
   path: locale/
   localize: all
