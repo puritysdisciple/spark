@@ -110,6 +110,11 @@ class Config
         return $this->getFullPath($this->plugins);
     }
 
+    public function getLayoutPath()
+    {
+        return $this->getFullPath($this->layout);
+    }
+
     public function getLocaleFormat()
     {
         return $this->localization['format'];
