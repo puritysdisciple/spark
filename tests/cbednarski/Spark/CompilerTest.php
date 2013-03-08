@@ -81,6 +81,8 @@ class CompilerTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue(file_exists($path . '/target/en/index.html'));
         $this->assertTrue(file_exists($path . '/target/fr/index.html'));
+
+        FileUtils::recursiveDelete($path);
     }
 
     public function testIgnore()
