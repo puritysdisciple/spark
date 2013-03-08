@@ -15,7 +15,7 @@ class Compiler
     private $output;
     private $plugins = array();
     private $translators = array();
-    private $active_locale = 'en_US';
+    private $active_locale;
 
     public function __construct(Config $config)
     {
@@ -42,6 +42,7 @@ class Compiler
         // Initialize Localization stuff
         $this->initializeTranslators();
         $this->twig->addFunction($this->getLocalizationFunction());
+        $this->active_locale = $this->config->getDefaultLocale();
     }
 
     private function initializeTranslators()
