@@ -1,21 +1,21 @@
 
 msgid "project_name"
-msgstr ""
+msgstr "Spark"
 
 msgid "welcome_paragraph"
-msgstr ""
+msgstr "Bienvenue sur Spark! Cette démo est là pour vous aider à démarrer rapidement."
 
 msgid "learn_more"
-msgstr ""
+msgstr "En Savoir Plus"
 
 msgid "read_the_docs"
-msgstr ""
+msgstr "Lisez la documentation Spark pour découvrir les fonctions supplémentaires"
 
 msgid "learn_about_twig"
-msgstr ""
+msgstr "En savoir plus sur Twig, le moteur de templates"
 
 msgid "next_steps"
-msgstr ""
+msgstr "Prochaines Étapes"
 
 msgid "customize_project"
-msgstr ""
+msgstr "Personnalisez ces pages pour commencer!"
