@@ -167,4 +167,17 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('en_US', $this->config->getDefaultLocale());
     }
 
+    public function testGetTargetPathForLocale()
+    {
+        $temp = $this->config->localization;
+        $temp['localize'] = array(
+            'en_US' => 'en',
+            'fr_FR' => 'fr'
+        );
+        $this->config->localization = $temp;
+
+        $this->assertEquals(__DIR__ . '/target/en', $this->config->getTargetPathForLocale('en_US'));
+        $this->assertEquals(__DIR__ . '/target/fr', $this->config->getTargetPathForLocale('fr_FR'));
+    }
+
 }

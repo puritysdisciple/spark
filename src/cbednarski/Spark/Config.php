@@ -103,6 +103,37 @@ class Config
         return $this->getFullPath($this->target);
     }
 
+    /**
+     * Given a locale string, returns the FQ path under target where the
+     * compiled templates should be placed. For example:
+     *
+     * en_US -> .../target/en_US   BY DEFAULT, OR
+     * en_US -> .../target/en      IF CONFIGURED IN localization -> localize
+     *
+     * If `localize` is 'all' then paths will be the locale string verbatim. If
+     * `localize` is specified and the locale is not present in the list, this
+     * function returns false (because that's how a user says "don't build
+     * this language right now"). Otherwise, we return whatever is configured
+     * in `localize` for the locale that's specified.
+     *
+     * @param string $locale
+     * @return bool|string
+     */
+    public function getTargetPathForLocale($locale)
+    {
+        if ($this->localization['localize'] === 'all') {
+            return $this->getTargetPath() . DIRECTORY_SEPARATOR . $locale;
+        } else {
+            if (isset($this->localization['localize'][$locale])) {
+                $loc_bit = $this->localization['localize'][$locale];
+            } else {
+                return false;
+            }
+
+            return $this->getTargetPath() . DIRECTORY_SEPARATOR . $loc_bit;
+        }
+    }
+
     public function getPagePath()
     {
         return $this->getFullPath($this->pages);
