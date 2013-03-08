@@ -23,8 +23,8 @@ class Compiler
 
         $twig_paths = FileUtils::filterExists(
             array(
-                $this->config->getFullPath('pages'),
-                $this->config->getFullPath('layouts')
+                $this->config->getPagePath(),
+                $this->config->getLayoutPath()
             )
         );
 
@@ -53,7 +53,7 @@ class Compiler
             $trans->addLoader('po', $loader);
 
             foreach (FileUtils::listFilesInDir(
-                         $this->config->getFullPath('locale') . $locale . '/LC_MESSAGES'
+                         $this->config->getLocalePath() . DIRECTORY_SEPARATOR . $locale . '/LC_MESSAGES'
                      ) as $loc_file) {
                 $trans->addResource('po', $loc_file, $locale);
             }
@@ -116,13 +116,13 @@ class Compiler
 
     public function build()
     {
-        $page_path = $this->config->getFullPath('pages');
+        $page_path = $this->config->getPagePath();
 
         foreach (FileUtils::listFilesInDir($page_path) as $file) {
             // Calculate target filename
             $filename = FileUtils::pathDiff($page_path, $file, true);
 
-            $target = FileUtils::removeTwigExtension($this->config->getFullPath('target') . $filename);
+            $target = FileUtils::removeTwigExtension($this->config->getTargetPath() . DIRECTORY_SEPARATOR . $filename);
             $this->println(' Building ' . $filename);
             // Make sure parent folder for target exists
             $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
@@ -152,7 +152,7 @@ class Compiler
 
     public function buildLocales()
     {
-        $page_path = $this->config->getFullPath('pages');
+        $page_path = $this->config->getPagePath();
 
         foreach (Project::getActiveLocales($this->config) as $locale) {
 
@@ -161,7 +161,7 @@ class Compiler
                 $filename = FileUtils::pathDiff($page_path, $file, true);
 
                 $target = FileUtils::removeTwigExtension(
-                    $this->config->getFullPath('target') . $locale . DIRECTORY_SEPARATOR . $filename
+                    $this->config->getTargetPath() . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . $filename
                 );
                 $this->println(' Building ' . $filename);
                 // Make sure parent folder for target exists
@@ -191,12 +191,12 @@ class Compiler
 
     public function copyAssets()
     {
-        $assets_path = $this->config->getFullPath('assets');
+        $assets_path = $this->config->getAssetPath();
 
         foreach (FileUtils::listFilesInDir($assets_path) as $file) {
             $filename = FileUtils::pathDiff($assets_path, $file, true);
 
-            $target = $this->config->getFullPath('target') . 'assets/' . $filename;
+            $target = $this->config->getTargetPath() . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $filename;
             $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
             FileUtils::mkdirIfNotExists($parent_dir);
 
@@ -212,7 +212,7 @@ class Compiler
 
     private function loadPluginFiles()
     {
-        $plugin_files = FileUtils::listFilesInDir($this->config->getFullPath('plugins'));
+        $plugin_files = FileUtils::listFilesInDir($this->config->getPluginPath());
         // $spark is here so plugins can use it, so it's not unused in spite of what your IDE might say
         $spark = $this;
         foreach ($plugin_files as $plugin_file) {

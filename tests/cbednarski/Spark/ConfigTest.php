@@ -7,29 +7,30 @@ use Symfony\Component\Yaml\Yaml;
 
 class ConfigTest extends PHPUnit_Framework_TestCase
 {
+    private $config;
     private $standard_config;
 
     public function setup()
     {
         # __DIR__ can't be used in the variable definition so we need to use setup()
+        $this->config = new Config(__DIR__);
         $this->standard_config = __DIR__ . '/../../assets/spark.yml';
     }
 
     public function testStandardConfig()
     {
         $config = Config::loadFile($this->standard_config);
-        $this->assertEquals($config->getData(), Yaml::parse($this->standard_config));
+        $this->assertEquals($this->config->getData(), $config->getData());
     }
 
     public function testPartialConfig()
     {
-        $config_file = __DIR__ . '/../../assets/spark_incomplete.yml';
-        $config = Config::loadFile($config_file);
-        $this->assertEquals($config->getData(), Yaml::parse($this->standard_config));
+        $partial_config_file = __DIR__ . '/../../assets/spark_partial.yml';
+        $partial_config = Config::loadFile($partial_config_file);
+        $this->assertEquals($this->config->getData(), $partial_config->getData());
 
         # These configs should be filled in even though they aren't in the .yml
-        $this->assertEquals('build/cache/', $config->cache);
-        $this->assertEquals('locale/', $config->locale);
+        $this->assertEquals('locale/', $this->config->localization['path']);
     }
 
     public function testCustomConfig()
@@ -43,14 +44,17 @@ class ConfigTest extends PHPUnit_Framework_TestCase
             'pages' => 'src/pages/',
             'assets' => 'src/assets/',
             'layouts' => 'src/layouts/',
-            'plugins' => 'src/plugins/',
+            'plugins' => 'plugins/',
             'target' => 'my/custom/build/target/',
-            'cache' => 'build/cache/', # This one isn't specified in .yml though
-            'locale' => 'po_files/',
-            'localize' => array(
-                'en_US' => 'en',
-                'fr_FR' => 'fr',
-                'de_DE' => 'de',
+            'localization' => array(
+                'path' => 'po_files/',
+                'localize' => array(
+                    'en_US' => 'en',
+                    'fr_FR' => 'fr',
+                    'de_DE' => 'de',
+                ),
+                'format' => 'po',
+                'default' => 'en_US'
             )
         );
 
@@ -59,10 +63,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function testBasePath()
     {
-        $config = new Config(__DIR__);
         $base_path = 'monkey';
-        $config->setBasePath($base_path);
-        $this->assertEquals($base_path, $config->getBasePath());
+        $this->config->setBasePath($base_path);
+        $this->assertEquals($base_path, $this->config->getBasePath());
     }
 
     public function testBasePathFromConfig()
@@ -76,14 +79,15 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function testGetFullPath()
     {
-        $config = Config::loadFile($this->standard_config);
-
         $this->assertEquals(
-            $config->getFullPath('target'),
-            ($config->getBasePath() . '/' . $config->target)
+            $this->config->getBasePath() . DIRECTORY_SEPARATOR . 'target',
+            $this->config->getFullPath($this->config->target)
         );
 
-        $this->assertNull($config->getFullPath('randomproperty'));
+        $this->assertEquals(
+            $this->config->getBasePath() . DIRECTORY_SEPARATOR . 'locale',
+            $this->config->getFullPath($this->config->localization['path'])
+        );
     }
 
     /**
@@ -97,17 +101,51 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function testMagicPropertyAccess()
     {
-        $config = new Config(__DIR__);
-
         $test_val = 'pie';
 
-        $config->test1 = $test_val;
-        $this->assertEquals($test_val, $config->test1, 'Test basic __get / __set');
+        $this->config->test1 = $test_val;
+        $this->assertEquals($test_val, $this->config->test1, 'Test basic __get / __set');
 
-        $this->assertEquals(__DIR__, $config->getBasePath());
-        $config->base_path = 'somerandompath';
-        $this->assertEquals(__DIR__, $config->getBasePath(), 'Base path should not change with property access');
+        $this->assertEquals(__DIR__, $this->config->getBasePath());
+        $this->config->base_path = 'somerandompath';
+        $this->assertEquals(__DIR__, $this->config->getBasePath(), 'Base path should not change with property access');
 
-        $this->assertNull($config->blah, 'Blah doesn\'t exist yet.');
+        $this->assertNull($this->config->blah, 'Blah doesn\'t exist yet.');
     }
+
+    public function testGetTargetPath()
+    {
+        $this->assertEquals(__DIR__ . '/target', $this->config->getTargetPath());
+    }
+
+    public function testGetLocalePath()
+    {
+        $this->assertEquals(__DIR__ . '/locale', $this->config->getLocalePath());
+    }
+
+    public function testGetPagePath()
+    {
+        $this->assertEquals(__DIR__ . '/pages', $this->config->getPagePath());
+    }
+
+    public function testGetAssetPath()
+    {
+        $this->assertEquals(__DIR__ . '/assets', $this->config->getAssetPath());
+    }
+
+    public function testGetPluginPath()
+    {
+        $this->assertEquals(__DIR__ . '/plugins', $this->config->getPluginPath());
+    }
+
+    public function testGetLayoutPath()
+    {
+        $this->assertEquals(__DIR__ . '/layouts', $this->config->getLayoutPath());
+    }
+
+    public function testGetLocaleFormat()
+    {
+        $this->assertEquals('po', $this->config->getLocaleFormat());
+    }
+
 }

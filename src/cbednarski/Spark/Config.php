@@ -23,20 +23,27 @@ class Config
     public function __construct($base_path, $data = array())
     {
         $this->base_path = $base_path;
-        $this->data = array_merge(static::defaultConfig(), $data);
+        $default_config = static::defaultConfig();
+        // @TODO replace this with a recursive array_merge that works correctly
+        // with numeric-indexed arrays
+        $this->data = array_merge($default_config, $data);
+        $this->data['localization'] = array_merge($default_config['localization'], $this->data['localization']);
     }
 
     public static function defaultConfig()
     {
         return array(
-            'pages' => 'src/pages/',
-            'assets' => 'src/assets/',
-            'layouts' => 'src/layouts/',
-            'plugins' => 'src/plugins/',
-            'target' => 'build/target/',
-            'cache' => 'build/cache/',
-            'locale' => 'locale/',
-            'localize' => 'all'
+            'pages' => 'pages/',
+            'assets' => 'assets/',
+            'layouts' => 'layouts/',
+            'plugins' => 'plugins/',
+            'target' => 'target/',
+            'localization' => array(
+                'path' => 'locale/',
+                'format' => 'po',
+                'localize' => 'all',
+                'default' => 'en_US',
+            ),
         );
     }
 
@@ -69,12 +76,48 @@ class Config
         $this->data[$variable] = $value;
     }
 
-    public function getFullPath($variable)
+    public function getFullPath($path)
     {
-        if (array_key_exists($variable, $this->data)) {
-            return $this->getBasePath() . DIRECTORY_SEPARATOR . $this->data[$variable];
-        } else {
-            return null;
+        if ($this->getBasePath() === null) {
+            throw new \LogicException('Cannot call getFullPath if base path is null');
         }
+
+        return $this->getBasePath() . DIRECTORY_SEPARATOR . rtrim($path, '\\/');
     }
+
+    public function getLocalePath()
+    {
+        return $this->getFullPath($this->localization['path']);
+    }
+
+    public function getTargetPath()
+    {
+        return $this->getFullPath($this->target);
+    }
+
+    public function getPagePath()
+    {
+        return $this->getFullPath($this->pages);
+    }
+
+    public function getAssetPath()
+    {
+        return $this->getFullPath($this->assets);
+    }
+
+    public function getPluginPath()
+    {
+        return $this->getFullPath($this->plugins);
+    }
+
+    public function getLayoutPath()
+    {
+        return $this->getFullPath($this->layouts);
+    }
+
+    public function getLocaleFormat()
+    {
+        return $this->localization['format'];
+    }
+
 }

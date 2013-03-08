@@ -9,6 +9,9 @@ use cbednarski\Spark\FileUtils;
 
 class CompilerTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @group compiler
+     */
     public function testCompile()
     {
         $path = realpath(__DIR__ . '/../../') . '/test_compile';
@@ -28,6 +31,9 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         FileUtils::recursiveDelete($path);
     }
 
+    /**
+     * @group compiler
+     */
     public function testBuild()
     {
         # Setup project
