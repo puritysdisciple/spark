@@ -9,6 +9,13 @@ class Config
     private $data;
     private $base_path = null;
 
+    /**
+     * Load configuration data from the specified file
+     *
+     * @param string $path Read this config file
+     * @return self
+     * @throws \RuntimeException
+     */
     public static function loadFile($path)
     {
         if (!realpath($path)) {
