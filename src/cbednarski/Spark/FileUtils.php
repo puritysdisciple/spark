@@ -37,7 +37,7 @@ class FileUtils
         return file_exists($path) && is_readable($path);
     }
 
-    public static function listFilesInDir($path, $recursive = true)
+    public static function listFilesInDir($path)
     {
         $files = array();
 
