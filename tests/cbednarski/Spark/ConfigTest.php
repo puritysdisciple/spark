@@ -52,7 +52,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
                     'en_US' => 'en',
                     'fr_FR' => 'fr',
                     'de_DE' => 'de',
-                )
+                ),
+                'format' => 'po',
+                'default' => 'en_US'
             )
         );
 
@@ -84,7 +86,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $this->config->getBasePath() . DIRECTORY_SEPARATOR . 'locale',
-            $this->config->getFullPath($this->config->locale)
+            $this->config->getFullPath($this->config->localization['path'])
         );
     }
 
