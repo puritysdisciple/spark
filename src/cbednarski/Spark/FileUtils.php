@@ -141,15 +141,13 @@ class FileUtils
 
     public static function filterExists($paths)
     {
-        $extant_paths = array();
+        $temp = array_filter($paths, function($path) {
+            return file_exists($path);
+        });
 
-        foreach ($paths as $path) {
-            if (file_exists($path)) {
-                $extant_paths[] = $path;
-            }
-        }
+        sort($temp);
 
-        return $extant_paths;
+        return $temp;
     }
 
     public static function removeTwigExtension($filename)
