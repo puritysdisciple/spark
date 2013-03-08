@@ -20,17 +20,17 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     public function testStandardConfig()
     {
         $config = Config::loadFile($this->standard_config);
-        $this->assertEquals(Yaml::parse($this->standard_config), $config->getData());
+        $this->assertEquals($this->config->getData(), $config->getData());
     }
 
     public function testPartialConfig()
     {
-        $config_file = __DIR__ . '/../../assets/spark_partial.yml';
-        $config = Config::loadFile($config_file);
-        $this->assertEquals($config->getData(), Yaml::parse($this->standard_config));
+        $partial_config_file = __DIR__ . '/../../assets/spark_partial.yml';
+        $partial_config = Config::loadFile($partial_config_file);
+        $this->assertEquals($this->config->getData(), $partial_config->getData());
 
         # These configs should be filled in even though they aren't in the .yml
-        $this->assertEquals('locale/', $config->locale);
+        $this->assertEquals('locale/', $this->config->localization['path']);
     }
 
     public function testCustomConfig()
@@ -41,9 +41,9 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
         # These configs are overridden completely
         $expected = array(
-            'pages' => 'pages/',
-            'assets' => 'assets/',
-            'layouts' => 'layouts/',
+            'pages' => 'src/pages/',
+            'assets' => 'src/assets/',
+            'layouts' => 'src/layouts/',
             'plugins' => 'plugins/',
             'target' => 'my/custom/build/target/',
             'localization' => array(

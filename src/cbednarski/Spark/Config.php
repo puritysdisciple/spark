@@ -23,7 +23,11 @@ class Config
     public function __construct($base_path, $data = array())
     {
         $this->base_path = $base_path;
-        $this->data = array_merge(static::defaultConfig(), $data);
+        $default_config = static::defaultConfig();
+        // @TODO replace this with a recursive array_merge that works correctly
+        // with numeric-indexed arrays
+        $this->data = array_merge($default_config, $data);
+        $this->data['localization'] = array_merge($default_config['localization'], $this->data['localization']);
     }
 
     public static function defaultConfig()
