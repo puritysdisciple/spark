@@ -59,7 +59,7 @@ class ProjectTest extends PHPUnit_Framework_TestCase
         $path = realpath(__DIR__ . '/../../') . '/test_active_locales';
 
         $config = Project::init($path);
-        $config->localize = array('fr_FR' => 'fr');
+        $config->localization = array('localize' => array('fr_FR' => 'fr'));
 
         $locales = Project::getActiveLocales($config);
         $this->assertEquals(array('fr_FR'), $locales);
