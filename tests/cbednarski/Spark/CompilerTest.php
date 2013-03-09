@@ -80,7 +80,12 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         $compiler->buildLocales();
 
         $this->assertTrue(file_exists($path . '/target/en/index.html'));
+        $en = strpos(file_get_contents($path . '/target/en/index.html'), 'Welcome to Spark! This demo is here to help you get up and running quickly.');
+        $this->assertFalse($en === false);
+
         $this->assertTrue(file_exists($path . '/target/fr/index.html'));
+        $fr = strpos(file_get_contents($path . '/target/fr/index.html'), 'Bienvenue sur Spark! Cette démo est là pour vous aider à démarrer rapidement.');
+        $this->assertFalse($fr === false);
 
         FileUtils::recursiveDelete($path);
     }

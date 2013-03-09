@@ -171,6 +171,8 @@ class Compiler
 
         foreach (Project::getActiveLocales($this->config) as $locale) {
 
+            $this->setActiveLocale($locale);
+
             foreach (FileUtils::listFilesInDir($page_path) as $file) {
                 // Calculate target filename
                 $filename = FileUtils::pathDiff($page_path, $file, true);
@@ -201,13 +203,13 @@ class Compiler
                     copy($file, $target);
                 }
             }
-
-            $this->copyAssets();
-
-            //Run custom plugins after build
-            $this->loadPluginFiles();
-            $this->runPlugins();
         }
+
+        $this->copyAssets();
+
+        //Run custom plugins after build
+        $this->loadPluginFiles();
+        $this->runPlugins();
     }
 
     public function copyAssets()
