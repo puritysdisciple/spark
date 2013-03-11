@@ -194,7 +194,7 @@ class FileUtils
     public static function getFileModifyTimes ($path)
     {
         $files = FileUtils::listFilesInDir($path);
-        $fileTimes = [];
+        $fileTimes = array();
 
         foreach ($files as $file) {
             $fileTimes[$file] = filemtime($file);
