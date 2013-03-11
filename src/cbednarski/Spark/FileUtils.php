@@ -190,4 +190,16 @@ class FileUtils
 
         return false;
     }
+
+    public static function getFileModifyTimes ($path)
+    {
+        $files = FileUtils::listFilesInDir($path);
+        $fileTimes = [];
+
+        foreach ($files as $file) {
+            $fileTimes[$file] = filemtime($file);
+        }
+
+        return $fileTimes;
+    }
 }
