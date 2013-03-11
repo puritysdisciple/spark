@@ -194,4 +194,13 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(FileUtils::matchFilename($filename, null), 'Match with null should fail');
         $this->assertTrue(FileUtils::matchFilename($filename, ''), 'Match with empty string should catch everything');
     }
+
+    public function testFileIsHidden()
+    {
+        $this->assertTrue(\cbednarski\Spark\FileUtils::fileIsHidden('.'));
+        $this->assertTrue(\cbednarski\Spark\FileUtils::fileIsHidden('.woot.php'));
+        $this->assertTrue(\cbednarski\Spark\FileUtils::fileIsHidden('/root/.idea/woot.php'));
+        $this->assertFalse(\cbednarski\Spark\FileUtils::fileIsHidden('root/hello.php'));
+        $this->assertFalse(\cbednarski\Spark\FileUtils::fileIsHidden('hello.php'));
+    }
 }
