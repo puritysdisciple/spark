@@ -3,6 +3,7 @@
 namespace cbednarski\Spark;
 
 use cbednarski\Spark\FileUtils;
+use cbednarski\Spark\FleetingFilesystem;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\PoFileLoader;
@@ -28,7 +29,7 @@ class Compiler
             )
         );
 
-        $this->loader = new \Twig_Loader_Filesystem($twig_paths);
+        $this->loader = new FleetingFilesystem($twig_paths);
 
         $this->twig = new \Twig_Environment($this->loader, array(
             'auto_reload' => true,
@@ -125,36 +126,41 @@ class Compiler
         file_put_contents($target, $render);
     }
 
+    public function buildFile($file, $page_path)
+    {
+        // Calculate target filename
+        $filename = FileUtils::pathDiff($page_path, $file, true);
+
+        if (FileUtils::matchFilename($filename, $this->config->getIgnoredPaths())) {
+          return;
+        }
+
+        $target = FileUtils::removeTwigExtension($this->config->getTargetPath() . DIRECTORY_SEPARATOR . $filename);
+        $this->println(' Building ' . $filename);
+
+        // Make sure parent folder for target exists
+        $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
+        FileUtils::mkdirIfNotExists($parent_dir);
+
+        // Compile or copy if it's not a template
+        if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
+            try {
+                $this->compile($filename, $target);
+            } catch (\Exception $e) {
+                echo 'Error while processing ' . $filename;
+                throw $e;
+            }
+        } else {
+            copy($file, $target);
+        }
+    }
+
     public function build()
     {
         $page_path = $this->config->getPagePath();
 
         foreach (FileUtils::listFilesInDir($page_path) as $file) {
-            // Calculate target filename
-            $filename = FileUtils::pathDiff($page_path, $file, true);
-
-            if (FileUtils::matchFilename($filename, $this->config->getIgnoredPaths())) {
-                continue;
-            }
-
-            $target = FileUtils::removeTwigExtension($this->config->getTargetPath() . DIRECTORY_SEPARATOR . $filename);
-            $this->println(' Building ' . $filename);
-            // Make sure parent folder for target exists
-            $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
-            FileUtils::mkdirIfNotExists($parent_dir);
-
-            // Compile or copy if it's not a template
-            if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
-                try {
-                    $this->compile($filename, $target);
-                } catch (\Exception $e) {
-                    echo 'Error while processing ' . $filename;
-                    throw $e;
-                }
-
-            } else {
-                copy($file, $target);
-            }
+            $this->buildFile($file, $page_path);
         }
 
         $this->copyAssets();
@@ -212,19 +218,25 @@ class Compiler
         $this->runPlugins();
     }
 
+    public function copyAsset ($file) {
+        $assets_path = $this->config->getAssetPath();
+
+        $filename = FileUtils::pathDiff($assets_path, $file, true);
+
+        $target = $this->config->getTargetPath() . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $filename;
+        $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
+        FileUtils::mkdirIfNotExists($parent_dir);
+
+        $this->println(' Copying assets/' . $filename);
+        copy($file, $target);
+    }
+
     public function copyAssets()
     {
         $assets_path = $this->config->getAssetPath();
 
         foreach (FileUtils::listFilesInDir($assets_path) as $file) {
-            $filename = FileUtils::pathDiff($assets_path, $file, true);
-
-            $target = $this->config->getTargetPath() . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $filename;
-            $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
-            FileUtils::mkdirIfNotExists($parent_dir);
-
-            $this->println(' Copying assets/' . $filename);
-            copy($file, $target);
+            $this->copyAsset($file);
         }
     }
 
