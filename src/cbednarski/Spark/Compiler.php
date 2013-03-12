@@ -251,7 +251,7 @@ class Compiler
         // $spark is here so plugins can use it, so it's not unused in spite of what your IDE might say
         $spark = $this;
         foreach ($plugin_files as $plugin_file) {
-            require_once($plugin_file);
+            require_once(realpath($plugin_file));
         }
     }
 
