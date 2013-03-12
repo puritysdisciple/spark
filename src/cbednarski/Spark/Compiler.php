@@ -91,6 +91,11 @@ class Compiler
         return $this->translators[$this->active_locale];
     }
 
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
     public function addTwigExtension($extension)
     {
         try {
