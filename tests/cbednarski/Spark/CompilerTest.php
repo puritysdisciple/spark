@@ -87,6 +87,14 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         $fr = strpos(file_get_contents($path . '/target/fr/index.html'), 'Bienvenue sur Spark! Cette démo est là pour vous aider à démarrer rapidement.');
         $this->assertFalse($fr === false);
 
+        $this->assertTrue(file_exists($path . '/target/fr/index.html'));
+        $fr = strpos(file_get_contents($path . '/target/fr/index.html'), 'Standard: fr_FR.');
+        $this->assertFalse($fr === false);
+
+        $this->assertTrue(file_exists($path . '/target/fr/index.html'));
+        $fr = strpos(file_get_contents($path . '/target/fr/index.html'), 'Url-Code: fr.');
+        $this->assertFalse($fr === false);
+
         FileUtils::recursiveDelete($path);
     }
 

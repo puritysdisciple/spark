@@ -134,6 +134,19 @@ class Config
         }
     }
 
+    public function getLocaleCodeFromMap($locale)
+    {
+        if ($this->localization['localize'] === 'all') {
+            return $locale;
+        } else {
+            if (isset($this->localization['localize'][$locale])) {
+                return $this->localization['localize'][$locale];
+            } else {
+                return false;
+            }
+        }
+    }
+
     public function getPagePath()
     {
         return $this->getFullPath($this->pages);

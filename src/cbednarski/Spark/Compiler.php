@@ -120,14 +120,26 @@ class Compiler
 
     public static function mergeDefaultParams($params)
     {
-        $temp = array('assets' => '/assets');
+        $temp = array(
+            'assets' => '/assets'
+        );
 
         return array_merge($temp, $params);
     }
 
     public function compile($source, $target, $params = array())
     {
-        $render = $this->twig->render($source, static::mergeDefaultParams($params));
+        $params = static::mergeDefaultParams($params);
+        $params = array_merge(
+            array(
+               'locale' => array(
+                   'standard' => $this->active_locale,
+                   'url_code' => $this->config->getLocaleCodeFromMap($this->active_locale)
+               )
+            ), $params
+        );
+
+        $render = $this->twig->render($source, $params);
         file_put_contents($target, $render);
     }
 
