@@ -94,7 +94,6 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(file_exists($path . '/target/fr/index.html'));
         $fr = strpos(file_get_contents($path . '/target/fr/index.html'), 'Url-Code: fr.');
         $this->assertFalse($fr === false);
-        die;
 
         FileUtils::recursiveDelete($path);
     }
