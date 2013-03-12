@@ -4,6 +4,19 @@ namespace cbednarski\Spark;
 
 class FileUtils
 {
+    public static function fileIsHidden($file_path)
+    {
+        $parts = explode('/', $file_path);
+        foreach($parts as $part) {
+            if(strlen($part) > 0){
+                if($part[0] === '.') {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static function dirIsEmpty($path)
     {
         if (!is_dir($path)) {
@@ -37,7 +50,7 @@ class FileUtils
         return file_exists($path) && is_readable($path);
     }
 
-    public static function listFilesInDir($path)
+    public static function listFilesInDir($path, $show_hidden = false)
     {
         $files = array();
 
@@ -56,7 +69,10 @@ class FileUtils
             if (in_array($file->getBasename(), array('.', '..'))) {
                 continue;
             } elseif ($file->isFile()) {
-                $files[] = $file->getPathname();
+                if(!self::fileIsHidden($file->getPathname()))
+                {
+                    $files[] = $file->getPathname();
+                }
             }
         }
 
@@ -189,5 +205,17 @@ class FileUtils
         }
 
         return false;
+    }
+
+    public static function getFileModifyTimes ($path)
+    {
+        $files = FileUtils::listFilesInDir($path);
+        $fileTimes = array();
+
+        foreach ($files as $file) {
+            $fileTimes[$file] = filemtime($file);
+        }
+
+        return $fileTimes;
     }
 }
