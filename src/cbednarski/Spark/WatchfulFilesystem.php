@@ -1,7 +1,7 @@
 <?php
 namespace cbednarski\Spark;
 
-class FleetingFilesystem extends \Twig_Loader_Filesystem
+class WatchfulFilesystem extends \Twig_Loader_Filesystem
 {
     public function getCacheKey($name)
     {

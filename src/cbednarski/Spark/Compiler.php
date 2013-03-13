@@ -3,7 +3,7 @@
 namespace cbednarski\Spark;
 
 use cbednarski\Spark\FileUtils;
-use cbednarski\Spark\FleetingFilesystem;
+use cbednarski\Spark\WatchfulFilesystem;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\PoFileLoader;
@@ -29,7 +29,7 @@ class Compiler
             )
         );
 
-        $this->loader = new FleetingFilesystem($twig_paths);
+        $this->loader = new WatchfulFilesystem($twig_paths);
 
         $this->twig = new \Twig_Environment($this->loader, array(
             'auto_reload' => true,
