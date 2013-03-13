@@ -131,11 +131,12 @@ class Compiler
         $params = static::mergeDefaultParams($params);
         $params = array_merge(
             array(
-               'locale' => array(
-                   'standard' => $this->active_locale,
-                   'url_code' => $this->config->getLocaleCodeFromMap($this->active_locale)
-               )
-            ), $params
+                'locale' => array(
+                    'standard' => $this->active_locale,
+                    'url_code' => $this->config->getLocaleCodeFromMap($this->active_locale)
+                )
+            ),
+            $params
         );
 
         $render = $this->twig->render($source, $params);
@@ -148,7 +149,7 @@ class Compiler
         $filename = FileUtils::pathDiff($page_path, $file, true);
 
         if (FileUtils::matchFilename($filename, $this->config->getIgnoredPaths())) {
-          return;
+            return;
         }
 
         $target = FileUtils::removeTwigExtension($this->config->getTargetPath() . DIRECTORY_SEPARATOR . $filename);
@@ -234,7 +235,7 @@ class Compiler
         $this->runPlugins();
     }
 
-    public function copyAsset ($file)
+    public function copyAsset($file)
     {
         $assets_path = $this->config->getAssetPath();
 
