@@ -27,8 +27,8 @@ class Project
                 $config->getAssetPath(),
                 $config->getAssetPath() . '/css/',
                 $config->getTargetPath(),
-                $config->getLocalePath() . '/en_US/LC_MESSAGES',
-                $config->getLocalePath() . '/fr_FR/LC_MESSAGES',
+                $config->getLocalePath() . '/en_US/',
+                $config->getLocalePath() . '/fr_FR/',
             )
         );
 
@@ -39,8 +39,8 @@ class Project
         copy(__DIR__ . '/Resources/main.css', $config->getAssetPath() . '/css/main.css');
         copy(__DIR__ . '/Resources/layout.html.twig', $config->getLayoutPath() . '/layout.html.twig');
         copy(__DIR__ . '/Resources/index.html.twig', $config->getPagePath() . '/index.html.twig');
-        copy(__DIR__ . '/Resources/en_US.po', $config->getLocalePath() . '/en_US/LC_MESSAGES/messages.po');
-        copy(__DIR__ . '/Resources/fr_FR.po', $config->getLocalePath() . '/fr_FR/LC_MESSAGES/messages.po');
+        copy(__DIR__ . '/Resources/en_US.po', $config->getLocalePath() . '/en_US/messages.po');
+        copy(__DIR__ . '/Resources/fr_FR.po', $config->getLocalePath() . '/fr_FR/messages.po');
         copy(__DIR__ . '/Resources/sample_plugin.php', $config->getPluginPath() . '/sample_plugin.php');
 
         return $config;

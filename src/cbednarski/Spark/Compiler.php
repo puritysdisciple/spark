@@ -54,9 +54,8 @@ class Compiler
             $trans->setFallbackLocale('en_US');
             $trans->addLoader('po', $loader);
 
-            foreach (FileUtils::listFilesInDir(
-                         $this->config->getLocalePath() . DIRECTORY_SEPARATOR . $locale . '/LC_MESSAGES'
-                     ) as $loc_file) {
+            $locales_path = FileUtils::listFilesInDir($this->config->getLocalePath() . DIRECTORY_SEPARATOR . $locale);
+            foreach ($locales_path as $loc_file) {
                 $trans->addResource('po', $loc_file, $locale);
             }
 
