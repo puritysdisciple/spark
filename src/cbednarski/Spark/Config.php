@@ -12,7 +12,7 @@ class Config
     /**
      * Load configuration data from the specified file
      *
-     * @param string $path Read this config file
+     * @param  string            $path Read this config file
      * @return self
      * @throws \RuntimeException
      */
@@ -116,7 +116,7 @@ class Config
      * this language right now"). Otherwise, we return whatever is configured
      * in `localize` for the locale that's specified.
      *
-     * @param string $locale
+     * @param  string      $locale
      * @return bool|string
      */
     public function getTargetPathForLocale($locale)

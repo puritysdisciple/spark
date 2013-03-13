@@ -3,7 +3,6 @@
 require_once(__DIR__ . '/../../../vendor/autoload.php');
 
 use cbednarski\Spark\Config;
-use Symfony\Component\Yaml\Yaml;
 
 class ConfigTest extends PHPUnit_Framework_TestCase
 {

@@ -7,13 +7,14 @@ class FileUtils
     public static function fileIsHidden($file_path)
     {
         $parts = explode('/', $file_path);
-        foreach($parts as $part) {
-            if(strlen($part) > 0){
-                if($part[0] === '.') {
+        foreach ($parts as $part) {
+            if (strlen($part) > 0) {
+                if ($part[0] === '.') {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
@@ -69,8 +70,7 @@ class FileUtils
             if (in_array($file->getBasename(), array('.', '..'))) {
                 continue;
             } elseif ($file->isFile()) {
-                if(!self::fileIsHidden($file->getPathname()))
-                {
+                if (!self::fileIsHidden($file->getPathname())) {
                     $files[] = $file->getPathname();
                 }
             }
@@ -184,8 +184,8 @@ class FileUtils
     /**
      * Check the filename against one or more regexps to see whether it matches
      *
-     * @param string $filename
-     * @param string|array $matches
+     * @param  string       $filename
+     * @param  string|array $matches
      * @return bool
      */
     public static function matchFilename($filename, $matches)
@@ -195,7 +195,7 @@ class FileUtils
         }
 
         foreach ($matches as $regexp) {
-            if($regexp === null) {
+            if ($regexp === null) {
                 continue;
             }
 
@@ -227,6 +227,7 @@ class FileUtils
     {
         $path = preg_replace("#([^\"*/:<>?\\\\|]+)/(\\.\\.)/#u", "", $path);
         $path = preg_replace("#([^\"*/:<>?\\\\|]+)/(\\.)?/#u", "$1/", $path);
+
         return $path;
     }
 }

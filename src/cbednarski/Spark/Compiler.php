@@ -234,7 +234,8 @@ class Compiler
         $this->runPlugins();
     }
 
-    public function copyAsset ($file) {
+    public function copyAsset ($file)
+    {
         $assets_path = $this->config->getAssetPath();
 
         $filename = FileUtils::pathDiff($assets_path, $file, true);

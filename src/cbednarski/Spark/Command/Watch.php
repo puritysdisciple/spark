@@ -9,7 +9,6 @@ use cbednarski\Spark\FileUtils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Watch extends Command
@@ -28,7 +27,8 @@ class Watch extends Command
         );
     }
 
-    protected function watchPages ($dir, $alias) {
+    protected function watchPages ($dir, $alias)
+    {
         if (!array_key_exists($alias, $this->last_files)) {
             $this->last_files[$alias] = array();
         }
@@ -61,7 +61,8 @@ class Watch extends Command
         unset($deleted);
     }
 
-    protected function watchAssets ($dir, $alias) {
+    protected function watchAssets ($dir, $alias)
+    {
         if (!array_key_exists($alias, $this->last_files)) {
             $this->last_files[$alias] = array();
         }
