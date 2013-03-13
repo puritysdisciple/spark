@@ -203,4 +203,14 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(\cbednarski\Spark\FileUtils::fileIsHidden('root/hello.php'));
         $this->assertFalse(\cbednarski\Spark\FileUtils::fileIsHidden('hello.php'));
     }
+
+    public function testSoftRealpath()
+    {
+        $this->assertEquals("/user/some/path", FileUtils::softRealpath("/user/blah-_0938!#$%&'()+,;=@[]^`{}~/../some/path"));
+        $this->assertEquals("/user/blah-_0938!#$%&'()+,;=@[]^`{}~/some/path", FileUtils::softRealpath("/user/blah-_0938!#$%&'()+,;=@[]^`{}~/./some/path"));
+        $this->assertEquals("/user/blah-_0938!#$%&'()+,;=@[]^`{}~/some/path", FileUtils::softRealpath("/user/blah-_0938!#$%&'()+,;=@[]^`{}~//some/path"));
+        $this->assertEquals("user/some/path", FileUtils::softRealpath("user/blah-_0938!#$%&'()+,;=@[]^`{}~/../some/path"));
+        $this->assertEquals("user/blah-_0938!#$%&'()+,;=@[]^`{}~/some/path", FileUtils::softRealpath("user/blah-_0938!#$%&'()+,;=@[]^`{}~/./some/path"));
+        $this->assertEquals("user/blah-_0938!#$%&'()+,;=@[]^`{}~/some/path", FileUtils::softRealpath("user/blah-_0938!#$%&'()+,;=@[]^`{}~//some/path"));
+    }
 }

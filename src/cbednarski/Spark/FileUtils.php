@@ -218,4 +218,15 @@ class FileUtils
 
         return $fileTimes;
     }
+
+    /**
+     * realpath() returns false if the file doesn't exist on the filesystem but
+     * sometimes you just want to collapse ../ to get an absolute path.
+     */
+    public static function softRealpath($path)
+    {
+        $path = preg_replace("#([^\"*/:<>?\\\\|]+)/(\\.\\.)/#u", "", $path);
+        $path = preg_replace("#([^\"*/:<>?\\\\|]+)/(\\.)?/#u", "$1/", $path);
+        return $path;
+    }
 }
