@@ -17,7 +17,7 @@ class Git
      * @param bool $strict Whether or not we'll allow untagged commits
      * @return string Version number or 'unknown' in a failure case
      */
-    public static function getGitVersion($path, $strict = false)
+    public static function getVersion($path, $strict = false)
     {
         $temp_path = getcwd();
         // Git needs the cwd to be inside the repo
