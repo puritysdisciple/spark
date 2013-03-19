@@ -7,6 +7,9 @@ class Git
     /**
      * Determine the git version based on `git describe` and semver conventions.
      *
+     * @see http://semver.org/
+     * @see https://www.kernel.org/pub/software/scm/git/docs/git-describe.html
+     *
      * Normally we'll pull a version number like:
      *   1.0.4      Tagged commit
      *   1.0.4+306  Untagged commit on top of a tag
