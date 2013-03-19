@@ -138,6 +138,7 @@ class Compiler
             ),
             $params
         );
+        $params['version'] = Git::getVersion($this->config->getBasePath());
 
         $render = $this->twig->render($source, $params);
         file_put_contents($target, $render);
@@ -153,7 +154,7 @@ class Compiler
         }
 
         $target = FileUtils::removeTwigExtension($this->config->getTargetPath() . DIRECTORY_SEPARATOR . $filename);
-        $this->println(' Building ' . $filename);
+        $this->println(' Building ' . $target);
 
         // Make sure parent folder for target exists
         $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
