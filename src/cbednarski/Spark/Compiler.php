@@ -140,6 +140,7 @@ class Compiler
     {
         if (isset($this->parameters[$name])) {
             unset($this->parameters[$name]);
+
             return true;
         }
 

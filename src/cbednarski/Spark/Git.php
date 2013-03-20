@@ -13,11 +13,11 @@ class Git
      * Normally we'll pull a version number like:
      *   1.0.4      Tagged commit
      *   1.0.4+306  Untagged commit on top of a tag
-     * 
+     *
      * If the strict param is true, we will show 'unknown' in the untagged case
      *
-     * @param string $path Directory to inspect for git tags
-     * @param bool $strict Whether or not we'll allow untagged commits
+     * @param  string $path   Directory to inspect for git tags
+     * @param  bool   $strict Whether or not we'll allow untagged commits
      * @return string Version number or 'unknown' in a failure case
      */
     public static function getVersion($path, $strict = false)
