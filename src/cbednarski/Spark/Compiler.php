@@ -219,7 +219,7 @@ class Compiler
         }
     }
 
-    public function build()
+    public function buildPages()
     {
         $page_path = $this->config->getPagePath();
 

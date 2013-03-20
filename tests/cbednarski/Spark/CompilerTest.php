@@ -46,7 +46,7 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         $config->localization = $temp;
 
         $compiler = new Compiler($config);
-        $compiler->build();
+        $compiler->buildPages();
 
         $this->assertTrue(file_exists($path . '/target/en/index.html'));
         $en = strpos(file_get_contents($path . '/target/en/index.html'), 'Welcome to Spark! This demo is here to help you get up and running quickly.');
@@ -79,7 +79,7 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($ignores, $config->getIgnoredPaths(), 'Verify ignore config stuck');
 
         $compiler = new Compiler($config);
-        $compiler->build();
+        $compiler->buildPages();
 
         $this->assertFalse(file_exists($config->getTargetPath() . '/index.html'), 'We should not have an index.html now');
 
