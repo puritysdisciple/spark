@@ -161,6 +161,29 @@ class Compiler
         file_put_contents($target, $render);
     }
 
+    public function copyAsset($file)
+    {
+        $assets_path = $this->config->getAssetPath();
+
+        $filename = FileUtils::pathDiff($assets_path, $file, true);
+
+        $target = $this->config->getTargetPath() . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $filename;
+        $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
+        FileUtils::mkdirIfNotExists($parent_dir);
+
+        $this->println(' Copying assets/' . $filename);
+        copy($file, $target);
+    }
+
+    public function copyAssets()
+    {
+        $assets_path = $this->config->getAssetPath();
+
+        foreach (FileUtils::listFilesInDir($assets_path) as $file) {
+            $this->copyAsset($file);
+        }
+    }
+
     public function buildPage($file)
     {
         // Calculate target filename
@@ -194,29 +217,6 @@ class Compiler
         }
 
         return true;
-    }
-
-    public function copyAsset($file)
-    {
-        $assets_path = $this->config->getAssetPath();
-
-        $filename = FileUtils::pathDiff($assets_path, $file, true);
-
-        $target = $this->config->getTargetPath() . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $filename;
-        $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
-        FileUtils::mkdirIfNotExists($parent_dir);
-
-        $this->println(' Copying assets/' . $filename);
-        copy($file, $target);
-    }
-
-    public function copyAssets()
-    {
-        $assets_path = $this->config->getAssetPath();
-
-        foreach (FileUtils::listFilesInDir($assets_path) as $file) {
-            $this->copyAsset($file);
-        }
     }
 
     public function buildPages()
