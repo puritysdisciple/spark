@@ -31,37 +31,6 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         FileUtils::recursiveDelete($path);
     }
 
-    /**
-     * @group compiler
-     */
-    public function testBuild()
-    {
-        # Setup project
-        $path = realpath(__DIR__ . '/../../') . '/test_compile';
-        Project::init($path);
-        $config = Config::loadFile($path . '/spark.yml');
-
-        # Initialize the compiler
-        $compiler = new Compiler($config);
-
-        # Build all the things
-        $compiler->build();
-
-        $index_path = $path . '/' . $config->target . '/index.html';
-
-        # Check that stuff was built
-        $this->assertTrue(file_exists($index_path));
-        $this->assertTrue(file_exists($path . '/' . $config->target . '/assets/css/main.css'));
-
-        # Check that the compiled version looks the way it's supposed to
-        $this->assertTrue(strpos(file_get_contents($index_path), 'href="/assets/css/main.css') !== false);
-
-        # Check that sample plugin worked
-        $this->assertEquals($compiler->testParam, "test!");
-
-        FileUtils::recursiveDelete($path);
-    }
-
     public function testBuildLocales()
     {
         # Setup project
@@ -77,7 +46,7 @@ class CompilerTest extends PHPUnit_Framework_TestCase
         $config->localization = $temp;
 
         $compiler = new Compiler($config);
-        $compiler->buildLocales();
+        $compiler->build();
 
         $this->assertTrue(file_exists($path . '/target/en/index.html'));
         $en = strpos(file_get_contents($path . '/target/en/index.html'), 'Welcome to Spark! This demo is here to help you get up and running quickly.');

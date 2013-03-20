@@ -193,22 +193,6 @@ class Compiler
     {
         $page_path = $this->config->getPagePath();
 
-        foreach (FileUtils::listFilesInDir($page_path) as $file) {
-            $this->buildFile($file, $page_path);
-        }
-
-        $this->copyAssets();
-
-        //Run custom plugins after build
-        $this->loadPluginFiles();
-        $this->runPlugins();
-
-    }
-
-    public function buildLocales()
-    {
-        $page_path = $this->config->getPagePath();
-
         $this->copyAssets();
 
         foreach (Project::getActiveLocales($this->config) as $locale) {
