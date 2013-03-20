@@ -209,6 +209,8 @@ class Compiler
     {
         $page_path = $this->config->getPagePath();
 
+        $this->copyAssets();
+
         foreach (Project::getActiveLocales($this->config) as $locale) {
 
             $this->setActiveLocale($locale);
@@ -244,8 +246,6 @@ class Compiler
                 }
             }
         }
-
-        $this->copyAssets();
 
         //Run custom plugins after build
         $this->loadPluginFiles();
