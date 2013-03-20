@@ -161,16 +161,16 @@ class Compiler
         file_put_contents($target, $render);
     }
 
-    public function buildFile($file, $page_path, $locale)
+    public function buildPage($file)
     {
         // Calculate target filename
-        $filename = FileUtils::pathDiff($page_path, $file, true);
+        $filename = FileUtils::pathDiff($this->config->getPagePath(), $file, true);
 
         if (FileUtils::matchFilename($filename, $this->config->getIgnoredPaths())) {
             return false;
         }
 
-        $locale_path = $this->config->getTargetPathForLocale($locale);
+        $locale_path = $this->config->getTargetPathForLocale($this->getActiveLocale());
 
         $target = FileUtils::removeTwigExtension(
             $locale_path . DIRECTORY_SEPARATOR . $filename
@@ -230,18 +230,13 @@ class Compiler
             $this->setActiveLocale($locale);
 
             foreach (FileUtils::listFilesInDir($page_path) as $file) {
-                $this->buildFile($file, $page_path, $locale);
+                $this->buildPage($file);
             }
         }
 
         //Run custom plugins after build
         $this->loadPluginFiles();
         $this->runPlugins();
-    }
-
-    public function watch()
-    {
-
     }
 
     private function loadPluginFiles()
