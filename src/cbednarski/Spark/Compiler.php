@@ -146,7 +146,7 @@ class Compiler
         }
     }
 
-    public function mergeParams($params)
+    public function mergeTwigParameters($params)
     {
         return array_merge($this->parameters, $params);
     }
@@ -154,7 +154,7 @@ class Compiler
     public function compile($source, $target, $params = array())
     {
         // Include the global parameters that were set in $this
-        $params = $this->mergeParams($params);
+        $params = $this->mergeTwigParameters($params);
 
         $render = $this->twig->render($source, $params);
         file_put_contents($target, $render);
