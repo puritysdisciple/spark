@@ -194,6 +194,7 @@ class Compiler
         }
 
         $locale_path = $this->config->getTargetPathForLocale($this->getActiveLocale());
+        $locale_path_short = $this->config->getLocaleCodeFromMap($this->getActiveLocale()) . DIRECTORY_SEPARATOR;
 
         $target = FileUtils::removeTwigExtension(
             $locale_path . DIRECTORY_SEPARATOR . $filename
@@ -205,14 +206,14 @@ class Compiler
         // Compile or copy if it's not a template
         if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
             try {
-                $this->println(' Building ' . $target);
+                $this->println(' Building ' . $locale_path_short . $filename);
                 $this->compile($filename, $target);
             } catch (\Exception $e) {
                 echo 'Error while processing ' . $filename;
                 throw $e;
             }
         } else {
-            $this->println(' Copying ' . $target);
+            $this->println(' Copying ' . $locale_path_short . $filename);
             copy($file, $target);
         }
 
@@ -223,8 +224,6 @@ class Compiler
     {
         $page_path = $this->config->getPagePath();
 
-        $this->copyAssets();
-
         foreach (Project::getActiveLocales($this->config) as $locale) {
 
             $this->setActiveLocale($locale);
@@ -233,6 +232,12 @@ class Compiler
                 $this->buildPage($file);
             }
         }
+    }
+
+    public function build()
+    {
+        $this->copyAssets();
+        $this->buildPages();
 
         //Run custom plugins after build
         $this->loadPluginFiles();
