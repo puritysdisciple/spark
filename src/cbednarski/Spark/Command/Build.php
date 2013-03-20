@@ -49,7 +49,7 @@ class Build extends Command
         }
 
         $output->writeln('<info>Building spark under ' . realpath($directory) . '</info>');
-        $compiler->buildPages();
+        $compiler->build();
         $output->writeln('<info>Build complete.</info>');
     }
 }
