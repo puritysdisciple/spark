@@ -166,7 +166,7 @@ class Compiler
         $filename = FileUtils::pathDiff($page_path, $file, true);
 
         if (FileUtils::matchFilename($filename, $this->config->getIgnoredPaths())) {
-            return;
+            return false;
         }
 
         $target = FileUtils::removeTwigExtension($this->config->getTargetPath() . DIRECTORY_SEPARATOR . $filename);
@@ -187,6 +187,8 @@ class Compiler
         } else {
             copy($file, $target);
         }
+
+        return true;
     }
 
     public function build()
