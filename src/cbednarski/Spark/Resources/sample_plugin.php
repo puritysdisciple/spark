@@ -1,5 +1,5 @@
 <?php
-$spark->addPlugins('SamplePluggy',function() use ($spark) {
+$spark->addPlugin('SamplePluggy',function() use ($spark) {
         $spark->testParam = "test!";
     }
 );

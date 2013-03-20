@@ -290,7 +290,7 @@ class Compiler
         }
     }
 
-    public function addPlugins($name, $plugin)
+    public function addPlugin($name, $plugin)
     {
         $this->plugins[$name] = $plugin;
     }
