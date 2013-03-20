@@ -167,19 +167,16 @@ class Compiler
         file_put_contents($target, $render);
     }
 
-    public function copyAsset($file)
+    public function copyAsset($source, $target)
     {
-        $assets_path = $this->config->getAssetPath();
+        $filename = FileUtils::pathDiff($this->config->getAssetPath(), $source, true);
 
-        $filename = FileUtils::pathDiff($assets_path, $file, true);
-
-        $target = $this->config->getTargetPath() . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $filename;
         $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
         FileUtils::mkdirIfNotExists($parent_dir);
 
         if (in_array(pathinfo($filename, PATHINFO_EXTENSION), $this->safe_extensions)) {
             $this->println(' Copying assets' . DIRECTORY_SEPARATOR . $filename);
-            copy($file, $target);
+            copy($source, $target);
         } else {
             $this->println(' <comment>Skipping assets' . DIRECTORY_SEPARATOR . $filename . '</comment>');
             return false;
@@ -193,7 +190,10 @@ class Compiler
         $assets_path = $this->config->getAssetPath();
 
         foreach (FileUtils::listFilesInDir($assets_path) as $file) {
-            $this->copyAsset($file);
+            $this->copyAsset(
+                $file,
+                $this->config->getTargetPath() . '/assets/' . FileUtils::pathDiff($this->config->getAssetPath(), $file, true)
+            );
         }
     }
 
