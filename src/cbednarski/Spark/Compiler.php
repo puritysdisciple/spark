@@ -197,27 +197,22 @@ class Compiler
         }
     }
 
-    public function buildPage($file, $twig_params = array())
+    public function buildPage($source, $target, $twig_params = array())
     {
         // Calculate target filename
-        $filename = FileUtils::pathDiff($this->config->getPagePath(), $file, true);
+        $filename = FileUtils::pathDiff($this->config->getPagePath(), $source, true);
 
         if (FileUtils::matchFilename($filename, $this->config->getIgnoredPaths())) {
             return false;
         }
 
-        $locale_path = $this->config->getTargetPathForLocale($this->getActiveLocale());
         $locale_path_short = $this->config->getLocaleCodeFromMap($this->getActiveLocale()) . DIRECTORY_SEPARATOR;
-
-        $target = FileUtils::removeTwigExtension(
-            $locale_path . DIRECTORY_SEPARATOR . $filename
-        );
 
         // Make sure parent folder for target exists
         FileUtils::mkdirIfNotExists(pathinfo($target, PATHINFO_DIRNAME));
 
         // Compile or copy if it's not a template
-        if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
+        if (pathinfo($source, PATHINFO_EXTENSION) === 'twig') {
             try {
                 $this->println(' Building ' . $locale_path_short . $filename);
                 $this->compile($filename, $target, $twig_params);
@@ -227,7 +222,7 @@ class Compiler
             }
         } else {
             $this->println(' Copying ' . $locale_path_short . $filename);
-            copy($file, $target);
+            copy($source, $target);
         }
 
         return true;
@@ -241,8 +236,15 @@ class Compiler
 
             $this->setActiveLocale($locale);
 
-            foreach (FileUtils::listFilesInDir($page_path) as $file) {
-                $this->buildPage($file);
+            foreach (FileUtils::listFilesInDir($page_path) as $source) {
+                $locale_path = $this->config->getTargetPathForLocale($this->getActiveLocale());
+                $filename = FileUtils::pathDiff($this->config->getPagePath(), $source, true);
+
+                $target = FileUtils::removeTwigExtension(
+                    $locale_path . DIRECTORY_SEPARATOR . $filename
+                );
+
+                $this->buildPage($source, $target);
             }
         }
     }
