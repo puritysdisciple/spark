@@ -34,6 +34,6 @@ class Clean extends Command
         $config = Config::loadFile($directory . '/spark.yml');
 
         $output->writeln('<info>Cleaning build folder under ' . realpath($directory) . '</info>');
-        FileUtils::recursiveDelete($config->getFullPath('target'));
+        FileUtils::recursiveDelete($config->getTargetPath());
     }
 }
