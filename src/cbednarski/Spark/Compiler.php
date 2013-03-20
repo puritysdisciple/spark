@@ -158,12 +158,12 @@ class Compiler
         return array_merge($this->parameters, $params);
     }
 
-    public function compile($source, $target, $params = array())
+    public function compile($source, $target, $twigParams = array())
     {
         // Include the global parameters that were set in $this
-        $params = $this->mergeTwigParameters($params);
+        $twigParams = $this->mergeTwigParameters($twigParams);
 
-        $render = $this->twig->render($source, $params);
+        $render = $this->twig->render($source, $twigParams);
         file_put_contents($target, $render);
     }
 
@@ -197,7 +197,7 @@ class Compiler
         }
     }
 
-    public function buildPage($file)
+    public function buildPage($file, $twigParams = array())
     {
         // Calculate target filename
         $filename = FileUtils::pathDiff($this->config->getPagePath(), $file, true);
@@ -220,7 +220,7 @@ class Compiler
         if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
             try {
                 $this->println(' Building ' . $locale_path_short . $filename);
-                $this->compile($filename, $target);
+                $this->compile($filename, $target, $twigParams);
             } catch (\Exception $e) {
                 echo 'Error while processing ' . $filename;
                 throw $e;
