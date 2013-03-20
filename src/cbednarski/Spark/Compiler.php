@@ -17,6 +17,7 @@ class Compiler
     private $plugins = array();
     private $translators = array();
     private $active_locale;
+    private $parameters = array();
 
     public function __construct(Config $config)
     {
@@ -43,7 +44,11 @@ class Compiler
         // Initialize Localization stuff
         $this->initializeTranslators();
         $this->twig->addFunction($this->getLocalizationFunction());
-        $this->active_locale = $this->config->getDefaultLocale();
+        $this->setActiveLocale($this->config->getDefaultLocale());
+
+        // Initialize twig parameters
+        $this->setParameter('assets', FileUtils::pathDiff($this->config->getBasePath(), $this->config->getAssetPath()));
+        $this->setParameter('version', Git::getVersion($this->config->getBasePath()));
     }
 
     private function initializeTranslators()
@@ -76,6 +81,10 @@ class Compiler
     {
         if (in_array($locale, array_keys($this->translators))) {
             $this->active_locale = $locale;
+            $this->setParameter('locale', array(
+                'standard' => $locale,
+                'url_code' => $this->config->getLocaleCodeFromMap($locale)
+            ));
         } else {
             throw new \UnexpectedValueException($locale . ' is not enabled in this project');
         }
@@ -105,6 +114,26 @@ class Compiler
         }
     }
 
+    public function setParameter($name, $value)
+    {
+        $this->parameters[$name] = $value;
+    }
+
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    public function unsetParameter($name)
+    {
+        if (isset($this->parameters[$name])) {
+            unset($this->parameters[$name]);
+            return true;
+        }
+
+        return false;
+    }
+
     public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
@@ -117,28 +146,15 @@ class Compiler
         }
     }
 
-    public static function mergeDefaultParams($params)
+    public function mergeParams($params)
     {
-        $temp = array(
-            'assets' => '/assets'
-        );
-
-        return array_merge($temp, $params);
+        return array_merge($this->parameters, $params);
     }
 
     public function compile($source, $target, $params = array())
     {
-        $params = static::mergeDefaultParams($params);
-        $params = array_merge(
-            array(
-                'locale' => array(
-                    'standard' => $this->active_locale,
-                    'url_code' => $this->config->getLocaleCodeFromMap($this->active_locale)
-                )
-            ),
-            $params
-        );
-        $params['version'] = Git::getVersion($this->config->getBasePath());
+        // Include the global parameters that were set in $this
+        $params = $this->mergeParams($params);
 
         $render = $this->twig->render($source, $params);
         file_put_contents($target, $render);
