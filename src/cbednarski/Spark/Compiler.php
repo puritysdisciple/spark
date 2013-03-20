@@ -161,7 +161,7 @@ class Compiler
         file_put_contents($target, $render);
     }
 
-    public function buildFile($file, $page_path)
+    public function buildFile($file, $page_path, $locale)
     {
         // Calculate target filename
         $filename = FileUtils::pathDiff($page_path, $file, true);
@@ -170,22 +170,26 @@ class Compiler
             return false;
         }
 
-        $target = FileUtils::removeTwigExtension($this->config->getTargetPath() . DIRECTORY_SEPARATOR . $filename);
-        $this->println(' Building ' . $target);
+        $locale_path = $this->config->getTargetPathForLocale($locale);
+
+        $target = FileUtils::removeTwigExtension(
+            $locale_path . DIRECTORY_SEPARATOR . $filename
+        );
 
         // Make sure parent folder for target exists
-        $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
-        FileUtils::mkdirIfNotExists($parent_dir);
+        FileUtils::mkdirIfNotExists(pathinfo($target, PATHINFO_DIRNAME));
 
         // Compile or copy if it's not a template
         if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
             try {
+                $this->println(' Building ' . $target);
                 $this->compile($filename, $target);
             } catch (\Exception $e) {
                 echo 'Error while processing ' . $filename;
                 throw $e;
             }
         } else {
+            $this->println(' Copying ' . $target);
             copy($file, $target);
         }
 
@@ -226,34 +230,7 @@ class Compiler
             $this->setActiveLocale($locale);
 
             foreach (FileUtils::listFilesInDir($page_path) as $file) {
-                // Calculate target filename
-                $filename = FileUtils::pathDiff($page_path, $file, true);
-
-                if (FileUtils::matchFilename($filename, $this->config->getIgnoredPaths())) {
-                    continue;
-                }
-
-                $locale_path = $this->config->getTargetPathForLocale($locale);
-
-                $target = FileUtils::removeTwigExtension(
-                    $locale_path . DIRECTORY_SEPARATOR . $filename
-                );
-                $this->println(' Building ' . $filename);
-                // Make sure parent folder for target exists
-                $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
-                FileUtils::mkdirIfNotExists($parent_dir);
-
-                // Compile or copy if it's not a template
-                if (pathinfo($file, PATHINFO_EXTENSION) === 'twig') {
-                    try {
-                        $this->compile($filename, $target);
-                    } catch (\Exception $e) {
-                        echo 'Error while processing ' . $filename;
-                        throw $e;
-                    }
-                } else {
-                    copy($file, $target);
-                }
+                $this->buildFile($file, $page_path, $locale);
             }
         }
 
