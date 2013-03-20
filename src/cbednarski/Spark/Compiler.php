@@ -187,9 +187,7 @@ class Compiler
 
     public function copyAssets()
     {
-        $assets_path = $this->config->getAssetPath();
-
-        foreach (FileUtils::listFilesInDir($assets_path) as $file) {
+        foreach (FileUtils::listFilesInDir($this->config->getAssetPath()) as $file) {
             $this->copyAsset(
                 $file,
                 $this->config->getTargetPath() . '/assets/' . FileUtils::pathDiff($this->config->getAssetPath(), $file, true)
