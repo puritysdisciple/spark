@@ -18,6 +18,12 @@ class Compiler
     private $translators = array();
     private $active_locale;
     private $parameters = array();
+    private $safe_extensions = array(
+        'css', 'js', 'json',
+        'png', 'gif', 'jpg', 'jpeg', 'svg', 'ico',
+        'ttf', 'eot', 'woff', 'otf',
+        'swf', 'flv'
+    );
 
     public function __construct(Config $config)
     {
@@ -171,8 +177,15 @@ class Compiler
         $parent_dir = pathinfo($target, PATHINFO_DIRNAME);
         FileUtils::mkdirIfNotExists($parent_dir);
 
-        $this->println(' Copying assets/' . $filename);
-        copy($file, $target);
+        if (in_array(pathinfo($filename, PATHINFO_EXTENSION), $this->safe_extensions)) {
+            $this->println(' Copying assets' . DIRECTORY_SEPARATOR . $filename);
+            copy($file, $target);
+        } else {
+            $this->println(' <comment>Skipping assets' . DIRECTORY_SEPARATOR . $filename . '</comment>');
+            return false;
+        }
+
+        return true;
     }
 
     public function copyAssets()
