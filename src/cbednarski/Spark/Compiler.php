@@ -105,6 +105,18 @@ class Compiler
         return $this->config;
     }
 
+    public function setOutput(OutputInterface $output)
+    {
+        $this->output = $output;
+    }
+
+    public function println($message)
+    {
+        if ($this->output) {
+            $this->output->writeln($message);
+        }
+    }
+
     public function addTwigExtension($extension)
     {
         try {
@@ -132,18 +144,6 @@ class Compiler
         }
 
         return false;
-    }
-
-    public function setOutput(OutputInterface $output)
-    {
-        $this->output = $output;
-    }
-
-    public function println($message)
-    {
-        if ($this->output) {
-            $this->output->writeln($message);
-        }
     }
 
     public function mergeTwigParameters($params)
