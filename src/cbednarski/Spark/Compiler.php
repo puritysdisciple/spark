@@ -116,6 +116,11 @@ class Compiler
         $this->output = $output;
     }
 
+    public function getOutput()
+    {
+        return $this->output;
+    }
+
     public function println($message)
     {
         if ($this->output) {
