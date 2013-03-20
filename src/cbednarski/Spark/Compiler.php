@@ -47,8 +47,8 @@ class Compiler
         $this->setActiveLocale($this->config->getDefaultLocale());
 
         // Initialize twig parameters
-        $this->setParameter('assets', FileUtils::pathDiff($this->config->getBasePath(), $this->config->getAssetPath()));
-        $this->setParameter('version', Git::getVersion($this->config->getBasePath()));
+        $this->setTwigParameter('assets', FileUtils::pathDiff($this->config->getBasePath(), $this->config->getAssetPath()));
+        $this->setTwigParameter('version', Git::getVersion($this->config->getBasePath()));
     }
 
     private function initializeTranslators()
@@ -81,7 +81,7 @@ class Compiler
     {
         if (in_array($locale, array_keys($this->translators))) {
             $this->active_locale = $locale;
-            $this->setParameter('locale', array(
+            $this->setTwigParameter('locale', array(
                 'standard' => $locale,
                 'url_code' => $this->config->getLocaleCodeFromMap($locale)
             ));
@@ -114,17 +114,17 @@ class Compiler
         }
     }
 
-    public function setParameter($name, $value)
+    public function setTwigParameter($name, $value)
     {
         $this->parameters[$name] = $value;
     }
 
-    public function getParameters()
+    public function getTwigParameters()
     {
         return $this->parameters;
     }
 
-    public function unsetParameter($name)
+    public function unsetTwigParameter($name)
     {
         if (isset($this->parameters[$name])) {
             unset($this->parameters[$name]);
