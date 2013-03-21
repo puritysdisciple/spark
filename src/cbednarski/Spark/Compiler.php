@@ -92,7 +92,14 @@ class Compiler
                 'url_code' => $this->config->getLocaleCodeFromMap($locale)
             ));
         } else {
-            throw new \UnexpectedValueException($locale . ' is not enabled in this project');
+            $locale_path = FileUtils::pathDiff($this->config->getBasePath(), $this->config->getLocalePath() . DIRECTORY_SEPARATOR . $locale, true);
+            throw new \UnexpectedValueException(
+                $locale
+                 . ' is not available in this project. Make sure it\'s '
+                 . 'configured in your spark.yml and that '
+                 . $locale_path
+                 . ' exists.'
+            );
         }
     }
 
