@@ -50,6 +50,7 @@ class Compiler
         // Initialize Localization stuff
         $this->initializeTranslators();
         $this->twig->addFunction($this->getLocalizationFunction());
+        $this->loadPluginFiles();
         $this->setActiveLocale($this->config->getDefaultLocale());
 
         // Initialize twig parameters
@@ -265,7 +266,6 @@ class Compiler
         $this->buildPages();
 
         //Run custom plugins after build
-        $this->loadPluginFiles();
         $this->runPlugins();
     }
 
@@ -289,5 +289,9 @@ class Compiler
         foreach ($this->plugins as $plugin) {
             $plugin();
         }
+    }
+
+    public function addTwigFunction(\Twig_SimpleFunction $function){
+        $this->twig->addFunction($function);
     }
 }
