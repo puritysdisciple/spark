@@ -6,7 +6,7 @@ use cbednarski\Spark\FileUtils;
 
 class FileUtilsTest extends PHPUnit_Framework_TestCase
 {
-    public function mkdirIfNotExists()
+    public function testMkdirIfNotExists()
     {
         $path = __DIR__ . '/magicpath';
         $this->assertFalse(file_exists($path));
