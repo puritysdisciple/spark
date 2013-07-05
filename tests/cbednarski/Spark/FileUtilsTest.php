@@ -9,13 +9,14 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
     public function testMkdirIfNotExists()
     {
         $path = __DIR__ . '/magicpath';
-        $this->assertFalse(file_exists($path));
+        $this->assertFileNotExists($path);
 
         FileUtils::mkdirIfNotExists($path);
+        $this->assertFileExists($path);
         $this->assertTrue(is_dir($path));
 
         rmdir($path);
-        $this->assertFalse(file_exists($path));
+        $this->assertFileNotExists($path);
     }
 
     public function testDirIsEmpty()
@@ -27,7 +28,7 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(FileUtils::dirIsEmpty($path));
 
         rmdir($path);
-        $this->assertFalse(file_exists($path));
+        $this->assertFileNotExists($path);
         $this->assertFalse(FileUtils::dirIsEmpty($path));
     }
 
@@ -44,7 +45,7 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
 
         chmod($file, 700);
         unlink($file);
-        $this->assertFalse(file_exists($file));
+        $this->assertFileNotExists($file);
     }
 
     public function testListFilesInDir()
@@ -114,17 +115,17 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
 
         $file_path = __DIR__ . '/magicdelete/blah/blee/thisisafile';
         touch($file_path);
-        $this->assertTrue(file_exists($file_path));
+        $this->assertFileExists($file_path);
 
         $return = FileUtils::recursiveDelete(__DIR__ . '/magicdelete');
-        $this->assertFalse(file_exists(__DIR__ . '/magicdelete'));
+        $this->assertFileNotExists(__DIR__ . '/magicdelete');
         $this->assertEquals(1, $return);
     }
 
     public function testRecursiveDeleteMissing()
     {
         $path = __DIR__ . '/asdlkfjasdklfjhdsfoiruewr';
-        $this->assertFalse(file_exists($path));
+        $this->assertFileNotExists($path);
 
         $return = FileUtils::recursiveDelete($path);
         $this->assertEquals(0, $return);
