@@ -6,11 +6,19 @@ templating and provides built-in support for localization and asset delivery.
 [![Build Status](https://travis-ci.org/cbednarski/spark.png?branch=master)]
 (https://travis-ci.org/cbednarski/spark)
 
+## Requirements 
+
+- Composer / http://getcomposer.org/
+
+	$ curl -sS https://getcomposer.org/installer | php
+	$ sudo mv composer.phar /usr/local/bin/composer # adds composer to path
+
 ## Usage
 
-    $ git clone https://github.com/cbednarski/spark.git`
+    $ git clone git@gh.riotgames.com:cbednarski/spark.git
     $ cd spark
     $ composer install
+    $ sudo ln -s $PWD/bin/spark /usr/local/bin/spark # adds `bin/spark` to path
 
 Add `bin/spark` to your path. Then:
 
