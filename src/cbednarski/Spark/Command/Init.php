@@ -21,7 +21,7 @@ class Init extends Command
         $this->addArgument(
             'directory',
             InputArgument::OPTIONAL,
-            'target directory (will be created if it doesn\'t exist)'
+            'specify a target directory (will be created if it doesn\'t exist)'
         );
     }
 
@@ -29,7 +29,10 @@ class Init extends Command
     {
         $directory = $input->getArgument('directory');
 
-        if (!FileUtils::dirIsEmpty($directory)) {
+        if (empty($directory)) {
+            $directory  = getcwd();
+        }
+        elseif (file_exists($directory) && !FileUtils::dirIsEmpty($directory)) {
             $dialog = $this->getHelperSet()->get('dialog');
             // Prompt user if there are already files
             if (!$dialog->askConfirmation(
