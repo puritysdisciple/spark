@@ -2,6 +2,7 @@
 
 namespace cbednarski\Spark;
 
+use cbednarski\Spark\Aws\AwsConfig;
 use Symfony\Component\Yaml\Yaml;
 
 class Config
@@ -188,6 +189,10 @@ class Config
      */
     public function getAwsConfig()
     {
+        if(!$this->aws_config) {
+            $this->aws_config = new AwsConfig($this);
+        }
+
         return $this->aws_config;
     }
 

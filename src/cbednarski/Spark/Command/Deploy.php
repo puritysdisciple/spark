@@ -47,7 +47,7 @@ other-deployment:
 HEREDOC;
 
         try {
-            $aws = new AwsConfig($config);
+            $aws = $config->getAwsConfig();
         } catch(\RuntimeException $e) {
             throw new \RuntimeException(
                 'No deployment configuration found. You must create one at'
