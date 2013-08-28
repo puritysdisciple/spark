@@ -30,6 +30,6 @@ class AwsDeploy
             'debug'       => true
         );
 
-        $client->uploadDirectory($this->config->getTargetPath(), $aws->getBucket(), null, $options);
+        $client->uploadDirectory($source, $target, null, $options);
     }
 }

@@ -22,7 +22,7 @@ class DeployConfig
         if (is_readable($path)) {
             $this->raw = Yaml::parse(file_get_contents($path));
         } else {
-            throw new \RuntimeException('Unable to read from config file: ' . $path);
+            throw new \RuntimeException('Unable to read from deployments file: ' . $path);
         }
     }
 
