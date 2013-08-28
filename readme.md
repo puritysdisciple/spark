@@ -66,7 +66,7 @@ You can reconfigure these paths in `spark.yml` if you need a particular folder l
 
 ### Editing a Project
 
-Spark uses [Twig templating](http://twig.sensiolabs.org/documentation), which are similar to Django templates, and include a lot of cool stuff like template inheritance, includes, loops, and conditionals. Spark is also built using PHP and Symfony components so if you know PHP you can tweak it to do just about anything you want.
+Spark uses [Twig templating](http://twig.sensiolabs.org/documentation), which are similar to Django templates, and include a lot of cool stuff like template inheritance, includes, loops, and conditionals. Since Spark is built with PHP and [Symfony components](http://symfony.com/components) you can write custom PHP to do just about anything you want, like incorporate data from a database or rest API.
 
 ### Deployments
 
@@ -125,7 +125,13 @@ $compiler->compiler(
 $compiler->build();
 ```
 
+## Contributing and Customizing
+
+Spark follows the PSR-2 coding style. You can keep your code in check using [Fabien Potencier's PHP-CS-Fixer](https://github.com/fabpot/PHP-CS-Fixer). Unit tests are run using [PHPUnit](http://phpunit.de/manual/current/en/writing-tests-for-phpunit.html).
+
 Almost all spark objects depend on an instance of `cbednarski\Spark\Config`, which sets up a bunch of paths and configuration values for you. However, most spark objects don't depend on anything else at runtime. All you need to do is point is initialize a Config object using your `spark.yml` file and you're good to go.
 
-Need to work with paths? We've got some great filesystem helpers in the
+To orient yourself with the code, start by looking at the compiler and config tests under `tests/cbednarski/Spark/CompilerTest.php` and `tesst/cbednarski/Spark/ConfigTest.php`. These two classes are where the bulk of the work is done. The CLI, where command execution happens, lives under `bin/spark`.
+
+If you need to with filesystem paths we've got some great filesystem helpers in the
 `FileUtils` class.
