@@ -10,15 +10,15 @@ use Symfony\Component\Translation\Loader\PoFileLoader;
 
 class Compiler
 {
-    private $config;
-    private $twig;
-    private $loader;
-    private $output;
-    private $plugins = array();
-    private $translators = array();
-    private $active_locale;
-    private $parameters = array();
-    private $safe_extensions = array(
+    protected $config;
+    protected $twig;
+    protected $loader;
+    protected $output;
+    protected $plugins = array();
+    protected $translators = array();
+    protected $active_locale;
+    protected $parameters = array();
+    protected $safe_extensions = array(
         'css', 'js', 'json',
         'png', 'gif', 'jpg', 'jpeg', 'svg', 'ico',
         'ttf', 'eot', 'woff', 'otf',
@@ -58,7 +58,7 @@ class Compiler
         $this->setTwigParameter('version', Git::getVersion($this->config->getBasePath()));
     }
 
-    private function initializeTranslators()
+    protected function initializeTranslators()
     {
         foreach (Project::getActiveLocales($this->config) as $locale) {
             $loader = new PoFileLoader();
@@ -269,7 +269,7 @@ class Compiler
         $this->runPlugins();
     }
 
-    private function loadPluginFiles()
+    protected function loadPluginFiles()
     {
         $plugin_files = FileUtils::listFilesInDir($this->config->getPluginPath());
         // $spark is here so plugins can use it, so it's not unused in spite of what your IDE might say

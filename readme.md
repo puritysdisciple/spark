@@ -131,7 +131,7 @@ Spark follows the PSR-2 coding style. You can keep your code in check using [Fab
 
 Almost all spark objects depend on an instance of `cbednarski\Spark\Config`, which sets up a bunch of paths and configuration values for you. However, most spark objects don't depend on anything else at runtime. All you need to do is point is initialize a Config object using your `spark.yml` file and you're good to go.
 
-To orient yourself with the code, start by looking at the compiler and config tests under `tests/cbednarski/Spark/CompilerTest.php` and `tesst/cbednarski/Spark/ConfigTest.php`. These two classes are where the bulk of the work is done. The CLI, where command execution happens, lives under `bin/spark`.
+To orient yourself with the code, start by looking at the compiler and config tests under `tests/cbednarski/Spark/CompilerTest.php` and `test/cbednarski/Spark/ConfigTest.php`. These two classes are where the bulk of the work is done. The CLI, where command execution happens, lives under `bin/spark`.
 
 If you need to with filesystem paths we've got some great filesystem helpers in the
 `FileUtils` class.

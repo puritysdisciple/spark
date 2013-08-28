@@ -11,8 +11,8 @@ namespace cbednarski\Spark;
  */
 class FilesystemWatcher
 {
-    private $watcher = false;
-    private $watchlist = array();
+    protected $watcher = false;
+    protected $watchlist = array();
 
     public function __construct()
     {
