@@ -3,7 +3,6 @@
 namespace cbednarski\Spark\Aws;
 
 use \cbednarski\Spark\DeployConfig;
-use \Symfony\Component\Yaml\Yaml;
 
 class AwsConfig extends DeployConfig
 {
