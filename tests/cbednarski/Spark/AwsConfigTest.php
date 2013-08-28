@@ -34,8 +34,6 @@ class AwsConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadNamedConfig()
     {
-        $path = $this->config->getBasePath() . DIRECTORY_SEPARATOR . 'spark-deploy.yml';
-
         $aws = new AwsConfig($this->config);
         $aws->loadNamedConfig('prod');
 
@@ -44,12 +42,6 @@ class AwsConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('AAAAAAAAAAAAAAAAAAAA', $aws->getKey());
         $this->assertEquals('eeeeeeeeeeeeeeee/FFFFFFFFFFFFFFFFFFFFFFF', $aws->getSecret());
         $this->assertEquals('mysite.com', $aws->getBucket());
-
-//        $aws = AwsConfig::loadFromFile($path, 'dev');
-//        $this->assertFalse($aws, 'There is no dev deploy configured');
-//
-//        $aws = AwsConfig::loadFromFile($path, 'ci');
-//        $this->assertFalse($aws, 'CI is missing some deploy configuration');
     }
 
     public function testLoadFromEnvironment()
