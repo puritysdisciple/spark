@@ -8,6 +8,7 @@ class Config
 {
     private $data;
     private $base_path = null;
+    private $aws_config = null;
 
     /**
      * Load configuration data from the specified file
@@ -180,6 +181,14 @@ class Config
     public function getDefaultLocale()
     {
         return $this->localization['default'];
+    }
+
+    /**
+     * @return Aws\AwsConfig
+     */
+    public function getAwsConfig()
+    {
+        return $this->aws_config;
     }
 
 }

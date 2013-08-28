@@ -58,6 +58,7 @@ class FileUtilsTest extends PHPUnit_Framework_TestCase
 
         $expected = array(
             $path . '/sample_render.html',
+            $path . '/spark-deploy.yml',
             $path . '/spark.yml',
             $path . '/spark_custom.yml',
             $path . '/spark_ignore.yml',
