@@ -1,0 +1,9 @@
+prod:
+  aws:
+    key: AAAAAAAAAAAAAAAAAAAA
+    secret: eeeeeeeeeeeeeeee/FFFFFFFFFFFFFFFFFFFFFFF
+    bucket: mysite.com
+ci:
+  aws:
+    key: blah
+    bucket: example.com
