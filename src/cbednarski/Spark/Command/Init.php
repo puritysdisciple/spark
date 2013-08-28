@@ -30,9 +30,8 @@ class Init extends Command
         $directory = $input->getArgument('directory');
 
         if (empty($directory)) {
-            $directory  = getcwd();
-        }
-        elseif (file_exists($directory) && !FileUtils::dirIsEmpty($directory)) {
+            $directory = getcwd();
+        } elseif (file_exists($directory) && !FileUtils::dirIsEmpty($directory)) {
             $dialog = $this->getHelperSet()->get('dialog');
             // Prompt user if there are already files
             if (!$dialog->askConfirmation(
