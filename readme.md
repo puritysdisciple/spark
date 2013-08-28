@@ -127,7 +127,7 @@ $compiler->build();
 
 ## Contributing and Customizing
 
-Spark follows the PSR-2 coding style. You can keep your code in check using [Fabien Potencier's PHP-CS-Fixer](https://github.com/fabpot/PHP-CS-Fixer). Unit tests are run using [PHPUnit](http://phpunit.de/manual/current/en/writing-tests-for-phpunit.html).
+Spark follows the PSR-2 coding style. You can keep your code in check using [Fabien Potencier's PHP-CS-Fixer](https://github.com/fabpot/PHP-CS-Fixer). Unit tests are run using [PHPUnit](http://phpunit.de/manual/current/en/writing-tests-for-phpunit.html). After running `composer install` you can run tests with the builtin phpunit by running `vendor/phpunit/phpunit/phpunit.php` from the project root.
 
 Almost all spark objects depend on an instance of `cbednarski\Spark\Config`, which sets up a bunch of paths and configuration values for you. However, most spark objects don't depend on anything else at runtime. All you need to do is point is initialize a Config object using your `spark.yml` file and you're good to go.
 
