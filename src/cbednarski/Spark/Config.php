@@ -2,12 +2,14 @@
 
 namespace cbednarski\Spark;
 
+use cbednarski\Spark\Aws\AwsConfig;
 use Symfony\Component\Yaml\Yaml;
 
 class Config
 {
     private $data;
     private $base_path = null;
+    private $aws_config = null;
 
     /**
      * Load configuration data from the specified file
@@ -180,6 +182,18 @@ class Config
     public function getDefaultLocale()
     {
         return $this->localization['default'];
+    }
+
+    /**
+     * @return Aws\AwsConfig
+     */
+    public function getAwsConfig()
+    {
+        if(!$this->aws_config) {
+            $this->aws_config = new AwsConfig($this);
+        }
+
+        return $this->aws_config;
     }
 
 }
