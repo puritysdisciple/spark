@@ -26,12 +26,12 @@ class DeployConfig
         }
     }
 
-    public function getEnvironments()
+    public function getDeployments()
     {
         return array_keys($this->raw);
     }
 
-    public function getEnvironmentByName($name)
+    public function getDeployByName($name)
     {
         if (isset($this->raw[$name])) {
             return $this->raw[$name];

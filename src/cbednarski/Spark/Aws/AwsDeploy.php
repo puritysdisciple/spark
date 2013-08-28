@@ -24,7 +24,11 @@ class AwsDeploy
             'secret' => $aws->getSecret()
         ));
 
-        $options = array();
+        $options = array(
+            'params'      => array('ACL' => 'public-read'),
+            'concurrency' => 20,
+            'debug'       => true
+        );
 
         $client->uploadDirectory($this->config->getTargetPath(), $aws->getBucket(), null, $options);
     }

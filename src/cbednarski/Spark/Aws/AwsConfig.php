@@ -2,9 +2,10 @@
 
 namespace cbednarski\Spark\Aws;
 
+use \cbednarski\Spark\DeployConfig;
 use \Symfony\Component\Yaml\Yaml;
 
-class AwsConfig
+class AwsConfig extends DeployConfig
 {
     protected $key;
     protected $secret;
@@ -12,16 +13,14 @@ class AwsConfig
 
     /**
      * @param $array
-     * @return bool|AwsConfig
+     * @return bool
      */
-    public static function createFromArray($array)
+    protected function loadFromArray(Array $array)
     {
-        $aws = new self;
-
         foreach (array('key', 'secret', 'bucket') as $field) {
             if (!empty($array[$field])) {
                 $method = 'set' . $field;
-                $aws->$method($array[$field]);
+                $this->$method($array[$field]);
             } else {
                 // If one of the configuration values is missing
                 // then we'll return early to avoid a partial config
@@ -31,25 +30,23 @@ class AwsConfig
             }
         }
 
-        return $aws;
+        return true;
     }
 
-    public static function loadFromFile($path, $environment)
+    public function loadNamedConfig($environment)
     {
-        if (is_readable($path)) {
-            $obj = Yaml::parse(file_get_contents($path));
+        $env = $this->getDeployByName($environment);
 
-            if (!empty($obj[$environment]['aws'])) {
-                return static::createFromArray($obj[$environment]['aws']);
-            }
+        if (isset($env['aws'])) {
+            return $this->loadFromArray($env['aws']);
         }
 
         return false;
     }
 
-    public static function loadFromEnv()
+    public function loadFromEnvVars()
     {
-        return self::createFromArray(array(
+        return $this->loadFromArray(array(
                 'key' => getenv('SPARK_AWS_KEY'),
                 'secret' => getenv('SPARK_AWS_SECRET'),
                 'bucket' => getenv('SPARK_AWS_BUCKET')

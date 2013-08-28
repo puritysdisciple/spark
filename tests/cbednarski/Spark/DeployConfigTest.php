@@ -32,7 +32,7 @@ class DeployConfigTest extends \PHPUnit_Framework_TestCase
             'ci'
         );
 
-        $this->assertEquals($environments, $deploy->getEnvironments());
+        $this->assertEquals($environments, $deploy->getDeployments());
     }
 
     public function testGetEnvByName()
@@ -47,8 +47,8 @@ class DeployConfigTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->assertEquals($prod, $deploy->getEnvironmentByName('prod'));
+        $this->assertEquals($prod, $deploy->getDeployByName('prod'));
 
-        $this->assertFalse($deploy->getEnvironmentByName('dev'));
+        $this->assertFalse($deploy->getDeployByName('dev'));
     }
 }
