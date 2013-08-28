@@ -69,6 +69,10 @@ HEREDOC;
 
         $output->writeln('<info>Deploying spark site from ' . realpath($config->getTargetPath()) . ' using deploy ' . $name . '</info>');
 
+        if(FileUtils::dirIsEmpty($config->getTargetPath())) {
+            $output->writeln('<comment>No files found in ' . $config->getTargetPath() . ' -- did you run spark build?</comment>');
+        }
+
         $deploy->upload($config->getTargetPath(), $aws->getBucket());
         $output->writeln('<info>Deploy complete</info>');
     }
