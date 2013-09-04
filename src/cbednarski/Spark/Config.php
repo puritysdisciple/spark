@@ -7,9 +7,9 @@ use Symfony\Component\Yaml\Yaml;
 
 class Config
 {
-    private $data;
-    private $base_path = null;
-    private $aws_config = null;
+    protected $data;
+    protected $base_path = null;
+    protected $aws_config = null;
 
     /**
      * Load configuration data from the specified file
