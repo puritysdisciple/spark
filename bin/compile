@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+
+require_once(__DIR__ . '/../vendor/autoload.php');
+
+$compiler = new cbednarski\pharcc\Compiler(realpath(__DIR__ . '/../'), 'spark.phar');
+$compiler->setMain('bin/spark');
+$compiler->compile();
