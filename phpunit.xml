@@ -9,9 +9,9 @@
       <directory suffix=".php">./vendor/</directory>
     </blacklist>
     <whitelist processUncoveredFilesFromWhitelist="true">
-      <directory suffix=".php">./cbednarski/Spark/</directory>
+      <directory suffix=".php">./src/cbednarski/Spark/</directory>
       <exclude>
-        <directory suffix=".php">./cbednarski/Spark/Resources/</directory>
+        <directory suffix=".php">./src/cbednarski/Spark/Resources/</directory>
       </exclude>
     </whitelist>
   </filter>
