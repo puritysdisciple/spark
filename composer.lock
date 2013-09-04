@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8000fbd3d73eba17a80b2c51377c1f6f",
+    "hash": "0dfb063cd3ca9b36990eebe69f829d6d",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "2.4.3",
+            "version": "2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4f995f07d7463d3694b451bb50934391b02596e9"
+                "reference": "c36675042ca50d836a10477db9172d77383277fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4f995f07d7463d3694b451bb50934391b02596e9",
-                "reference": "4f995f07d7463d3694b451bb50934391b02596e9",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c36675042ca50d836a10477db9172d77383277fd",
+                "reference": "c36675042ca50d836a10477db9172d77383277fd",
                 "shasum": ""
             },
             "require": {
@@ -69,7 +69,43 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2013-08-13 04:06:02"
+            "time": "2013-08-29 17:15:08"
+        },
+        {
+            "name": "cbednarski/pharcc",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cbednarski/pharcc.git",
+                "reference": "6288894ad738a00f6b41c20f8af428e799d35f4a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cbednarski/pharcc/zipball/6288894ad738a00f6b41c20f8af428e799d35f4a",
+                "reference": "6288894ad738a00f6b41c20f8af428e799d35f4a",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/finder": "2.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "cbednarski": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Bednarski",
+                    "email": "banzaimonkey@gmail.com"
+                }
+            ],
+            "description": "Phar compiler library",
+            "time": "2013-09-04 07:15:57"
         },
         {
             "name": "guzzle/guzzle",
@@ -162,53 +198,6 @@
                 "web service"
             ],
             "time": "2013-08-02 18:31:05"
-        },
-        {
-            "name": "imagine/Imagine",
-            "version": "v0.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/avalanche123/Imagine",
-                "reference": "v0.4.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/avalanche123/Imagine/archive/v0.4.1.zip",
-                "reference": "v0.4.1",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "sami/sami": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Imagine": "lib/"
-                }
-            },
-            "notification-url": "http://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bulat Shakirzyanov",
-                    "email": "mallluhuct@gmail.com",
-                    "homepage": "http://avalanche123.com"
-                }
-            ],
-            "description": "Image processing for PHP 5.3",
-            "homepage": "http://imagine.readthedocs.org/",
-            "keywords": [
-                "drawing",
-                "graphics",
-                "image manipulation",
-                "image processing"
-            ],
-            "time": "2012-12-13 18:31:18"
         },
         {
             "name": "symfony/config",
@@ -411,6 +400,53 @@
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
             "time": "2013-07-21 12:12:18"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "v2.3.4",
+            "target-dir": "Symfony/Component/Finder",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Finder.git",
+                "reference": "4a0fee5b86f5bbd9dfdc11ec124eba2915737ce1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/4a0fee5b86f5bbd9dfdc11ec124eba2915737ce1",
+                "reference": "4a0fee5b86f5bbd9dfdc11ec124eba2915737ce1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Finder\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-08-13 20:18:00"
         },
         {
             "name": "symfony/translation",
