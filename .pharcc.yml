@@ -1,0 +1,7 @@
+name: spark.phar
+main: bin/spark
+include:
+  - src/
+  - vendor/
+exclude:
+  - ".*Test\.php"
