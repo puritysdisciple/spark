@@ -50,7 +50,9 @@ Spark is a commandline tool which manages a spark project -- a directory contain
     $ spark build
     < edit stuff >
     $ spark build
-    $ spark deploy <deployment>
+    $ cd target && php -S localhost:8000
+
+Now you can open http://localhost:8000/en_US in your browser to see the English version and http://localhost:8000/fr_FR for the French version.
 
 ### Project Layout
 
@@ -135,3 +137,5 @@ To orient yourself with the code, start by looking at the compiler and config te
 
 If you need to with filesystem paths we've got some great filesystem helpers in the
 `FileUtils` class.
+
+If you have any questions about Spark, or want to add a feature, contact [Chris Bednarski](mailto:cbednarski@riotgames.com).
