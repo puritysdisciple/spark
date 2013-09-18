@@ -8,5 +8,6 @@ $application->add(new cbednarski\Spark\Command\Build());
 $application->add(new cbednarski\Spark\Command\Clean());
 $application->add(new cbednarski\Spark\Command\Deploy());
 $application->add(new cbednarski\Spark\Command\Init());
+$application->add(new cbednarski\Spark\Command\Preview());
 $application->add(new cbednarski\Spark\Command\Watch());
 $application->run();
