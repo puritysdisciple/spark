@@ -2,7 +2,6 @@
 
 namespace cbednarski\Spark\Command;
 
-use cbednarski\Spark\Aws\AwsConfig;
 use cbednarski\Spark\Aws\AwsDeploy;
 use cbednarski\Spark\Config;
 use cbednarski\Spark\FileUtils;
@@ -10,7 +9,6 @@ use cbednarski\Spark\FileUtils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Deploy extends Command
@@ -48,7 +46,7 @@ HEREDOC;
 
         try {
             $aws = $config->getAwsConfig();
-        } catch(\RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             throw new \RuntimeException(
                 'No deployment configuration found. You must create one at'
                 . PHP_EOL . $config->getBasePath() . DIRECTORY_SEPARATOR . 'spark-deploy.yml'
@@ -56,7 +54,7 @@ HEREDOC;
             );
         }
 
-        if(!$aws->loadNamedConfig($name)) {
+        if (!$aws->loadNamedConfig($name)) {
             throw new \RuntimeException(
                 'Unable to load the specified deployment: ' . $name
                 . PHP_EOL . 'Verify this deployment is configured in '
@@ -69,7 +67,7 @@ HEREDOC;
 
         $output->writeln('<info>Deploying spark site from ' . realpath($config->getTargetPath()) . ' using deploy ' . $name . '</info>');
 
-        if(FileUtils::dirIsEmpty($config->getTargetPath())) {
+        if (FileUtils::dirIsEmpty($config->getTargetPath())) {
             $output->writeln('<comment>No files found in ' . $config->getTargetPath() . ' -- did you run spark build?</comment>');
         }
 

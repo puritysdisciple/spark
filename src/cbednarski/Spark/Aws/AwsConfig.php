@@ -100,5 +100,4 @@ class AwsConfig extends DeployConfig
         return $this->secret;
     }
 
-
 }

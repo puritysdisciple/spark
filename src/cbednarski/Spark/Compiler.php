@@ -192,6 +192,7 @@ class Compiler
             copy($source, $target);
         } else {
             $this->println(' <comment>Skipping assets' . DIRECTORY_SEPARATOR . $filename . '</comment>');
+
             return false;
         }
 
@@ -291,7 +292,8 @@ class Compiler
         }
     }
 
-    public function addTwigFunction(\Twig_SimpleFunction $function){
+    public function addTwigFunction(\Twig_SimpleFunction $function)
+    {
         $this->twig->addFunction($function);
     }
 }

@@ -189,7 +189,7 @@ class Config
      */
     public function getAwsConfig()
     {
-        if(!$this->aws_config) {
+        if (!$this->aws_config) {
             $this->aws_config = new AwsConfig($this);
         }
 
