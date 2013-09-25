@@ -2,8 +2,6 @@
 
 namespace cbednarski\Spark\Command;
 
-require_once(__DIR__ . '/../../../../vendor/autoload.php');
-
 use cbednarski\Spark\Config;
 
 use Symfony\Component\Console\Command\Command;
