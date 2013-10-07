@@ -1,0 +1,46 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "750741111a6e26422b4d5675851380bb",
+    "packages": [
+        {
+            "name": "cbednarski/php-markdown",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cbednarski/php-markdown.git",
+                "reference": "62781d7b0f3d7155e9f29c86f244685a51a53991"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cbednarski/php-markdown/zipball/62781d7b0f3d7155e9f29c86f244685a51a53991",
+                "reference": "62781d7b0f3d7155e9f29c86f244685a51a53991",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2012-09-07 09:27:17"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "cbednarski/php-markdown": 20
+    },
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
+}

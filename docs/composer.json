@@ -1,0 +1,5 @@
+{
+	"require":{
+		"cbednarski/php-markdown":"dev-master"
+	}
+}

@@ -1,0 +1,5 @@
+target: target/
+localization:
+  path: locale/
+  localize:
+    en_US: en
