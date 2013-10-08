@@ -14,36 +14,19 @@ Spark is used at [Riot Games](http://www.riotgames.com/) to build and deploy our
 
 ## Requirements
 
-Spark has a few dependencies. If you work with PHP you probably have all of them already. If not, there are only a few things you need to install.
+- php 5.3 or higher. Find out if you already have php by running `php -v` in a terminal.
 
-##### git
+## Installation
 
-- [Download git here](http://git-scm.com/downloads) or install with your package manager.
+1. Download spark.phar
+2. In a terminal, run:
 
-##### PHP 5.3+
+<!-- fix code block below getting sucked into the list -->
 
-You can use [php](http://www.php.net) 5.3 or above. 5.4 or above is recommended.
+    sudo mv ~/Downloads/spark.phar /usr/local/bin/spark
+    chmod +x /usr/local/bin/spark
 
-- Download [PHP for Windows](http://windows.php.net/download/#php-5.4).
-- On OSX install PHP using [homebrew](http://brew.sh/). You might also be able to get away with using Apple's built-in PHP.
-
-##### Composer
-
-[Composer](http://getcomposer.org/) installs additional PHP dependencies for spark. To install on OSX / Linux:
-
-    $ curl -sS https://getcomposer.org/installer | php
-    $ sudo mv composer.phar /usr/local/bin/composer # adds composer to path
-
-## Installing Spark
-
-Once the dependencies are satisfied, install spark:
-
-    $ git clone git@gh.riotgames.com:cbednarski/spark.git
-    $ cd spark
-    $ composer install
-    $ sudo ln -s $PWD/bin/spark /usr/local/bin/spark
-
-Spark should now be in your path, which means you can type `spark` at the terminal and see a list of commands.
+Get more [advanced instructions](./install/), including installing from source.
 
 ## Running Spark
 

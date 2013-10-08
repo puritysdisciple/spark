@@ -6,6 +6,77 @@
 
 {% markdown %}
 
+## Installing spark.phar
+
+The easy way to install spark is using spark.phar. A .phar file is a compiled php script that includes all of the things it needs to run in a single file.
+
+@todo Download the phar
+
+To make it easier to run spark commands, we'll next want to move spark to be on our `path`. This means that our terminal will know how to find spark without us having to tell it the full path to the .phar file. On OSX and Linux, you can do this via:
+
+    $ sudo mv spark.phar /usr/local/bin/spark
+    $ sudo chmod +x /usr/local/bin/spark
+
+`sudo` may not be necessary on your computer, but it shouldn't break anything either.
+
+You can verify that spark is installed by running `spark` from your terminal. You should see the command output:
+
+    Console Tool
+
+    Usage:
+      [options] command [arguments]
+
+    Options:
+      --help           -h Display this help message.
+      --quiet          -q Do not output any message.
+      --verbose        -v|vv|vvv Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+      --version        -V Display this application version.
+      --ansi              Force ANSI output.
+      --no-ansi           Disable ANSI output.
+      --no-interaction -n Do not ask any interactive question.
+
+    Available commands:
+      build     Build a spark project under the specified directory
+      clean     Clean the build folder in this spark project
+      deploy    Deploy a spark site from the target folder
+      help      Displays help for a command
+      init      Initialize a new spark project
+      list      Lists commands
+      preview   Run php's built-in web server on the target directory
+      watch
+
+## Installing from Source
+
+Spark has a few dependencies. If you work with PHP you probably have all of them already. If not, there are only a few things you need to install.
+
+##### git
+
+- [Download git here](http://git-scm.com/downloads) or install with your package manager.
+
+##### PHP 5.3+
+
+You can use [php](http://www.php.net) 5.3 or above. 5.4 or above is recommended.
+
+- Download [PHP for Windows](http://windows.php.net/download/#php-5.4).
+- On OSX install PHP using [homebrew](http://brew.sh/). You might also be able to get away with using Apple's built-in PHP.
+
+##### Composer
+
+[Composer](http://getcomposer.org/) installs additional PHP dependencies for spark. To install on OSX / Linux:
+
+    $ curl -sS https://getcomposer.org/installer | php
+    $ sudo mv composer.phar /usr/local/bin/composer # adds composer to path
+
+## Installing Spark
+
+Once the dependencies are satisfied, install spark:
+
+    $ git clone git@gh.riotgames.com:cbednarski/spark.git
+    $ cd spark
+    $ composer install
+    $ sudo ln -s $PWD/bin/spark /usr/local/bin/spark
+
+Spark should now be in your path, which means you can type `spark` at the terminal and see a list of commands.
 
 
 {% endmarkdown %}
