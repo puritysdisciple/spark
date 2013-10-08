@@ -13,7 +13,20 @@ class Twig_Node_Markdown extends Twig_Node
 
     public function compile(Twig_Compiler $compiler)
     {
-        $content = Markdown::defaultTransform($this->getNode('body')->getAttribute('data'));
+        $node = $this->getNode('body');
+        $content = '';
+
+        if ($node->count() === 0) {
+            $content = Markdown::defaultTransform($node->getAttribute('data'));
+        } else {
+            foreach ($node as $n) {
+                if (get_class($n) === 'Twig_Node_Text') {
+                    $content .= Markdown::defaultTransform($n->getAttribute('data'));
+                } else {
+                    $content .= (string) $n;
+                }
+            }
+        }
 
         $compiler
             ->write('echo ')

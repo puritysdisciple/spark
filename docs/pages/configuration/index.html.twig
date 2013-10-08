@@ -1,0 +1,86 @@
+{% extends "layout.html.twig" %}
+
+{% set title="Configuration" %}
+
+{% block content %}
+
+{% markdown %}
+
+Spark has two configuration files:
+
+- spark.yml
+- spark-deploy.yml
+
+`spark.yml` should be checked into source control. `spark.yml` is required and is what is used to identify your project as a spark project. You cannot run `spark build` without one.
+
+`spark-deploy.yml` is optional. It is used to configure the `spark deploy` command for deployments to AWS. It **should not be** check into source control, since it contains secrets.
+
+## Project Configuration
+
+The default configuration looks like this:
+
+    pages: pages/
+    assets: assets/
+    layouts: layouts/
+    target: target/
+    plugins: plugins/
+    localization:
+      path: locale/
+      localize: all
+
+These are the default values, and technically you don't need to specify any of them in your `spark.yml` file. You are, however, required to include `spark.yml` in your project's root directory, and any configurations not specified will use the default values.
+
+### Localization
+
+By default, spark builds a copy of your site for each folder it finds in your `locale` folder. For example, the default project includes `locale/en_US` and `locale/fr_FR`, and thus builds an English site under `target/en_US` and a French site under `target/fr_FR`.
+
+Under typical deployments, the folder name becomes part of the URL. If you want to customize this so it's nicer looking, you can change the target folder name by mapping the locale folders to a new path:
+
+    localization:
+      path: locale/
+      localize:
+        en_US: en
+        fr_FR: fr
+
+Using this configuration, spark will not detect the languages in your `locale/` folder automatically, and instead you must exhaustively specify the locales you want to build.
+
+You can reference these locale codes in your templates via `{{ '{{' }} locale.standard }}` and `{{ '{{' }} locale.url_code }}`. In the above example, `locale.standard` is `en_US` and `locale.url_code` is `en`.
+
+## Deployments
+
+Deployments are managed via `spark-deploy.yml`. Since this file may contain secrets, we recommend **not** checking this file into source control.  **NOTE**: *all* of the config values (key, secret, and bucket) must be specified in order for a deployment to work.
+
+Your `spark-deploy.yml` file should look something like this:
+
+    prod:
+      aws:
+        key: your-secret-key-id
+        secret: your-secret-access-key
+        bucket: mysite.com
+    ci:
+      aws:
+        key: your-secret-key-id
+        secret: your-secret-access-key
+        bucket: test.mysite.com
+
+Each deployment is named and has its own configuration, so you can deploy to more than one environment. The deployments above are called `prod` and `ci`, but you can be creative. Just specify the name to deploy:
+
+    $ spark deploy prod
+
+## Deployment from Environment Variables
+
+Spark also supports specifying a deployment using environment variables, which you can use with automated build tools like Jenkins. In this case, only one deployment configuration is supported, and these configs cannot be mixed with a config file. You must specify the following environment variables to use this deployment scheme:
+
+    SPARK_AWS_KEY
+    SPARK_AWS_SECRET
+    SPARK_AWS_BUCKET
+
+For example:
+
+    $ SPARK_AWS_KEY=key SPARK_AWS_SECRET=secret SPARK_AWS_BUCKET=bucket spark deploy
+
+
+
+{% endmarkdown %}
+    
+{% endblock %}
