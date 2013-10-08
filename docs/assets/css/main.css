@@ -2,10 +2,6 @@ body {
     background-color: #242424;
 }
 
-.red {
-    color: #FF0F36;
-}
-
 h1, h2 {
     color: #FF0F36;
     text-shadow: 2px 2px #000;
@@ -28,10 +24,18 @@ pre {
     overflow-x:auto;
 }
 
+.red {
+    color: #FF0F36;
+}
+
 #main-menu {
     width: 10em;
     float: left;
     margin-right: -10em;
+}
+
+#main-menu h1 {
+    text-align: left;
 }
 
 #main-menu ul {
