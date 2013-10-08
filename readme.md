@@ -8,6 +8,8 @@ Spark is used at [Riot Games](http://www.riotgames.com/) to build and deploy our
 [![Build Status](https://travis-ci.org/cbednarski/spark.png?branch=master)]
 (https://travis-ci.org/cbednarski/spark)
 
+[Read the docs here.](http://spark.dev.riotgames.com/)
+
 ## Requirements
 
 Spark has a few dependencies. If you work with PHP you probably have all of them already. If not, there are only a few things you need to install.

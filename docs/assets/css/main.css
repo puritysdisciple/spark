@@ -3,14 +3,11 @@ body {
     font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;;
 }
 
-h1, h2 {
-    color: #FF0F36;
-    text-shadow: 2px 2px #000;
-}
-
-h3, h4, h5 {
-    color: #FF0F36;
-    text-shadow: 1px 1px #000;
+h1, h2, h3, h4, h5 {
+    color: #E4191C;
+    text-shadow: 1px 1px 2px #555;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #D5171A;
 }
 
 pre, code {
@@ -31,7 +28,22 @@ pre>code>span {
 }
 
 .red {
-    color: #FF0F36;
+    color: #E4191C;
+}
+
+a.button {
+    margin: 0 auto;
+    display: inline-block;
+    background-color: #000;
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.button:hover {
+    background-color: #E4191C;
 }
 
 #main-menu {
@@ -64,11 +76,11 @@ pre>code>span {
 }
 
 #main-menu ul li a:hover {
-    background-color: #FF0F36;
+    background-color: #E4191C;
 }
 
 #main-menu ul li.download a {
-    background-color: #FF0F36;
+    background-color: #E4191C;
 }
 
 #main-menu ul li.download a:hover {
