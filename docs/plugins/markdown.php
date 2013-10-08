@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '/../vendor/autoload.php');
 
-use Michelf\Markdown as Markdown;
+use Michelf\Markdown;
 
 class Twig_Node_Markdown extends Twig_Node
 {

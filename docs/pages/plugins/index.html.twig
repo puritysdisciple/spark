@@ -6,8 +6,90 @@
 
 {% markdown %}
 
+**Warning:** This is an **advanced topic**. Also, **the plugin API is unstable** and may change in a future version. That said, we *are* using plugins in prod and they *do* work. So, onward!
 
+Spark has a plugin system that allows you to customize various parts of spark, such as adding additional Twig functions or customizing the build command.
+
+## Loading vs. Running Plugins
+
+When you run `spark build`, the CLI runner loads your configuration out of `spark.yml` in the current working directory. This file indicates where spark will look for plugin files -- by default this is `plugins/`.
+
+Spark uses plugins at two stages of the build process. The first happens during the compiler's initialization, when `Compiler->loadPluginFiles()` is called. The second happens during the build phase when `Compiler->runPlugins()` is called.
+
+You can use these two points to do accomplish different things. In short, `loadPluginFiles()` allows you to manipulate the compiler object to add additional Twig functions and extensions, while `runPlugins()` allows you to add custom behavior after the normal `spark build` process runs, like compiling SASS, minifying files, or running additional PHP code.
+
+## Referencing the Compiler Object
+
+When `Compiler->loadPluginFiles()` is called, it passes along a reference to the current `Compiler` instance, via `$spark`. You can reference `$spark` inside a plugin to manipulate the compiler, e.g:
+
+    $spark->addTwigExtension(...);
+    $spark->addPlugin(...);
+
+## Via loadPluginFiles
+
+Plugins are loaded during the compiler's initialization, before the rest of the build process runs. For example, create `plugins/hello_plugin_file.php` with the following contents:
 
 {% endmarkdown %}
+
+<pre>{{ fetch_plugin_source('hello_plugin_file.php') }}</pre>
+
+{% markdown %}
+
+When you run `spark build` from the terminal, you will see your message at the **top** of the output:
+
+    $ spark build
+    Hello I am a plugin file!
+    [- building happens here -]
+    Build complete.
+
+Since code in this file is executed before the build phase, you can add things like Twig extensions and custom Twig functions. For example:
+
+{% endmarkdown %}
+
+<pre>{{ fetch_plugin_source('fetch_plugin_source.php') }}</pre>
+
+<p>Which you then call using <code>{{ '{{' }} fetch_plugin_source('my_plugin.php') }}</code> in your templates.</p>
+
+{% markdown %}
+
+## Via runPlugins
+
+When you add a plugin via `addPlugin()` it is executed during the `runPlugins()` phase, *after* the rest of the build is run. You can add this type of plugin by creating `plugins/hello_plugin.php` with the following contents:
+
+{% endmarkdown %}
+
+<pre>{{ fetch_plugin_source('hello_plugin.php') }}</pre>
+
+{% markdown %}
+
+When you run `spark build` from the terminal, you will see your message at the **bottom** of the output:
+
+    $ spark build
+    [- building happens here -]
+    Hello I am a plugin!
+    Build complete.
+
+## Example: Adding a Markdown Tag
+
+Here's a full example of how to add some basic markdown parsing to your project, by adding `plugins/markdown.php` to your project.
+
+**Note:** you will also need to include `michelf/php-markdown` via composer.
+
+{% endmarkdown %}
+
+<pre>{{ fetch_plugin_source('markdown.php') }}</pre>
+
+<p>Now you can use markdown tags in your templates like this:</p>
+
+<pre>{{ '{%' }} markdown %}
+# Heading!
+
+Some paragraph
+
+- and
+- a
+- list
+{{ '{%' }} endmarkdown %}
+</pre>
     
 {% endblock %}

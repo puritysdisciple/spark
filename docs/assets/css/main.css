@@ -1,5 +1,6 @@
 body {
     background-color: #242424;
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;;
 }
 
 h1, h2 {
@@ -13,16 +14,20 @@ h3, h4, h5 {
 }
 
 pre, code {
-    font-family: Monaco, Consolas, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-    background-color: #ddd;
+    font-family: 'Source Code Pro', Monaco, Consolas, monospace;
+    font-size: 13px;
+    background-color: #F2F2F2;
 }
 
 pre {
-    font-size:14px;
     padding: 10px;
-    box-shadow: inset 0 0 10px #aaa;
-    overflow-x:auto;
+    box-shadow: inset 0 0 10px #ccc;
+    overflow-x: auto;
     white-space: pre-wrap;
+}
+
+pre>code>span {
+    display: inline-table;
 }
 
 .red {
@@ -70,7 +75,6 @@ pre {
 
 #wrapper {
     background-color: #fff;
-    font-family: Helvetica, Arial, sans-serif;
     padding: 20px;
     max-width: 980px;
     margin: 40px auto;

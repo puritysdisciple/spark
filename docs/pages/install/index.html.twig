@@ -8,7 +8,7 @@
 
 ## Installing spark.phar
 
-The easy way to install spark is using spark.phar. A .phar file is a compiled php script that includes all of the things it needs to run in a single file.
+The easy way to install spark is using `spark.phar`. A `.phar` file is a compiled php script that includes all of the things it needs to run in a single file.
 
 @todo Download the phar
 
@@ -47,25 +47,11 @@ You can verify that spark is installed by running `spark` from your terminal. Yo
 
 ## Installing from Source
 
-Spark has a few dependencies. If you work with PHP you probably have all of them already. If not, there are only a few things you need to install.
+In order to install Spark from source, you'll need to have the following prerequisites installed:
 
-##### git
-
-- [Download git here](http://git-scm.com/downloads) or install with your package manager.
-
-##### PHP 5.3+
-
-You can use [php](http://www.php.net) 5.3 or above. 5.4 or above is recommended.
-
-- Download [PHP for Windows](http://windows.php.net/download/#php-5.4).
-- On OSX install PHP using [homebrew](http://brew.sh/). You might also be able to get away with using Apple's built-in PHP.
-
-##### Composer
-
-[Composer](http://getcomposer.org/) installs additional PHP dependencies for spark. To install on OSX / Linux:
-
-    $ curl -sS https://getcomposer.org/installer | php
-    $ sudo mv composer.phar /usr/local/bin/composer # adds composer to path
+- [git](http://git-scm.com/downloads)
+- php 5.3 or higher
+- [Composer](http://getcomposer.org/)
 
 ## Installing Spark
 
@@ -78,6 +64,13 @@ Once the dependencies are satisfied, install spark:
 
 Spark should now be in your path, which means you can type `spark` at the terminal and see a list of commands.
 
+## Building the .phar File
+
+`spark.phar` is built using [pharcc](https://github.com/cbednarski/pharcc), which you'll need to install before you continue. Once `pharcc` is installed you can compile `spark.phar` by running `pharcc build` in the project root, on any version after `v0.3.0`. Example:
+
+    $ pharcc build
+    Building spark.phar
+    Build complete.
 
 {% endmarkdown %}
     

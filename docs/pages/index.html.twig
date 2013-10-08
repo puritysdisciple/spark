@@ -5,10 +5,13 @@
 {% block content %}
 
 {% markdown %}
-Spark is a lightweight static site builder written in PHP. It uses Twig for
-templating and provides built-in support for localization and asset delivery. Includes built-in deployment to S3 for cheap, reliable hosting.
+Spark is a lightweight static site builder written in PHP. It is designed to effortlessly incorporate best-in-breed engineering tools and pratices into web development.
 
-Spark is used at [Riot Games](http://www.riotgames.com/) to build and deploy our [game info website](http://gameinfo.na.leagueoflegends.com/en/game-info/) and various [promotional](http://promo.leagueoflegends.com/tw/spirit-guard-udyr/) [pages](http://promo.leagueoflegends.com/fr/spirit-guard-udyr/) in over 10 languages. Using Spark, a one-person team can deploy a scalable, secure website in front of tens of millions of viewers in only a few days.
+Spark uses Twig for templating and provides first class localization via the Symfony Translation Component. It also includes built-in deployment to Amazon S3 for cheap, reliable hosting.
+
+Using this toolset, a spark site can be built and deployed around the world in a matter of hours, never goes down, and requires virtually zero systems administration experience to operate. Updates use the same repeatable process.
+
+Spark was developed at [Riot Games](http://www.riotgames.com/) to build and deploy our [Game Info website](http://gameinfo.na.leagueoflegends.com/en/game-info/) and various [promotional](http://promo.leagueoflegends.com/tw/spirit-guard-udyr/) [pages](http://promo.leagueoflegends.com/fr/spirit-guard-udyr/) in over 10 languages, and the uptake for internal projects is rapidly increasing. Using Spark, a one-person team can deploy a scalable, secure website in front of tens of millions of viewers in only a few days.
 
 [![Build Status](https://travis-ci.org/cbednarski/spark.png?branch=master)](https://travis-ci.org/cbednarski/spark)
 
@@ -37,9 +40,9 @@ Spark is a commandline tool which manages a spark project -- a directory contain
     $ spark build
     < edit stuff >
     $ spark build
-    $ cd target && php -S localhost:8000
+    $ spark preview
 
-Now you can open http://localhost:8000/en_US in your browser to see the English version and http://localhost:8000/fr_FR for the French version.
+Now you can open <http://localhost:8000/en_US/> in your browser to see the English version and <http://localhost:8000/fr_FR/> for the French version.
 
 ### Project Layout
 
