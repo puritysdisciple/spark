@@ -1,5 +1,5 @@
 {
 	"require":{
-		"cbednarski/php-markdown":"dev-master"
+		"michelf/php-markdown":"1.3"
 	}
 }
