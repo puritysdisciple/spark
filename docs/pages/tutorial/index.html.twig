@@ -6,7 +6,23 @@
 
 {% markdown %}
 
+@todo intro!
 
+## Project Layout
+
+When you run `spark init`, the following folders are created for you:
+
+- `pages` where you put all of your site's pages live
+- `assets` to hold things like css, images, javascript, etc. that will not be managed by the localization workflow
+- `layouts` to hold shared templates / layouts that won't become pages on their own
+- `locale` to hold your localization files
+- `target` where spark will generate your static site (this is what you'll upload to your server / S3 bucket)
+
+You can reconfigure these paths in `spark.yml` if you need a particular folder layout.
+
+## Editing a Project
+
+Spark uses [Twig templating](http://twig.sensiolabs.org/documentation), which are similar to Django templates, and include a lot of cool stuff like template inheritance, includes, loops, and conditionals. Since Spark is built with PHP and [Symfony components](http://symfony.com/components) you can write custom PHP to do just about anything you want, like incorporate data from a database or rest API.
 
 {% endmarkdown %}
     

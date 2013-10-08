@@ -40,56 +40,17 @@ Spark is a commandline tool which manages a spark project -- a directory contain
 
 Now you can open <http://localhost:8000/en_US/> in your browser to see the English version and <http://localhost:8000/fr_FR/> for the French version.
 
-### Project Layout
+## Learn More
 
-When you run `spark init`, the following folders are created for you:
+- [Install](./install/) spark on your computer
+- [Follow the tutorial](./tutorial/) to build your first spark site
+- [Configure and deploy](./configuration/) your spark site
+- Learn the [details of localization](./localization/)
+- Create your own [plugins](./plugins/)
+- Introduce yourself to the [API](./reference/)
+- [Contribute](./contributing/) back to spark!
 
-- `pages` where you put all of your site's pages live
-- `assets` to hold things like css, images, javascript, etc. that will not be managed by the localization workflow
-- `layouts` to hold shared templates / layouts that won't become pages on their own
-- `locale` to hold your localization files
-- `target` where spark will generate your static site (this is what you'll upload to your server / S3 bucket)
 
-You can reconfigure these paths in `spark.yml` if you need a particular folder layout.
-
-### Editing a Project
-
-Spark uses [Twig templating](http://twig.sensiolabs.org/documentation), which are similar to Django templates, and include a lot of cool stuff like template inheritance, includes, loops, and conditionals. Since Spark is built with PHP and [Symfony components](http://symfony.com/components) you can write custom PHP to do just about anything you want, like incorporate data from a database or rest API.
-
-### Using Spark as a Library
-
-> I have some custom requirements, can I just use the Spark API?
-
-Sure thing!
-
-    use cbednarski\Spark\Config;
-    use cbednarski\Spark\Compiler;
-
-    $config = Config::loadFile($directory . '/spark.yml');
-    $compiler = new Compiler($config);
-
-    # Build one-off templates
-    $compiler->compiler(
-        'template_name.twig',
-        'write/to/this/file',
-        $twig_template_variables
-    );
-
-    # Build everything
-    $compiler->build();
-
-## Contributing and Customizing
-
-Spark follows the PSR-2 coding style. You can keep your code in check using [Fabien Potencier's PHP-CS-Fixer](https://github.com/fabpot/PHP-CS-Fixer). Unit tests are run using [PHPUnit](http://phpunit.de/manual/current/en/writing-tests-for-phpunit.html). After running `composer install` you can run tests with the builtin phpunit by running `vendor/phpunit/phpunit/phpunit.php` from the project root.
-
-Almost all spark objects depend on an instance of `cbednarski\Spark\Config`, which sets up a bunch of paths and configuration values for you. However, most spark objects don't depend on anything else at runtime. All you need to do is point is initialize a Config object using your `spark.yml` file and you're good to go.
-
-To orient yourself with the code, start by looking at the compiler and config tests under `tests/cbednarski/Spark/CompilerTest.php` and `test/cbednarski/Spark/ConfigTest.php`. These two classes are where the bulk of the work is done. The CLI, where command execution happens, lives under `bin/spark`.
-
-If you need to with filesystem paths we've got some great filesystem helpers in the
-`FileUtils` class.
-
-If you have any questions about Spark, or want to add a feature, contact [Chris Bednarski](mailto:cbednarski@riotgames.com).
 {% endmarkdown %}
     
 {% endblock %}

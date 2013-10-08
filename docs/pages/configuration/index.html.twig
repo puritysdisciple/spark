@@ -44,7 +44,11 @@ Under typical deployments, the folder name becomes part of the URL. If you want 
 
 Using this configuration, spark will not detect the languages in your `locale/` folder automatically, and instead you must exhaustively specify the locales you want to build.
 
-You can reference these locale codes in your templates via `{{ '{{' }} locale.standard }}` and `{{ '{{' }} locale.url_code }}`. In the above example, `locale.standard` is `en_US` and `locale.url_code` is `en`.
+{% endmarkdown %}
+
+<p>You can reference these locale codes in your templates via <code>{{ '{{' }} locale.standard }}</code> and <code>{{ '{{' }} locale.url_code }}</code>. In the above example, `locale.standard` is `en_US` and `locale.url_code` is `en`.</p>
+
+{% markdown %}
 
 ## Deployments
 

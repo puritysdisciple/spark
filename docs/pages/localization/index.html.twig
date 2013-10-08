@@ -6,7 +6,61 @@
 
 {% markdown %}
 
+Spark was primarily designed to build localized copies of a website. This is accomplished by using the Symfony Translation Component. The wiring has been done for you, so all you need to know is the interface.
 
+## PO Files
+
+Spark uses `.po` files for localization. By default, `spark init` creates a `messages.po` file for `en_US` and `fr_FR`. However, spark will load all of the localization files in your locale folders, regardless of the name.
+
+**Warning:** Spark does not check your `.po` files for duplicate `msgid`s.
+
+Here's an example `messages.po` file:
+
+    msgid "project_name"
+    msgstr "Spark"
+
+    msgid "learn_more"
+    msgstr "Learn More"
+
+    msgid "next_steps"
+    msgstr "Next Steps"
+
+As a best-practice, we recommend using a id-style msgid rather than having msgid and msgstr be the same. This avoids a headache if you later change a msgstr in your primary locale, and helps avoid losing work due to orphaned translations.
+
+## Using Localized Phrases
+
+When you're working on a template, you'll want to include the localized phrases in your code. This can be accomplished via:
+
+{% endmarkdown %}
+
+<pre>{{ '{{' }} trans('project_name') }}</pre>
+
+{% markdown %}
+
+Where `project_name` is the msgid in your `.po` file.
+
+## Locale Codes
+
+When authoring a template you may want to make a reference to the current locale, for example to generate a URL like `<a href="/en/some-page/">Some Page</a>`.
+
+You can accomplish this using the locale variable, available in your template:
+
+{% endmarkdown %}
+
+<pre>{{ '{{' }} locale.standard }}
+{{ '{{' }} locale.url_code }}</pre>
+
+{% markdown %}
+
+If you're using the default spark.yml these will be the same, but if you've mapped your locales to new paths to make your URLs look nicer, you'll want to use `locale.url_code` for URLs and `locale.standard` to reference the source files. For example:
+
+{% endmarkdown %}
+
+<pre>&lt;a href="/{{ '{{' }} locale.url_code }}/some-page/"&gt;Some Page&lt;/a&gt;</pre>
+
+{% markdown %}
+
+For more information about mapping locale codes to different URLs, see the [configuration](../configuration/) page.
 
 {% endmarkdown %}
     

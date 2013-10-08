@@ -53,13 +53,14 @@ In order to install Spark from source, you'll need to have the following prerequ
 - php 5.3 or higher
 - [Composer](http://getcomposer.org/)
 
-## Installing Spark
-
-Once the dependencies are satisfied, install spark:
+Once the prerequisites are satisfied, clone spark and install the dependencies:
 
     $ git clone git@gh.riotgames.com:cbednarski/spark.git
     $ cd spark
     $ composer install
+
+Finally, install spark in `/usr/local/bin`:
+
     $ sudo ln -s $PWD/bin/spark /usr/local/bin/spark
 
 Spark should now be in your path, which means you can type `spark` at the terminal and see a list of commands.
