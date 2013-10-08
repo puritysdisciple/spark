@@ -67,6 +67,14 @@ pre>code>span {
     background-color: #FF0F36;
 }
 
+#main-menu ul li.download a {
+    background-color: #FF0F36;
+}
+
+#main-menu ul li.download a:hover {
+    color: #000;
+}
+
 #content {
     float: left;
     margin-left: 11em;
