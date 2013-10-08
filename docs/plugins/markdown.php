@@ -1,6 +1,8 @@
 <?php
 
-require_once(__DIR__ . '/../vendor/cbednarski/php-markdown/src/MarkdownParser.php');
+require_once(__DIR__ . '/../vendor/autoload.php');
+
+use Michelf\Markdown as Markdown;
 
 class Twig_Node_Markdown extends Twig_Node
 {
@@ -11,7 +13,7 @@ class Twig_Node_Markdown extends Twig_Node
 
     public function compile(Twig_Compiler $compiler)
     {
-        $content = MarkdownParser::parse($this->getNode('body')->getAttribute('data'));
+        $content = Markdown::defaultTransform($this->getNode('body')->getAttribute('data'));
 
         $compiler
             ->write('echo ')
