@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Spark {% block title %}Documentation{% endblock %}</title>
+    <title>Spark {{ title }}</title>
     <link rel="stylesheet" href="{{ assets }}/css/main.css" />
 {% block css %}{% endblock %}
 </head>
 <body>
     <div id="wrapper">
-    <h1>Spark</h1>
-{% block content %}
-{% endblock %}
+
+        <div id="main-menu">
+            <h1 class="red">Spark</h1>
+            {% include 'menu.html.twig' %}
+        </div>
+
+        <div id="content">
+            <h1>{{ title }}</h1>
+            {% block content %}{% endblock %}
+        </div>
+
+    <div style="clear:both"></div>
     </div>
 </body>
 </html>

@@ -1,12 +1,73 @@
 body {
-    background-color: #888;
+    background-color: #242424;
+}
+
+.red {
+    color: #FF0F36;
+}
+
+h1, h2 {
+    color: #FF0F36;
+    text-shadow: 2px 2px #000;
+}
+
+h3, h4, h5 {
+    color: #FF0F36;
+    text-shadow: 1px 1px #000;
+}
+
+pre, code {
+    font-family: Monaco, Consolas, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+}
+
+pre {
+    font-size:14px;
+    background-color: #ddd;
+    padding: 10px;
+    box-shadow: inset 0 0 10px #aaa;
+    overflow-x:auto;
+}
+
+#main-menu {
+    width: 10em;
+    float: left;
+    margin-right: -10em;
+}
+
+#main-menu ul {
+    padding: 0;
+    margin: 0;
+}
+
+#main-menu ul li {
+    list-style: none;
+}
+
+#main-menu ul li a {
+    display: block;
+    background-color: #000;
+    color: #fff;
+    width: 8em;
+    padding: 4px 8px;
+    margin: 0 0 3px 0;
+    text-decoration: none;
+}
+
+#main-menu ul li a:hover {
+    background-color: #FF0F36;
+}
+
+#content {
+    float: left;
+    margin-left: 11em;
+    padding-right: 1em;
 }
 
 #wrapper {
     background-color: #fff;
     font-family: Helvetica, Arial, sans-serif;
     padding: 20px;
-    max-width: 800px;
+    max-width: 980px;
     margin: 40px auto;
     box-shadow: 0px 0px 20px #000;
     border-radius: 3px;

@@ -1,6 +1,6 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Overview{% endblock %}
+{% set title="Overview" %}
 
 {% block content %}
 
@@ -73,39 +73,6 @@ You can reconfigure these paths in `spark.yml` if you need a particular folder l
 ### Editing a Project
 
 Spark uses [Twig templating](http://twig.sensiolabs.org/documentation), which are similar to Django templates, and include a lot of cool stuff like template inheritance, includes, loops, and conditionals. Since Spark is built with PHP and [Symfony components](http://symfony.com/components) you can write custom PHP to do just about anything you want, like incorporate data from a database or rest API.
-
-### Deployments
-
-Deployments are managed via `spark-deploy.yml`. Since this file may contain secrets, we recommend **not** checking this file into source control.  **NOTE**: *all* of the config values (key, secret, and bucket) must be specified in order for a deployment to work.
-
-Your `spark-deploy.yml` file should look something like this:
-
-    prod:
-      aws:
-        key: your-secret-key-id
-        secret: your-secret-access-key
-        bucket: mysite.com
-    ci:
-      aws:
-        key: your-secret-key-id
-        secret: your-secret-access-key
-        bucket: test.mysite.com
-
-Each deployment is named and has its own configuration, so you can deploy to more than one environment. The deployments above are called `prod` and `ci`, but you can be creative. Just specify the name to deploy:
-
-    $ spark deploy prod
-
-#### Deployment from Environment Variables
-
-Spark also supports specifying a deployment using environment variables, which you can use with automated build tools like Jenkins. In this case, only one deployment configuration is supported, and these configs cannot be mixed with a config file. You must specify the following environment variables to use this deployment scheme:
-
-    SPARK_AWS_KEY
-    SPARK_AWS_SECRET
-    SPARK_AWS_BUCKET
-
-For example:
-
-    $ SPARK_AWS_KEY=key SPARK_AWS_SECRET=secret SPARK_AWS_BUCKET=bucket spark deploy
 
 ### Using Spark as a Library
 
