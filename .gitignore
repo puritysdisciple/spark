@@ -1,3 +1,4 @@
+.idea
 vendor/
 tests/test_project/
 spark.phar

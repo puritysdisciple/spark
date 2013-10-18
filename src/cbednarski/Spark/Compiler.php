@@ -7,6 +7,10 @@ use cbednarski\Spark\WatchfulFilesystem;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\PoFileLoader;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
+use cbednarski\Spark\Events\CompilerEvent;
+use cbednarski\Spark\Events\CompilerCompileEvent;
 
 class Compiler
 {
@@ -18,6 +22,7 @@ class Compiler
     protected $translators = array();
     protected $active_locale;
     protected $parameters = array();
+	protected $dispatcher;
     protected $safe_extensions = array(
         'css', 'js', 'json',
         'png', 'gif', 'jpg', 'jpeg', 'svg', 'ico',
@@ -46,6 +51,8 @@ class Compiler
             'optimizations' => -1,
             'strict_variables' => false
         ));
+
+		$this->dispatcher = new EventDispatcher();
 
         // Initialize Localization stuff
         $this->initializeTranslators();
@@ -173,6 +180,11 @@ class Compiler
 
     public function compile($source, $target, $twig_params = array())
     {
+		$event = new CompilerCompileEvent($this);
+		$this->dispatcher->dispatch('beforecompile', $event);
+
+		$twig_params = array_merge($twig_params, $event->getParams());
+
         // Include the global parameters that were set in $this
         $twig_params = $this->mergeTwigParameters($twig_params);
 
@@ -263,8 +275,14 @@ class Compiler
 
     public function build()
     {
+		$event = new CompilerEvent($this);
+		$this->dispatcher->dispatch('beforebuild', $event);
+
         $this->copyAssets();
         $this->buildPages();
+
+		$event = new CompilerEvent($this);
+		$this->dispatcher->dispatch('afterbuild', $event);
 
         //Run custom plugins after build
         $this->runPlugins();
@@ -296,4 +314,8 @@ class Compiler
     {
         $this->twig->addFunction($function);
     }
+
+	public function on ($event, $listener, $priority = 0) {
+		$this->dispatcher->addListener($event, $listener, $priority);
+	}
 }
