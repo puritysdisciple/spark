@@ -27,7 +27,10 @@ class Compiler
         'css', 'js', 'json',
         'png', 'gif', 'jpg', 'jpeg', 'svg', 'ico',
         'ttf', 'eot', 'woff', 'otf',
-        'swf', 'flv'
+        'swf', 'flv',
+        'mp4', 'webm', 'ogv',
+        'mp3', 'ogg',
+        'cur'
     );
 
     public function __construct(Config $config)
